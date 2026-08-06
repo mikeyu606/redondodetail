@@ -1,10 +1,21 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { ReactCompareSlider, ReactCompareSliderImage } from "react-compare-slider";
 import { Button } from "@/components/ui/button";
+
+const CompareVisual = dynamic(
+  () =>
+    import("@/components/landing/hero-compare").then((mod) => mod.CompareVisual),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-full w-full animate-pulse rounded-sm bg-beige/80" />
+    ),
+  }
+);
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -19,39 +30,6 @@ const fadeUp = {
   }),
 };
 
-function CompareVisual({ className }: { className?: string }) {
-  return (
-    <div
-      className={`relative overflow-hidden rounded-sm bg-beige/90 shadow-xl shadow-burgundy/15 ${className ?? ""}`}
-    >
-      <ReactCompareSlider
-        itemOne={
-          <ReactCompareSliderImage
-            src="/hero-before.png"
-            alt="Before detail condition"
-            style={{ objectFit: "cover", objectPosition: "center top" }}
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage
-            src="/hero-after.png"
-            alt="After detail finish"
-            style={{ objectFit: "cover", objectPosition: "center top" }}
-          />
-        }
-        className="h-full w-full"
-      />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-      <div className="absolute left-3 top-3 rounded-full bg-charcoal/65 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white/95 backdrop-blur-sm">
-        Before
-      </div>
-      <div className="absolute right-3 top-3 rounded-full bg-charcoal/65 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white/95 backdrop-blur-sm">
-        After
-      </div>
-    </div>
-  );
-}
-
 export function Hero() {
   return (
     <section className="flex min-h-[100svh] flex-col overflow-hidden bg-dusty-rose pt-16 sm:pt-20">
@@ -61,9 +39,9 @@ export function Hero() {
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="flex flex-1 flex-col justify-center py-6 text-center lg:flex-none lg:py-8 lg:text-left"
+          className="flex flex-1 flex-col justify-start pb-6 pt-12 text-center sm:pt-10 lg:flex-none lg:justify-center lg:py-8 lg:text-left"
         >
-          <h1 className="font-serif text-[clamp(2.5rem,8.5vw,3.75rem)] font-bold leading-[1.05] tracking-tight text-stone-900">
+          <h1 className="font-serif text-[clamp(2.5rem,8.5vw,3.75rem)] font-semibold leading-[1.05] tracking-tight text-stone-900">
             Your boutique mobile detailing, right in your driveway.
           </h1>
           <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-stone-700 sm:text-lg lg:mx-0">
@@ -87,26 +65,16 @@ export function Hero() {
           </p>
         </motion.div>
 
-        {/* Mobile: interactive slider teased at bottom (handle stays visible) */}
         <motion.div
           custom={1}
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="mx-auto w-full max-w-lg shrink-0 pb-2 lg:hidden"
+          className="mx-auto w-full max-w-lg shrink-0 pb-2 lg:max-w-md"
         >
-          <CompareVisual className="h-[28svh] w-full" />
-        </motion.div>
-
-        {/* Desktop: full tall slider */}
-        <motion.div
-          custom={1}
-          initial="hidden"
-          animate="visible"
-          variants={fadeUp}
-          className="mx-auto hidden w-full max-w-md lg:block"
-        >
-          <CompareVisual className="mx-auto h-[min(64svh,580px)] aspect-[4/5] max-w-full" />
+          <div className="h-[28svh] w-full lg:mx-auto lg:h-[min(64svh,580px)] lg:aspect-[4/5] lg:max-w-full">
+            <CompareVisual className="h-full w-full" />
+          </div>
         </motion.div>
       </div>
     </section>
