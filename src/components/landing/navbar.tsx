@@ -34,7 +34,7 @@ export function Navbar() {
         "fixed inset-x-0 top-0 z-50 border-b transition-all duration-300",
         scrolled
           ? "border-border/80 bg-beige/95 backdrop-blur-md shadow-sm"
-          : "border-transparent bg-beige/95"
+          : "border-transparent bg-dusty-rose/95"
       )}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -78,7 +78,12 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden border-t border-border bg-beige lg:hidden"
+            className={cn(
+              "overflow-hidden border-t lg:hidden",
+              scrolled
+                ? "border-border bg-beige"
+                : "border-burgundy/10 bg-dusty-rose"
+            )}
           >
             <div className="flex flex-col gap-1 px-4 py-4">
               {navLinks.map((link) => (

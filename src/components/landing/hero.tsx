@@ -1,11 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { ReactCompareSlider, ReactCompareSliderImage } from "react-compare-slider";
 import { Button } from "@/components/ui/button";
-import { siteConfig } from "@/lib/site-config";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -21,12 +20,10 @@ const fadeUp = {
 };
 
 export function Hero() {
-  const { hero } = siteConfig;
-
   return (
     <section className="bg-dusty-rose pt-24 sm:pt-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-2 lg:gap-16 lg:py-24">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-8 py-16 sm:py-20 lg:grid-cols-2 lg:gap-10 lg:py-24">
           <motion.div
             custom={0}
             initial="hidden"
@@ -34,10 +31,10 @@ export function Hero() {
             variants={fadeUp}
             className="text-center lg:text-left"
           >
-            <h1 className="font-serif text-4xl leading-[1.1] text-burgundy sm:text-5xl lg:text-[3.5rem]">
+            <h1 className="font-serif text-4xl leading-[1.1] tracking-tight text-stone-900 sm:text-5xl lg:text-[3.5rem]">
               Boutique mobile detailing, right in your driveway.
             </h1>
-            <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-burgundy/80 sm:text-lg lg:mx-0">
+            <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-stone-700 sm:text-lg lg:mx-0">
               Bi-weekly detailing for South Bay families and professionals -
               fully insured, self-contained, and on autopilot.
             </p>
@@ -65,15 +62,39 @@ export function Hero() {
             className="mx-auto w-full max-w-lg"
           >
             <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-beige/90 shadow-xl shadow-burgundy/15">
-              <Image
-                src={hero.src}
-                alt={hero.alt}
-                fill
-                className="object-contain object-center p-1"
-                sizes="(max-width: 1024px) 85vw, 420px"
-                priority
+              <ReactCompareSlider
+                itemOne={
+                  <ReactCompareSliderImage
+                    src="/benz.png"
+                    alt="Before detail condition"
+                  />
+                }
+                itemTwo={
+                  <ReactCompareSliderImage
+                    src="/door.png"
+                    alt="After detail finish"
+                  />
+                }
+                handle={
+                  <button
+                    aria-label="Drag to compare before and after"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/80 bg-white shadow-md"
+                  >
+                    <span className="text-xs font-semibold tracking-wide text-burgundy">
+                      ↔
+                    </span>
+                  </button>
+                }
+                className="h-full w-full"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-burgundy/15 via-transparent to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+
+              <div className="absolute left-4 top-4 rounded-full bg-charcoal/65 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white/95 backdrop-blur-sm">
+                Before
+              </div>
+              <div className="absolute right-4 top-4 rounded-full bg-charcoal/65 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white/95 backdrop-blur-sm">
+                After
+              </div>
 
               <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2">
                 <span className="rounded-full bg-charcoal/50 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white/90 backdrop-blur-sm">
