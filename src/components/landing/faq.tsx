@@ -7,7 +7,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { RedondoPromise } from "@/components/landing/redondo-promise";
 import { siteConfig } from "@/lib/site-config";
 
 const faqs = [
@@ -60,17 +59,7 @@ export function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mt-10"
-        >
-          <RedondoPromise />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.05 }}
-          className="mt-8 rounded-2xl border border-pink-medium/40 bg-white px-6 shadow-sm shadow-pink-medium/10"
+          className="mt-10 rounded-2xl border border-pink-medium/40 bg-white px-6 shadow-sm shadow-pink-medium/10"
         >
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, i) => (
