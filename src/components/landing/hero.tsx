@@ -65,13 +65,13 @@ export function Hero() {
               <ReactCompareSlider
                 itemOne={
                   <ReactCompareSliderImage
-                    src="/benz.png"
+                    src="/Screenshot 2026-08-06 at 2.54.02 AM.png"
                     alt="Before detail condition"
                   />
                 }
                 itemTwo={
                   <ReactCompareSliderImage
-                    src="/door.png"
+                    src="/Screenshot 2026-08-06 at 2.54.10 AM.png"
                     alt="After detail finish"
                   />
                 }
@@ -96,17 +96,6 @@ export function Hero() {
                 After
               </div>
 
-              <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2">
-                <span className="rounded-full bg-charcoal/50 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white/90 backdrop-blur-sm">
-                  Door jamb detail
-                </span>
-                <Link
-                  href="#transformations"
-                  className="whitespace-nowrap rounded-full bg-white/95 px-4 py-2 text-sm font-semibold text-burgundy shadow-md transition-colors hover:bg-white"
-                >
-                  Bi-weekly from $100/visit
-                </Link>
-              </div>
             </div>
           </motion.div>
         </div>
