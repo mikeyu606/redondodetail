@@ -16,14 +16,14 @@ export function CompareVisual({ className }: { className?: string }) {
           <ReactCompareSliderImage
             src="/hero-before.png"
             alt="Before detail condition"
-            style={{ objectFit: "cover", objectPosition: "center" }}
+            style={{ objectFit: "cover", objectPosition: "center center" }}
           />
         }
         itemTwo={
           <ReactCompareSliderImage
             src="/hero-after.png"
             alt="After detail finish"
-            style={{ objectFit: "cover", objectPosition: "center" }}
+            style={{ objectFit: "cover", objectPosition: "center center" }}
           />
         }
         className="!h-full !w-full min-w-full"

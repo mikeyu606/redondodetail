@@ -20,8 +20,9 @@ type Route = {
   id: string;
   name: string;
   cadence: string;
-  slotsLeft: number;
-  status: "available" | "limited" | "full";
+  day: string;
+  slotsLeft: number | null;
+  status: "available" | "limited" | "waitlist";
 };
 
 type TimeWindow = {
@@ -35,23 +36,26 @@ const routes: Route[] = [
   {
     id: "north-redondo",
     name: "North Redondo",
-    cadence: "Every 2 Weeks · Tuesdays",
+    cadence: "Every 2 Weeks",
+    day: "Tuesdays",
     slotsLeft: 2,
+    status: "limited",
+  },
+  {
+    id: "south-redondo",
+    name: "South Redondo",
+    cadence: "Every 2 Weeks",
+    day: "Wednesdays",
+    slotsLeft: 3,
     status: "limited",
   },
   {
     id: "hermosa-manhattan",
     name: "Hermosa / Manhattan",
-    cadence: "Every 2 Weeks · Wednesdays",
-    slotsLeft: 1,
-    status: "limited",
-  },
-  {
-    id: "palos-verdes",
-    name: "Palos Verdes",
-    cadence: "Every 2 Weeks · Thursdays",
-    slotsLeft: 0,
-    status: "full",
+    cadence: "Launching Soon",
+    day: "Thursdays",
+    slotsLeft: null,
+    status: "waitlist",
   },
 ];
 
@@ -76,7 +80,11 @@ export function RouteCalendar() {
 
   const selectedRoute = routes.find((r) => r.id === selectedRouteId)!;
   const selectedWindow = timeWindows.find((w) => w.id === selectedWindowId)!;
-  const routeIsFull = selectedRoute.status === "full";
+  const routeIsWaitlist = selectedRoute.status === "waitlist";
+  const openSlots = routes.reduce(
+    (sum, route) => sum + (route.slotsLeft ?? 0),
+    0
+  );
 
   return (
     <section id="route-schedule" className="bg-white py-20 sm:py-28">
@@ -108,7 +116,7 @@ export function RouteCalendar() {
                   simple 2-step reservation
                 </p>
                 <Badge variant="warning">
-                  Only 3 recurring route slots remaining
+                  Only {openSlots} recurring route slots remaining
                 </Badge>
               </div>
 
@@ -122,12 +130,9 @@ export function RouteCalendar() {
                     <button
                       key={route.id}
                       type="button"
-                      onClick={() => {
-                        if (route.status !== "full") setSelectedRouteId(route.id);
-                      }}
+                      onClick={() => setSelectedRouteId(route.id)}
                       className={cn(
                         "rounded-xl border px-4 py-4 text-left transition-colors",
-                        route.status === "full" && "cursor-not-allowed opacity-70",
                         selectedRouteId === route.id
                           ? "border-pink-primary bg-pink-light ring-1 ring-pink-primary/20"
                           : "border-pink-medium/40 bg-white hover:bg-pink-soft"
@@ -137,13 +142,17 @@ export function RouteCalendar() {
                         {route.name}
                       </p>
                       <p className="mt-1 text-xs text-slate">{route.cadence}</p>
+                      <p className="mt-0.5 text-xs font-medium text-charcoal/80">
+                        {route.day}
+                      </p>
                       <div className="mt-3">
-                        {route.status === "full" ? (
-                          <Badge variant="destructive">Full</Badge>
+                        {route.status === "waitlist" ? (
+                          <Badge variant="outline">Join Waitlist</Badge>
                         ) : (
                           <Badge variant="warning" className="gap-1.5">
                             <Zap className="size-3.5" />
-                            {route.slotsLeft} slot{route.slotsLeft > 1 ? "s" : ""} left
+                            {route.slotsLeft} slot
+                            {route.slotsLeft !== 1 ? "s" : ""} left
                           </Badge>
                         )}
                       </div>
@@ -158,7 +167,8 @@ export function RouteCalendar() {
                   2. Select a Time
                 </CardTitle>
                 <p className="mt-1.5 text-sm text-slate">
-                  {selectedRoute.name} · {selectedRoute.cadence}
+                  {selectedRoute.name} · {selectedRoute.cadence} ·{" "}
+                  {selectedRoute.day}
                 </p>
 
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -167,10 +177,10 @@ export function RouteCalendar() {
                       key={window.id}
                       type="button"
                       onClick={() => setSelectedWindowId(window.id)}
-                      disabled={routeIsFull}
+                      disabled={routeIsWaitlist}
                       className={cn(
                         "flex items-center justify-between rounded-xl border px-4 py-4 text-left transition-colors",
-                        routeIsFull && "cursor-not-allowed opacity-60",
+                        routeIsWaitlist && "cursor-not-allowed opacity-60",
                         selectedWindowId === window.id
                           ? "border-pink-primary bg-pink-light ring-1 ring-pink-primary/20"
                           : "border-pink-medium/40 bg-white hover:bg-pink-soft"
@@ -197,34 +207,47 @@ export function RouteCalendar() {
               <div className="border-t border-border/70 pt-6">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button
-                      className="w-full gap-1.5 px-3 text-sm sm:text-base"
-                      disabled={routeIsFull}
-                    >
-                      <Lock className="size-4" />
-                      {routeIsFull
-                        ? "Route Currently Full"
-                        : (
-                            <>
-                              <span className="sm:hidden">Lock In Slot — $100/visit</span>
-                              <span className="hidden sm:inline">
-                                Lock In Recurring Slot — $100/visit
-                              </span>
-                            </>
-                          )}
+                    <Button className="w-full gap-1.5 px-3 text-sm sm:text-base">
+                      {routeIsWaitlist ? (
+                        "Join Hermosa / Manhattan Waitlist"
+                      ) : (
+                        <>
+                          <Lock className="size-4" />
+                          <span className="sm:hidden">Lock In Slot — $100/visit</span>
+                          <span className="hidden sm:inline">
+                            Lock In Recurring Slot — $100/visit
+                          </span>
+                        </>
+                      )}
                     </Button>
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>Lock In Your Recurring Slot</DialogTitle>
+                      <DialogTitle>
+                        {routeIsWaitlist
+                          ? "Join the Waitlist"
+                          : "Lock In Your Recurring Slot"}
+                      </DialogTitle>
                       <DialogDescription>
-                        You selected {selectedRoute.name} ({selectedRoute.cadence})
-                        in the {selectedWindow.label.toLowerCase()} ({selectedWindow.hours}).
-                        We&apos;ll confirm your bi-weekly start via text within 24
-                        hours.
+                        {routeIsWaitlist ? (
+                          <>
+                            You selected {selectedRoute.name} ({selectedRoute.day}
+                            ). We&apos;ll text you when Thursday slots open.
+                          </>
+                        ) : (
+                          <>
+                            You selected {selectedRoute.name} (
+                            {selectedRoute.cadence} · {selectedRoute.day}) in the{" "}
+                            {selectedWindow.label.toLowerCase()} (
+                            {selectedWindow.hours}). We&apos;ll confirm your
+                            bi-weekly start via text within 24 hours.
+                          </>
+                        )}
                       </DialogDescription>
                     </DialogHeader>
-                    <Button className="w-full">Confirm Reservation</Button>
+                    <Button className="w-full">
+                      {routeIsWaitlist ? "Join Waitlist" : "Confirm Reservation"}
+                    </Button>
                   </DialogContent>
                 </Dialog>
               </div>

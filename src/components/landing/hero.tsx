@@ -81,7 +81,7 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Mobile: true full-bleed slider */}
+        {/* Mobile: full-bleed portrait slider matching photo aspect */}
         <motion.div
           custom={1}
           initial="hidden"
@@ -89,7 +89,7 @@ export function Hero() {
           variants={fadeUp}
           className="mt-2 w-full lg:hidden"
         >
-          <div className="h-[42svh] w-full min-w-full">
+          <div className="aspect-[3/4] w-full max-h-[72svh]">
             <CompareVisual className="h-full w-full rounded-none shadow-none" />
           </div>
         </motion.div>

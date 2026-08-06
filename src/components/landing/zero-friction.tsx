@@ -6,9 +6,9 @@ import { motion } from "framer-motion";
 const steps = [
   {
     number: "01",
-    title: "Select Your Neighborhood Route",
+    title: "Select Your Neighborhood",
     description:
-      "Pick your recurring day and window (Tuesdays for North Redondo, Wednesdays for Hermosa/Manhattan).",
+      "Pick your recurring day and window (Tuesdays for North Redondo, Wednesdays for South Redondo).",
     image: "/zero-friction-schedule.png",
     alt: "Hand scheduling a Redondo Detail route on a phone",
   },

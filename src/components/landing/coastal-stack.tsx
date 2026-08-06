@@ -1,27 +1,30 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Waves, Wind, Sun } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const coastalItems = [
   {
-    icon: Wind,
     title: "Deep Sand Extraction",
     description:
       "High-lift vacuuming and compressed air pull embedded beach sand out of deep carpet fibers and seams.",
+    image: "/coastal-sand.png",
+    alt: "Macro shot of carpet fibers being vacuumed during deep sand extraction",
   },
   {
-    icon: Waves,
     title: "Salt Air Paint Protection",
     description:
       "Hydrophobic ceramic sealant helps neutralize salt-air oxidation and sticky ocean haze on paint and glass.",
+    image: "/coastal-paint.png",
+    alt: "Water beading on gleaming paint with hydrophobic ceramic protection",
   },
   {
-    icon: Sun,
     title: "UV & Sunscreen Care",
     description:
       "Safe removal of sunscreen smudges from leather and door panels without stripping interior finishes.",
+    image: "/coastal-leather.png",
+    alt: "Pristine leather interior bathed in warm sunlight after UV and sunscreen care",
   },
 ];
 
@@ -48,11 +51,17 @@ export function CoastalStack() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.45 }}
             >
-              <Card className="h-full border-border bg-white">
-                <CardHeader>
-                  <div className="mb-3 flex size-11 items-center justify-center rounded-full bg-dusty-rose/35">
-                    <item.icon className="size-5 text-burgundy" />
-                  </div>
+              <Card className="h-full overflow-hidden border-border bg-white pt-0">
+                <div className="relative aspect-[4/3] w-full overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={item.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+                <CardHeader className="pt-5">
                   <CardTitle className="text-lg">{item.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
