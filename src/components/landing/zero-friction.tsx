@@ -9,14 +9,14 @@ const steps = [
     title: "Select Your Neighborhood Route",
     description:
       "Pick your recurring day and window (Tuesdays for North Redondo, Wednesdays for Hermosa/Manhattan).",
-    image: "/zero-friction-route-v2.png",
-    alt: "Route selection interface showing Redondo Detail North Redondo Route on Tuesdays",
+    image: "/zero-friction-schedule.png",
+    alt: "Hand scheduling a Redondo Detail route on a phone",
   },
   {
     number: "02",
     title: "Park in Your Driveway",
     description:
-      "No keys needed to meet us, no waiting in lines. We bring our own water and setup directly to your home.",
+      "No keys needed to meet us, no waiting in lines. We bring our own equipment and setup directly to your home.",
     image: "/zero-friction-driveway.png",
     alt: "Pristine luxury vehicle parked on a bright coastal South Bay driveway",
   },
@@ -25,8 +25,8 @@ const steps = [
     title: "Automatic Coastal Care",
     description:
       "Your car stays pristine 365 days a year on autopilot. Pause, reschedule, or cancel anytime in one click.",
-    image: "/zero-friction-notify.png",
-    alt: "iPhone notification: Redondo Detail bi-weekly care is complete",
+    image: "/card3.png",
+    alt: "Owner with freshly detailed white Tesla after Redondo Detail coastal care",
   },
 ];
 

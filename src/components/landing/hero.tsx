@@ -44,11 +44,11 @@ export function Hero() {
             className="flex flex-col justify-start pb-6 pt-16 text-center sm:pt-10 lg:justify-center lg:py-8 lg:text-left"
           >
             <h1 className="font-display text-[clamp(2.5rem,8.5vw,3.75rem)] font-extrabold leading-[1.05] tracking-tight text-burgundy">
-              A Pristine Vehicle Every Single Day
+              Keep Your Vehicle Like New On Autopilot
             </h1>
             <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-stone-700 sm:text-lg lg:mx-0">
-              We keep your vehicle pristine bi-weekly&mdash;freeing you from
-              the drive-thru lines while you enjoy the coast.
+              We protect and preserve your vehicle bi-weekly&mdash;freeing you
+              from the drive-thru lines while you enjoy the coast.
             </p>
             <div className="mt-7 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
               <Button
