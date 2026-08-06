@@ -29,9 +29,9 @@ const proofCards: ProofCard[] = [
   },
   {
     id: "interior",
-    name: "Maya",
+    name: "Lauren",
     quote:
-      "I never have to think about wash day anymore. Bi-weekly and my SUV always looks spotless.",
+      "Mia is incredible—so thorough, so easy to work with, and my SUV has never looked this good. Absolute game changer.",
     afterLabel: "After 2 weeks",
     beforeSrc:
       "https://images.unsplash.com/photo-1771491237218-cbd4a707497e?w=800&q=80&auto=format&fit=crop",
@@ -81,7 +81,7 @@ export function Transformations() {
           </Button>
         </div>
 
-        <div className="mt-12 overflow-x-auto overscroll-x-contain pb-4 touch-pan-x">
+        <div className="mt-12 overflow-x-auto overscroll-x-contain pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="flex min-w-max snap-x snap-mandatory gap-4 sm:gap-5">
             {proofCards.map((card, index) => (
               <motion.article

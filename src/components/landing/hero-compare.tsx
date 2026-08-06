@@ -12,6 +12,7 @@ export function CompareVisual({ className }: { className?: string }) {
       )}
     >
       <ReactCompareSlider
+        onlyHandleDraggable
         itemOne={
           <ReactCompareSliderImage
             src="/hero-before.png"

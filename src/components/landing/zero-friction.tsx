@@ -8,7 +8,7 @@ const steps = [
     number: "01",
     title: "Select Your Neighborhood",
     description:
-      "Pick your recurring day and window (Tuesdays for North Redondo, Wednesdays for South Redondo).",
+      "Pick your recurring day and window (Saturdays for North Redondo, Sundays for South Redondo).",
     image: "/zero-friction-schedule.png",
     alt: "Hand scheduling a Redondo Detail route on a phone",
   },

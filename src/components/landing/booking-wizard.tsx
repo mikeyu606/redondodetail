@@ -12,6 +12,7 @@ import {
   User,
   ClipboardCheck,
   CalendarDays,
+  Loader2,
 } from "lucide-react";
 import {
   Dialog,
@@ -30,6 +31,8 @@ import {
 } from "@/lib/pricing-data";
 import { RedondoPromise } from "@/components/landing/redondo-promise";
 import { cn } from "@/lib/utils";
+import { createCheckoutSession } from "@/lib/checkout";
+import { EmbeddedCheckoutModal } from "@/components/landing/embedded-checkout-modal";
 
 export type BillingMode = "subscription" | "one-time";
 
@@ -93,6 +96,10 @@ export function BookingWizard({
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
   const [notes, setNotes] = useState("");
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
 
   useEffect(() => {
     if (open) {
@@ -149,12 +156,47 @@ export function BookingWizard({
     return true;
   }
 
-  function handleNext() {
-    if (isLastStep) {
-      onOpenChange(false);
+  async function handleNext() {
+    if (!isLastStep) {
+      setStep((s) => s + 1);
       return;
     }
-    setStep((s) => s + 1);
+
+    setCheckoutError(null);
+    setCheckoutLoading(true);
+    try {
+      const result = await createCheckoutSession({
+        mode: billing,
+        tierId: vehicles[0]?.tierId ?? initialTierId,
+        quantity: vehicleCount,
+        frequency: billing === "subscription" ? frequency : undefined,
+        customerEmail: email,
+        customerName: name,
+        metadata: {
+          phone,
+          address,
+          city,
+          zip,
+          notes,
+          preferredDay,
+          vehicles: vehicles
+            .map((v, i) => `${v.nickname || `Vehicle ${i + 1}`}:${v.tierId}`)
+            .join("|"),
+          perVisitTotal: String(perVisitTotal),
+        },
+      });
+
+      if (!result.waitlist) {
+        setClientSecret(result.clientSecret);
+        setCheckoutOpen(true);
+      }
+    } catch (error) {
+      setCheckoutError(
+        error instanceof Error ? error.message : "Checkout failed. Try again."
+      );
+    } finally {
+      setCheckoutLoading(false);
+    }
   }
 
   function handleBack() {
@@ -171,6 +213,7 @@ export function BookingWizard({
   const reviewStep = billing === "subscription" ? 4 : 3;
 
   return (
+    <>
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[90vh] max-w-lg overflow-y-auto border-pink-medium/40 sm:max-w-xl">
         <DialogHeader>
@@ -528,8 +571,8 @@ export function BookingWizard({
                 <RedondoPromise variant="compact" />
 
                 <p className="text-xs text-slate">
-                  You&apos;ll be redirected to Stripe for secure checkout. Pause,
-                  reschedule, or cancel anytime — zero hidden fees.
+                  Secure payment opens in-page with Stripe Embedded Checkout.
+                  Pause, reschedule, or cancel anytime — zero hidden fees.
                 </p>
               </div>
             )}
@@ -548,9 +591,16 @@ export function BookingWizard({
             <ChevronLeft className="size-4" />
             Back
           </Button>
-          <Button type="button" onClick={handleNext} disabled={!canProceed()}>
+          <Button type="button" onClick={handleNext} disabled={!canProceed() || checkoutLoading}>
             {isLastStep ? (
-              "Continue to Checkout"
+              checkoutLoading ? (
+                <>
+                  <Loader2 className="size-4 animate-spin" />
+                  Opening checkout…
+                </>
+              ) : (
+                "Continue to Checkout"
+              )
             ) : (
               <>
                 Next
@@ -559,8 +609,20 @@ export function BookingWizard({
             )}
           </Button>
         </div>
+        {checkoutError ? (
+          <p className="text-center text-sm text-red-600">{checkoutError}</p>
+        ) : null}
       </DialogContent>
     </Dialog>
+    <EmbeddedCheckoutModal
+      open={checkoutOpen}
+      clientSecret={clientSecret}
+      onClose={() => {
+        setCheckoutOpen(false);
+        setClientSecret(null);
+      }}
+    />
+    </>
   );
 }
 
