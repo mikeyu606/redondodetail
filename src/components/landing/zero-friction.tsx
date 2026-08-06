@@ -9,8 +9,8 @@ const steps = [
     title: "Select Your Neighborhood Route",
     description:
       "Pick your recurring day and window (Tuesdays for North Redondo, Wednesdays for Hermosa/Manhattan).",
-    image: "/zero-friction-route.png",
-    alt: "Route selection interface showing North Redondo Route on Tuesdays",
+    image: "/zero-friction-route-v2.png",
+    alt: "Route selection interface showing Redondo Detail North Redondo Route on Tuesdays",
   },
   {
     number: "02",
@@ -26,7 +26,7 @@ const steps = [
     description:
       "Your car stays pristine 365 days a year on autopilot. Pause, reschedule, or cancel anytime in one click.",
     image: "/zero-friction-notify.png",
-    alt: "Phone notification: Redondo Detail bi-weekly care is complete",
+    alt: "iPhone notification: Redondo Detail bi-weekly care is complete",
   },
 ];
 
@@ -48,7 +48,7 @@ export function ZeroFriction() {
               transition={{ delay: i * 0.08, duration: 0.4 }}
               className="text-center md:text-left"
             >
-              <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-2xl bg-beige">
+              <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-2xl bg-pink-light">
                 <Image
                   src={step.image}
                   alt={step.alt}
@@ -57,7 +57,7 @@ export function ZeroFriction() {
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
-              <span className="font-serif text-2xl text-burgundy/40">
+              <span className="font-serif text-2xl text-burgundy/45">
                 {step.number}
               </span>
               <h3 className="mt-1 text-lg font-semibold tracking-tight text-charcoal">
