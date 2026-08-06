@@ -19,14 +19,14 @@
   --blush-deep: #f0b8bf;
   --pink-deep: #e8aab2;
 
-  /* Burgundy accent — CTAs & hero text */
-  --burgundy: #99001c;
-  --pink-primary: #99001c;
-  --pink-primary-hover: #7a0016;
+  /* Deep raspberry accents — CTAs & highlights */
+  --burgundy: #c2185b;
+  --pink-primary: #c2185b;
+  --pink-primary-hover: #9f1749;
 
   /* Legacy aliases */
-  --rose-gold: #99001c;
-  --rose-gold-light: #b80024;
+  --rose-gold: #c2185b;
+  --rose-gold-light: #d43d74;
 
   /* Surfaces */
   --card: #ffffff;
@@ -34,8 +34,8 @@
   --muted: #6b6b6b;
 
   /* CTA */
-  --cta: #99001c;
-  --cta-hover: #7a0016;
+  --cta: #c2185b;
+  --cta-hover: #9f1749;
 
   /* Footer periwinkle */
   --footer: #b5c4dc;

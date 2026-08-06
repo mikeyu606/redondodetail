@@ -201,7 +201,7 @@ export function BookingWizard({
                   className={cn(
                     "flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors",
                     i <= step
-                      ? "bg-pink-primary text-white"
+                      ? "bg-burgundy text-white"
                       : "bg-pink-light text-slate"
                   )}
                 >

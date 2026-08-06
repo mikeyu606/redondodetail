@@ -53,7 +53,7 @@ export function Hero() {
             <Button
               asChild
               size="sm"
-              className="h-10 px-5 text-xs tracking-[0.12em] bg-burgundy text-white hover:bg-burgundy/90"
+              className="h-10 px-5 text-xs tracking-[0.12em] bg-burgundy text-white hover:bg-pink-primary-hover"
             >
               <Link href="#pricing">
                 Reserve Your Bi-Weekly Slot

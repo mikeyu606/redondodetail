@@ -4,18 +4,23 @@ import { siteConfig } from "@/lib/site-config";
 const footerLinks = {
   help: [
     { label: "route schedule", href: "#route-schedule" },
+    { label: "pricing", href: "#pricing" },
     { label: "faq", href: "#faq" },
+    { label: "how it works", href: "#zero-friction" },
     { label: "contact", href: "mailto:hello@redondodetail.com" },
   ],
   about: [
     { label: "about us", href: "#about" },
     { label: "our promise", href: "#promise" },
+    { label: "coastal care", href: "#coastal-care" },
     { label: "work & transformations", href: "#transformations" },
-    { label: "pricing", href: "#pricing" },
+    { label: "woman-owned business", href: "#about" },
   ],
   information: [
     { label: "terms and conditions", href: "/terms" },
     { label: "privacy policy", href: "/privacy" },
+    { label: "insurance coverage", href: "/insurance" },
+    { label: "liability waiver", href: "/liability" },
     { label: "satisfaction guarantee", href: "#promise" },
   ],
 };
@@ -85,30 +90,42 @@ export function Footer() {
     <footer className="bg-footer text-charcoal">
       <div className="mx-auto max-w-5xl px-6 py-14 sm:px-8 sm:py-16">
         <div className="grid gap-10 sm:grid-cols-3 sm:gap-8">
-          {(Object.entries(footerLinks) as [string, typeof footerLinks.help][]).map(
-            ([heading, links]) => (
-              <div key={heading}>
-                <h3 className="mb-4 text-sm font-semibold lowercase text-charcoal">
-                  {heading}
-                </h3>
-                <ul className="space-y-2.5">
-                  {links.map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className="text-sm lowercase text-charcoal/80 transition-colors hover:text-charcoal hover:underline hover:underline-offset-2"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )
-          )}
+          {(
+            Object.entries(footerLinks) as [string, typeof footerLinks.help][]
+          ).map(([heading, links]) => (
+            <div key={heading}>
+              <h3 className="mb-4 text-sm font-semibold lowercase text-charcoal">
+                {heading}
+              </h3>
+              <ul className="space-y-2.5">
+                {links.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-sm lowercase text-charcoal/80 transition-colors hover:text-charcoal hover:underline hover:underline-offset-2"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className="mt-12 flex items-center justify-center gap-5">
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs lowercase tracking-wide text-charcoal/75">
+          <span>woman-owned &amp; operated</span>
+          <span className="hidden sm:inline" aria-hidden>
+            ·
+          </span>
+          <span>fully insured</span>
+          <span className="hidden sm:inline" aria-hidden>
+            ·
+          </span>
+          <span>bonded for driveway service</span>
+        </div>
+
+        <div className="mt-8 flex items-center justify-center gap-5">
           {socialLinks.map(({ label, href, icon }) => (
             <Link
               key={label}
@@ -125,9 +142,15 @@ export function Footer() {
           {siteConfig.businessName.toLowerCase()}
         </p>
 
+        <p className="mx-auto mt-4 max-w-md text-center text-xs lowercase leading-relaxed text-charcoal/70">
+          a woman-owned south bay mobile detailing studio. all services are
+          performed under full liability insurance for your peace of mind at
+          home.
+        </p>
+
         <p className="mt-6 text-center text-xs lowercase text-charcoal/70">
           © {year}, {siteConfig.businessName.toLowerCase()} | proudly serving
-          the south bay
+          redondo, hermosa, manhattan beach &amp; palos verdes
         </p>
       </div>
     </footer>

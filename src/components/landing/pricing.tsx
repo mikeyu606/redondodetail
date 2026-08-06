@@ -55,7 +55,7 @@ export function Pricing() {
                 className={cn(
                   "rounded-full px-5 py-2 text-sm font-medium transition-all duration-200",
                   billing === "subscription"
-                    ? "bg-pink-primary text-white shadow-sm"
+                    ? "bg-burgundy text-white shadow-sm"
                     : "text-slate hover:text-charcoal"
                 )}
               >

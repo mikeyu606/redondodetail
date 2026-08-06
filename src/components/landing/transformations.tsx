@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type ProofCard = {
   id: string;
@@ -58,6 +60,8 @@ const proofCards: ProofCard[] = [
 ];
 
 export function Transformations() {
+  const [activeId, setActiveId] = useState(proofCards[1].id);
+
   return (
     <section id="transformations" className="bg-beige py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -68,7 +72,7 @@ export function Transformations() {
           <Button
             asChild
             size="sm"
-            className="h-10 shrink-0 self-start bg-burgundy px-5 text-xs tracking-[0.12em] text-white hover:bg-burgundy/90 sm:mt-1"
+            className="h-10 shrink-0 self-start bg-burgundy px-5 text-xs tracking-[0.12em] text-white hover:bg-pink-primary-hover sm:mt-1"
           >
             <Link href="#pricing">
               Reserve Your Slot
@@ -77,8 +81,8 @@ export function Transformations() {
           </Button>
         </div>
 
-        <div className="mt-12 -mx-4 overflow-x-auto pb-2 sm:-mx-6 lg:mx-0 lg:overflow-visible">
-          <div className="flex w-max snap-x snap-mandatory gap-4 px-4 sm:gap-5 sm:px-6 lg:w-full lg:max-w-none lg:snap-none lg:gap-6 lg:px-0 lg:overflow-visible">
+        <div className="mt-12 overflow-x-auto overscroll-x-contain pb-4 touch-pan-x">
+          <div className="flex min-w-max snap-x snap-mandatory gap-4 sm:gap-5">
             {proofCards.map((card, index) => (
               <motion.article
                 key={card.id}
@@ -86,44 +90,65 @@ export function Transformations() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.06, duration: 0.35 }}
-                className="w-[78vw] max-w-[300px] shrink-0 snap-center sm:w-[280px] lg:w-auto lg:max-w-none lg:flex-1"
+                onClick={() => setActiveId(card.id)}
+                className={cn(
+                  "shrink-0 snap-center cursor-pointer transition-all duration-300",
+                  activeId === card.id
+                    ? "w-[285px] sm:w-[320px]"
+                    : "w-[240px] sm:w-[270px]"
+                )}
               >
-                <div className="grid grid-cols-2 overflow-hidden rounded-sm">
-                  <div className="relative aspect-square bg-pink-soft">
-                    <Image
-                      src={card.beforeSrc}
-                      alt={`${card.name} before detailing`}
-                      fill
-                      className="object-cover"
-                      sizes="150px"
-                    />
-                    <span className="absolute left-2 top-2 bg-burgundy px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
-                      Before
-                    </span>
-                  </div>
-                  <div className="relative aspect-square bg-pink-soft">
-                    <Image
-                      src={card.afterSrc}
-                      alt={`${card.name} after detailing`}
-                      fill
-                      className="object-cover"
-                      sizes="150px"
-                    />
-                    <span className="absolute left-2 top-2 bg-burgundy px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
-                      {card.afterLabel}
-                    </span>
+                <div
+                  className={cn(
+                    "overflow-hidden rounded-sm transition-all duration-300",
+                    activeId === card.id
+                      ? "ring-2 ring-burgundy/40 shadow-lg shadow-burgundy/15"
+                      : "ring-1 ring-border/80"
+                  )}
+                >
+                  <div className="grid grid-cols-2">
+                    <div className="relative aspect-square bg-pink-soft">
+                      <Image
+                        src={card.beforeSrc}
+                        alt={`${card.name} before detailing`}
+                        fill
+                        className="object-cover"
+                        sizes="160px"
+                        draggable={false}
+                      />
+                      <span className="absolute left-2 top-2 bg-burgundy px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
+                        Before
+                      </span>
+                    </div>
+                    <div className="relative aspect-square bg-pink-soft">
+                      <Image
+                        src={card.afterSrc}
+                        alt={`${card.name} after detailing`}
+                        fill
+                        className="object-cover"
+                        sizes="160px"
+                        draggable={false}
+                      />
+                      <span className="absolute left-2 top-2 bg-burgundy px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
+                        {card.afterLabel}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
                 <p className="mt-2 text-xs text-slate/70">Results may vary</p>
-
                 <p
-                  className="mt-4 font-serif text-3xl leading-none text-burgundy"
+                  className="mt-3 font-serif text-3xl leading-none text-burgundy"
                   aria-hidden
                 >
                   &ldquo;
                 </p>
-                <p className="mt-1 text-base font-semibold text-charcoal">
+                <p
+                  className={cn(
+                    "mt-1 text-base font-semibold transition-colors",
+                    activeId === card.id ? "text-burgundy" : "text-charcoal"
+                  )}
+                >
                   {card.name}
                 </p>
                 <p className="mt-1.5 text-sm leading-relaxed text-slate">
@@ -134,7 +159,7 @@ export function Transformations() {
           </div>
         </div>
 
-        <p className="mt-10 text-xs text-slate/60">
+        <p className="mt-6 text-xs text-slate/60">
           *Based on subscriber feedback from recurring South Bay routes. Individual
           results may vary by vehicle condition and visit frequency.
         </p>
