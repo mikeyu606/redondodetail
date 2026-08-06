@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Waves, Wind, Sun } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const coastalItems = [
@@ -31,10 +30,7 @@ export function CoastalStack() {
     <section id="coastal-care" className="bg-white py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <Badge variant="default" className="mb-4">
-            Engineered For Coastal Life
-          </Badge>
-          <h2 className="font-serif text-3xl leading-tight text-burgundy sm:text-4xl">
+          <h2 className="text-4xl font-semibold leading-tight tracking-tight text-charcoal sm:text-5xl">
             Coastal Protection System
           </h2>
           <p className="mt-4 text-slate">

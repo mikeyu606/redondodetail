@@ -34,8 +34,8 @@ export function ZeroFriction() {
   return (
     <section id="zero-friction" className="bg-white pb-6 pt-16 sm:pb-8 sm:pt-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center font-serif text-3xl tracking-tight text-charcoal sm:text-4xl">
-          Zero Friction
+        <h2 className="text-center text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
+          Set It Once. Enjoy All Year.
         </h2>
 
         <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
@@ -48,7 +48,7 @@ export function ZeroFriction() {
               transition={{ delay: i * 0.08, duration: 0.4 }}
               className="text-center md:text-left"
             >
-              <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-2xl bg-pink-light">
+              <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-2xl bg-beige">
                 <Image
                   src={step.image}
                   alt={step.alt}

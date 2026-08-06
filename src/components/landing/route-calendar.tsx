@@ -86,7 +86,7 @@ export function RouteCalendar() {
             <CalendarDays className="mr-1.5 size-3.5" />
             Route Availability
           </Badge>
-          <h2 className="font-serif text-3xl tracking-tight text-charcoal sm:text-4xl">
+          <h2 className="text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
             Reserve Your Bi-Weekly Slot
           </h2>
           <p className="mt-4 text-slate">

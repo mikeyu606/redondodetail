@@ -60,7 +60,7 @@ export function About() {
               Meet the Founder
             </Badge>
 
-            <h2 className="font-serif text-3xl tracking-tight text-charcoal sm:text-4xl">
+            <h2 className="text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
               Hi, I&apos;m {founderName}!
             </h2>
 
