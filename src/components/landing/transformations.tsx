@@ -1,143 +1,140 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-type WorkCard = {
+type ProofCard = {
   id: string;
-  title: string;
-  subtitle: string;
-  image: string;
-  objectPosition?: string;
-  overlayCopy?: string;
+  name: string;
+  quote: string;
+  afterLabel: string;
+  beforeSrc: string;
+  afterSrc: string;
 };
 
-const workCards: WorkCard[] = [
+const proofCards: ProofCard[] = [
   {
-    id: "door-jamb",
-    title: "Door Jamb Reset",
-    subtitle: "north redondo detail day",
-    image:
-      "https://images.unsplash.com/photo-1771491237218-cbd4a707497e?w=1400&q=80&auto=format&fit=crop",
-    objectPosition: "center",
-    overlayCopy: "Hidden grease and dust fully reset.",
+    id: "sand",
+    name: "Jordan",
+    quote:
+      "Beach sand was everywhere after Hermosa. One visit and the carpets looked brand new.",
+    afterLabel: "After 1 visit",
+    beforeSrc: "/hero-before.png",
+    afterSrc: "/hero-after.png",
   },
   {
-    id: "console-reset",
-    title: "Console + Screen Reset",
-    subtitle: "manhattan beach evening route",
-    image:
-      "https://images.unsplash.com/photo-1771491237225-01931a752f58?w=1400&q=80&auto=format&fit=crop",
-    objectPosition: "center 45%",
-    overlayCopy: "Touchpoints, trim, and screens restored to clean satin.",
+    id: "interior",
+    name: "Maya",
+    quote:
+      "I never have to think about wash day anymore. Bi-weekly and my SUV always looks spotless.",
+    afterLabel: "After 2 weeks",
+    beforeSrc:
+      "https://images.unsplash.com/photo-1771491237218-cbd4a707497e?w=800&q=80&auto=format&fit=crop",
+    afterSrc:
+      "https://images.unsplash.com/photo-1656077884513-efd5e02193af?w=800&q=80&auto=format&fit=crop",
   },
   {
-    id: "vent-crevice",
-    title: "Vent + Crevice Detail",
-    subtitle: "precision interior dust extraction",
-    image:
-      "https://images.unsplash.com/photo-1656077884513-efd5e02193af?w=1400&q=80&auto=format&fit=crop",
-    objectPosition: "center 50%",
-    overlayCopy: "Fine dust lifted from vents, seams, and hard-to-reach edges.",
+    id: "console",
+    name: "Alex",
+    quote:
+      "Door jambs and vents finally get cleaned. You can tell they care about the tiny details.",
+    afterLabel: "After 1 month",
+    beforeSrc:
+      "https://images.unsplash.com/photo-1771491237225-01931a752f58?w=800&q=80&auto=format&fit=crop",
+    afterSrc: "/door.png",
   },
   {
-    id: "driver-view",
-    title: "Driver View Clarity",
-    subtitle: "hermosa beach weekly maintenance",
-    image:
-      "https://images.unsplash.com/photo-1485463611174-f302f6a5c1c9?w=1400&q=80&auto=format&fit=crop",
-    objectPosition: "center 58%",
-    overlayCopy: "Subtle exterior context, with interior finish still front-and-center.",
+    id: "family",
+    name: "Sam",
+    quote:
+      "With kids and beach days, this subscription is the only thing that keeps up.",
+    afterLabel: "After 3 months",
+    beforeSrc: "/hero-before.png",
+    afterSrc: "/hero-after.png",
   },
 ];
 
 export function Transformations() {
-  const [activeId, setActiveId] = useState(workCards[1].id);
-
   return (
     <section id="transformations" className="bg-beige py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
-            Work &amp; Transformations
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+          <h2 className="max-w-xl text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
+            South Bay drivers keep their cars pristine on autopilot*
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-base text-slate sm:text-lg">
-            From beach days to school pickups, see how we keep South Bay
-            vehicles spotless between the moments that matter.
-          </p>
+          <Button
+            asChild
+            size="sm"
+            className="h-10 shrink-0 self-start bg-burgundy px-5 text-xs tracking-[0.12em] text-white hover:bg-burgundy/90 sm:mt-1"
+          >
+            <Link href="#pricing">
+              Reserve Your Slot
+              <ArrowRight className="size-3.5" />
+            </Link>
+          </Button>
         </div>
 
-        <div className="mt-12 overflow-x-auto pb-4">
-          <div className="flex min-w-max snap-x snap-mandatory gap-4 sm:gap-5">
-            {workCards.map((card, index) => (
-              <motion.article
-                key={card.id}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.06, duration: 0.35 }}
-                onClick={() => setActiveId(card.id)}
-                className={cn(
-                  "shrink-0 snap-center cursor-pointer transition-all duration-300",
-                  activeId === card.id
-                    ? "w-[285px] sm:w-[350px]"
-                    : "w-[230px] sm:w-[270px]"
-                )}
-              >
-                <div
-                  className={cn(
-                    "relative aspect-[3/4] overflow-hidden rounded-xl bg-pink-soft shadow-sm transition-all duration-300",
-                    activeId === card.id
-                      ? "ring-2 ring-burgundy/40 shadow-lg shadow-burgundy/20"
-                      : "ring-1 ring-border/80"
-                  )}
-                >
+        <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4 lg:gap-6">
+          {proofCards.map((card, index) => (
+            <motion.article
+              key={card.id}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.06, duration: 0.35 }}
+            >
+              <div className="grid grid-cols-2 overflow-hidden rounded-sm">
+                <div className="relative aspect-square bg-pink-soft">
                   <Image
-                    src={card.image}
-                    alt={card.title}
+                    src={card.beforeSrc}
+                    alt={`${card.name} before detailing`}
                     fill
-                    className={cn(
-                      "object-cover transition duration-300",
-                      activeId === card.id
-                        ? "scale-[1.02] saturate-110"
-                        : "saturate-75"
-                    )}
-                    style={{ objectPosition: card.objectPosition ?? "center" }}
-                    sizes="(max-width: 640px) 250px, 290px"
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 40vw, 160px"
                   />
-                  <div
-                    className={cn(
-                      "absolute inset-0 bg-gradient-to-t via-transparent to-transparent transition-opacity duration-300",
-                      activeId === card.id
-                        ? "from-black/35 opacity-100"
-                        : "from-black/55 opacity-85"
-                    )}
+                  <span className="absolute left-2 top-2 bg-burgundy px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
+                    Before
+                  </span>
+                </div>
+                <div className="relative aspect-square bg-pink-soft">
+                  <Image
+                    src={card.afterSrc}
+                    alt={`${card.name} after detailing`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 40vw, 160px"
                   />
-                  {card.overlayCopy ? (
-                    <p className="absolute left-3 top-3 max-w-[75%] text-xs leading-relaxed text-white/95 drop-shadow-sm">
-                      {card.overlayCopy}
-                    </p>
-                  ) : null}
+                  <span className="absolute left-2 top-2 bg-burgundy px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
+                    {card.afterLabel}
+                  </span>
                 </div>
-                <div className="pt-3 text-center">
-                  <p
-                    className={cn(
-                      "text-base font-medium transition-colors",
-                      activeId === card.id ? "text-burgundy" : "text-charcoal"
-                    )}
-                  >
-                    {card.title}
-                  </p>
-                  <p className="mt-1 text-sm lowercase text-slate">
-                    {card.subtitle}
-                  </p>
-                </div>
-              </motion.article>
-            ))}
-          </div>
+              </div>
+
+              <p className="mt-2 text-xs text-slate/70">Results may vary</p>
+
+              <p
+                className="mt-4 font-serif text-3xl leading-none text-burgundy"
+                aria-hidden
+              >
+                &ldquo;
+              </p>
+              <p className="mt-1 text-base font-semibold text-charcoal">
+                {card.name}
+              </p>
+              <p className="mt-1.5 text-sm leading-relaxed text-slate">
+                {card.quote}
+              </p>
+            </motion.article>
+          ))}
         </div>
+
+        <p className="mt-10 text-xs text-slate/60">
+          *Based on subscriber feedback from recurring South Bay routes. Individual
+          results may vary by vehicle condition and visit frequency.
+        </p>
       </div>
     </section>
   );
