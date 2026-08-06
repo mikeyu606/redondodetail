@@ -77,58 +77,61 @@ export function Transformations() {
           </Button>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4 lg:gap-6">
-          {proofCards.map((card, index) => (
-            <motion.article
-              key={card.id}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.06, duration: 0.35 }}
-            >
-              <div className="grid grid-cols-2 overflow-hidden rounded-sm">
-                <div className="relative aspect-square bg-pink-soft">
-                  <Image
-                    src={card.beforeSrc}
-                    alt={`${card.name} before detailing`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 40vw, 160px"
-                  />
-                  <span className="absolute left-2 top-2 bg-burgundy px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
-                    Before
-                  </span>
-                </div>
-                <div className="relative aspect-square bg-pink-soft">
-                  <Image
-                    src={card.afterSrc}
-                    alt={`${card.name} after detailing`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 40vw, 160px"
-                  />
-                  <span className="absolute left-2 top-2 bg-burgundy px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
-                    {card.afterLabel}
-                  </span>
-                </div>
-              </div>
-
-              <p className="mt-2 text-xs text-slate/70">Results may vary</p>
-
-              <p
-                className="mt-4 font-serif text-3xl leading-none text-burgundy"
-                aria-hidden
+        <div className="mt-12 -mx-4 overflow-x-auto pb-2 sm:-mx-6 lg:mx-0 lg:overflow-visible">
+          <div className="flex w-max snap-x snap-mandatory gap-4 px-4 sm:gap-5 sm:px-6 lg:w-full lg:max-w-none lg:snap-none lg:gap-6 lg:px-0 lg:overflow-visible">
+            {proofCards.map((card, index) => (
+              <motion.article
+                key={card.id}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.06, duration: 0.35 }}
+                className="w-[78vw] max-w-[300px] shrink-0 snap-center sm:w-[280px] lg:w-auto lg:max-w-none lg:flex-1"
               >
-                &ldquo;
-              </p>
-              <p className="mt-1 text-base font-semibold text-charcoal">
-                {card.name}
-              </p>
-              <p className="mt-1.5 text-sm leading-relaxed text-slate">
-                {card.quote}
-              </p>
-            </motion.article>
-          ))}
+                <div className="grid grid-cols-2 overflow-hidden rounded-sm">
+                  <div className="relative aspect-square bg-pink-soft">
+                    <Image
+                      src={card.beforeSrc}
+                      alt={`${card.name} before detailing`}
+                      fill
+                      className="object-cover"
+                      sizes="150px"
+                    />
+                    <span className="absolute left-2 top-2 bg-burgundy px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
+                      Before
+                    </span>
+                  </div>
+                  <div className="relative aspect-square bg-pink-soft">
+                    <Image
+                      src={card.afterSrc}
+                      alt={`${card.name} after detailing`}
+                      fill
+                      className="object-cover"
+                      sizes="150px"
+                    />
+                    <span className="absolute left-2 top-2 bg-burgundy px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
+                      {card.afterLabel}
+                    </span>
+                  </div>
+                </div>
+
+                <p className="mt-2 text-xs text-slate/70">Results may vary</p>
+
+                <p
+                  className="mt-4 font-serif text-3xl leading-none text-burgundy"
+                  aria-hidden
+                >
+                  &ldquo;
+                </p>
+                <p className="mt-1 text-base font-semibold text-charcoal">
+                  {card.name}
+                </p>
+                <p className="mt-1.5 text-sm leading-relaxed text-slate">
+                  {card.quote}
+                </p>
+              </motion.article>
+            ))}
+          </div>
         </div>
 
         <p className="mt-10 text-xs text-slate/60">

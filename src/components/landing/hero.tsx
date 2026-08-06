@@ -43,7 +43,7 @@ export function Hero() {
           className="flex flex-1 flex-col justify-start pb-6 pt-12 text-center sm:pt-10 lg:flex-none lg:justify-center lg:py-8 lg:text-left"
         >
           <h1 className="font-serif text-[clamp(2.5rem,8.5vw,3.75rem)] font-semibold leading-[1.05] tracking-tight text-stone-900">
-            A Pristine Ride, Every Single Day. Zero Effort.
+            A Pristine Vehicle Every Single Day
           </h1>
           <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-stone-700 sm:text-lg lg:mx-0">
             We keep your vehicle pristine bi-weekly&mdash;freeing you from
