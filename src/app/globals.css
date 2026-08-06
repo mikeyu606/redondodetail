@@ -1,26 +1,124 @@
 @import "tailwindcss";
+@import "react-day-picker/style.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Cocokind-inspired — warm beige + dusty rose */
+  --beige: #f9f5f1;
+  --background: #f9f5f1;
+  --cream: #f9f5f1;
+  --foreground: #1a1a1a;
+  --charcoal: #1a1a1a;
+  --slate: #4a4a4a;
+
+  /* Dusty rose / millennial pink */
+  --dusty-rose: #f7c6cc;
+  --pink-medium: #f7c6cc;
+  --pink-light: #fdf0f2;
+  --pink-soft: #faf6f3;
+  --blush: #f7c6cc;
+  --blush-deep: #f0b8bf;
+  --pink-deep: #e8aab2;
+
+  /* Burgundy accent — CTAs & hero text */
+  --burgundy: #99001c;
+  --pink-primary: #99001c;
+  --pink-primary-hover: #7a0016;
+
+  /* Legacy aliases */
+  --rose-gold: #99001c;
+  --rose-gold-light: #b80024;
+
+  /* Surfaces */
+  --card: #ffffff;
+  --border: #e8e0d8;
+  --muted: #6b6b6b;
+
+  /* CTA */
+  --cta: #99001c;
+  --cta-hover: #7a0016;
+
+  /* Footer periwinkle */
+  --footer: #b5c4dc;
+  --footer-hover: #1a1a1a;
 }
 
 @theme inline {
+  --color-beige: var(--beige);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-cream: var(--cream);
+  --color-charcoal: var(--charcoal);
+  --color-slate: var(--slate);
+  --color-dusty-rose: var(--dusty-rose);
+  --color-pink-primary: var(--pink-primary);
+  --color-pink-primary-hover: var(--pink-primary-hover);
+  --color-pink-light: var(--pink-light);
+  --color-pink-medium: var(--pink-medium);
+  --color-pink-deep: var(--pink-deep);
+  --color-pink-soft: var(--pink-soft);
+  --color-blush: var(--blush);
+  --color-blush-deep: var(--blush-deep);
+  --color-burgundy: var(--burgundy);
+  --color-rose-gold: var(--rose-gold);
+  --color-rose-gold-light: var(--rose-gold-light);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-cta: var(--cta);
+  --color-cta-hover: var(--cta-hover);
+  --color-footer: var(--footer);
+  --color-pink: var(--pink-medium);
   --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-playfair);
   --font-mono: var(--font-geist-mono);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-marquee: marquee 40s linear infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes accordion-down {
+  from {
+    height: 0;
   }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--dusty-rose) 80%, transparent);
+  color: var(--charcoal);
+}
+
+.font-serif {
+  font-family: var(--font-playfair), Georgia, "Times New Roman", serif;
 }
