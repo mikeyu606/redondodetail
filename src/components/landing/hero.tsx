@@ -21,7 +21,7 @@ const fadeUp = {
 
 export function Hero() {
   return (
-    <section className="flex min-h-[100svh] flex-col bg-dusty-rose pt-16 sm:pt-20">
+    <section className="flex min-h-[100svh] flex-col bg-beige pt-16 sm:pt-20">
       <div className="mx-auto flex w-full max-w-6xl flex-1 items-center px-4 sm:px-6 lg:px-8">
         <div className="grid w-full items-center gap-6 py-6 lg:grid-cols-2 lg:gap-8 lg:py-8">
           <motion.div
@@ -39,7 +39,7 @@ export function Hero() {
               the drive-thru lines while you enjoy the coast.
             </p>
             <div className="mt-6 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
-              <Button asChild size="lg" className="min-w-[200px]">
+              <Button asChild size="lg" className="min-w-[200px] bg-burgundy text-white hover:bg-burgundy/90">
                 <Link href="#pricing">
                   Reserve Your Bi-Weekly Slot
                   <ArrowRight className="size-4" />
