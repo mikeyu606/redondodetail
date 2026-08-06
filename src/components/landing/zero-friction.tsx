@@ -1,29 +1,32 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { MapPin, Home, Waves } from "lucide-react";
 
 const steps = [
   {
     number: "01",
-    icon: MapPin,
     title: "Select Your Neighborhood Route",
     description:
       "Pick your recurring day and window (Tuesdays for North Redondo, Wednesdays for Hermosa/Manhattan).",
+    image: "/zero-friction-route.png",
+    alt: "Route selection interface showing North Redondo Route on Tuesdays",
   },
   {
     number: "02",
-    icon: Home,
     title: "Park in Your Driveway",
     description:
       "No keys needed to meet us, no waiting in lines. We bring our own water and setup directly to your home.",
+    image: "/zero-friction-driveway.png",
+    alt: "Pristine luxury vehicle parked on a bright coastal South Bay driveway",
   },
   {
     number: "03",
-    icon: Waves,
     title: "Automatic Coastal Care",
     description:
       "Your car stays pristine 365 days a year on autopilot. Pause, reschedule, or cancel anytime in one click.",
+    image: "/zero-friction-notify.png",
+    alt: "Phone notification: Redondo Detail bi-weekly care is complete",
   },
 ];
 
@@ -45,15 +48,19 @@ export function ZeroFriction() {
               transition={{ delay: i * 0.08, duration: 0.4 }}
               className="text-center md:text-left"
             >
-              <div className="mb-4 flex items-center justify-center gap-3 md:justify-start">
-                <span className="font-serif text-3xl text-burgundy/40">
-                  {step.number}
-                </span>
-                <div className="flex size-9 items-center justify-center rounded-full bg-dusty-rose/40">
-                  <step.icon className="size-4 text-burgundy" />
-                </div>
+              <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-2xl bg-beige">
+                <Image
+                  src={step.image}
+                  alt={step.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
-              <h3 className="text-lg font-semibold tracking-tight text-charcoal">
+              <span className="font-serif text-2xl text-burgundy/40">
+                {step.number}
+              </span>
+              <h3 className="mt-1 text-lg font-semibold tracking-tight text-charcoal">
                 {step.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-slate">
