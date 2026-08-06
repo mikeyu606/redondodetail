@@ -47,8 +47,9 @@ export function Hero() {
               Keep Your Vehicle Like New On Autopilot
             </h1>
             <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-stone-700 sm:text-lg lg:mx-0">
-              We protect and preserve your vehicle bi-weekly&mdash;freeing you
-              from the drive-thru lines while you enjoy the coast.
+              Complete interior and exterior coastal care every two
+              weeks&mdash;freeing you from car wash lines while you enjoy the
+              beach.
             </p>
             <div className="mt-7 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
               <Button

@@ -16,14 +16,14 @@ const coastalItems = [
     title: "Salt Air Paint Protection",
     description:
       "Hydrophobic ceramic sealant helps neutralize salt-air oxidation and sticky ocean haze on paint and glass.",
-    image: "/coastal-paint.png",
+    image: "/coastal-paint-v2.png",
     alt: "Water beading on gleaming paint with hydrophobic ceramic protection",
   },
   {
     title: "UV & Sunscreen Care",
     description:
       "Safe removal of sunscreen smudges from leather and door panels without stripping interior finishes.",
-    image: "/coastal-leather.png",
+    image: "/coastal-leather-v2.png",
     alt: "Pristine leather interior bathed in warm sunlight after UV and sunscreen care",
   },
 ];
