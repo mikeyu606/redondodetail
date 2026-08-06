@@ -1,11 +1,15 @@
 "use client";
 
 import { ReactCompareSlider, ReactCompareSliderImage } from "react-compare-slider";
+import { cn } from "@/lib/utils";
 
 export function CompareVisual({ className }: { className?: string }) {
   return (
     <div
-      className={`relative overflow-hidden rounded-sm bg-beige/90 shadow-xl shadow-burgundy/15 ${className ?? ""}`}
+      className={cn(
+        "relative h-full w-full min-w-0 overflow-hidden bg-beige/90 shadow-xl shadow-burgundy/15",
+        className
+      )}
     >
       <ReactCompareSlider
         itemOne={
@@ -22,7 +26,8 @@ export function CompareVisual({ className }: { className?: string }) {
             style={{ objectFit: "cover", objectPosition: "center top" }}
           />
         }
-        className="h-full w-full"
+        className="!h-full !w-full"
+        style={{ width: "100%", height: "100%" }}
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
       <div className="absolute left-3 top-3 rounded-full bg-charcoal/65 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white/95 backdrop-blur-sm">

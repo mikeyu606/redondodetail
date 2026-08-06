@@ -35,7 +35,7 @@ function BrandIcon({ path, name }: BrandIconData) {
       role="img"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
-      className="size-8 fill-current text-charcoal/35 sm:size-10"
+      className="size-7 fill-current text-charcoal/30 sm:size-9"
       aria-label={name}
     >
       <path d={path} />
@@ -45,18 +45,18 @@ function BrandIcon({ path, name }: BrandIconData) {
 
 export function BrandCarousel() {
   return (
-    <section className="border-y border-border bg-beige py-12">
-      <p className="mb-7 text-center text-[11px] font-semibold tracking-[0.2em] text-slate/75 uppercase">
+    <div className="w-full pt-8 pb-10 sm:pt-10 sm:pb-12">
+      <p className="mb-5 text-center text-[11px] font-medium tracking-[0.18em] text-slate/70 uppercase">
         Vehicles We Regularly Service
       </p>
 
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-10 gap-y-6 sm:gap-x-12">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-8 gap-y-5 px-4 sm:gap-x-12">
         {brands.map((brand) => (
           <div key={brand.name} className="flex items-center justify-center">
             <BrandIcon path={brand.path} name={brand.name} />
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }

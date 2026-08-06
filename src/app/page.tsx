@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/landing/navbar";
 import { Hero } from "@/components/landing/hero";
-import { BrandCarousel } from "@/components/landing/brand-carousel";
 import { CoastalStack } from "@/components/landing/coastal-stack";
 import { About } from "@/components/landing/about";
 import { RedondoPromise } from "@/components/landing/redondo-promise";
@@ -16,7 +15,6 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <BrandCarousel />
         <CoastalStack />
         <About />
         <RedondoPromise variant="banner" />
