@@ -7,7 +7,7 @@ export function CompareVisual({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "relative h-full w-full min-w-0 overflow-hidden bg-beige/90 shadow-xl shadow-burgundy/15",
+        "relative h-full w-full min-w-full overflow-hidden bg-charcoal",
         className
       )}
     >
@@ -16,17 +16,17 @@ export function CompareVisual({ className }: { className?: string }) {
           <ReactCompareSliderImage
             src="/hero-before.png"
             alt="Before detail condition"
-            style={{ objectFit: "cover", objectPosition: "center top" }}
+            style={{ objectFit: "cover", objectPosition: "center" }}
           />
         }
         itemTwo={
           <ReactCompareSliderImage
             src="/hero-after.png"
             alt="After detail finish"
-            style={{ objectFit: "cover", objectPosition: "center top" }}
+            style={{ objectFit: "cover", objectPosition: "center" }}
           />
         }
-        className="!h-full !w-full"
+        className="!h-full !w-full min-w-full"
         style={{ width: "100%", height: "100%" }}
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />

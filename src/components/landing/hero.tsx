@@ -13,7 +13,7 @@ const CompareVisual = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="h-full w-full animate-pulse rounded-sm bg-beige/80" />
+      <div className="h-full w-full animate-pulse bg-beige/80" />
     ),
   }
 );
@@ -33,53 +33,71 @@ const fadeUp = {
 
 export function Hero() {
   return (
-    <section className="flex flex-col overflow-hidden bg-beige pt-16 sm:pt-20">
-      <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 sm:px-6 lg:min-h-[calc(100svh-5rem)] lg:grid lg:grid-cols-2 lg:items-center lg:gap-8 lg:px-8">
-        <motion.div
-          custom={0}
-          initial="hidden"
-          animate="visible"
-          variants={fadeUp}
-          className="flex flex-1 flex-col justify-start pb-6 pt-12 text-center sm:pt-10 lg:flex-none lg:justify-center lg:py-8 lg:text-left"
-        >
-          <h1 className="font-serif text-[clamp(2.5rem,8.5vw,3.75rem)] font-semibold leading-[1.05] tracking-tight text-stone-900">
-            A Pristine Vehicle Every Single Day
-          </h1>
-          <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-stone-700 sm:text-lg lg:mx-0">
-            We keep your vehicle pristine bi-weekly&mdash;freeing you from
-            the drive-thru lines while you enjoy the coast.
-          </p>
-          <div className="mt-7 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
-            <Button
-              asChild
-              size="sm"
-              className="h-10 px-5 text-xs tracking-[0.12em] bg-burgundy text-white hover:bg-pink-primary-hover"
-            >
-              <Link href="#pricing">
-                Reserve Your Bi-Weekly Slot
-                <ArrowRight className="size-3.5" />
-              </Link>
-            </Button>
-          </div>
-          <p className="mt-4 text-xs tracking-wide text-burgundy/70 uppercase">
-            Fully insured · Coastal sand + salt care · 100% delight guarantee
-          </p>
-        </motion.div>
+    <section className="flex flex-col">
+      <div className="bg-dusty-rose pt-16 sm:pt-20">
+        <div className="mx-auto flex w-full max-w-6xl flex-col px-4 sm:px-6 lg:min-h-[calc(100svh-5rem)] lg:grid lg:grid-cols-2 lg:items-center lg:gap-8 lg:px-8">
+          <motion.div
+            custom={0}
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            className="flex flex-col justify-start pb-6 pt-12 text-center sm:pt-10 lg:justify-center lg:py-8 lg:text-left"
+          >
+            <h1 className="font-serif text-[clamp(2.5rem,8.5vw,3.75rem)] font-semibold leading-[1.05] tracking-tight text-stone-900">
+              A Pristine Vehicle Every Single Day
+            </h1>
+            <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-stone-700 sm:text-lg lg:mx-0">
+              We keep your vehicle pristine bi-weekly&mdash;freeing you from
+              the drive-thru lines while you enjoy the coast.
+            </p>
+            <div className="mt-7 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
+              <Button
+                asChild
+                size="sm"
+                className="h-10 px-5 text-xs tracking-[0.12em] bg-burgundy text-white hover:bg-pink-primary-hover"
+              >
+                <Link href="#pricing">
+                  Reserve Your Bi-Weekly Slot
+                  <ArrowRight className="size-3.5" />
+                </Link>
+              </Button>
+            </div>
+            <p className="mt-4 text-xs tracking-wide text-burgundy/70 uppercase">
+              Fully insured · Coastal sand + salt care · 100% delight guarantee
+            </p>
+          </motion.div>
 
+          {/* Desktop slider */}
+          <motion.div
+            custom={1}
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            className="mx-auto hidden w-full max-w-md lg:block"
+          >
+            <div className="h-[min(64svh,580px)] aspect-[4/5] max-w-full overflow-hidden rounded-sm">
+              <CompareVisual className="h-full w-full rounded-sm" />
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Mobile: true full-bleed slider */}
         <motion.div
           custom={1}
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="w-full shrink-0 max-lg:-mx-4 max-lg:w-[calc(100%+2rem)] sm:max-lg:-mx-6 sm:max-lg:w-[calc(100%+3rem)] lg:mx-auto lg:max-w-md"
+          className="mt-2 w-full lg:hidden"
         >
-          <div className="h-[32svh] w-full lg:h-[min(64svh,580px)] lg:aspect-[4/5] lg:max-w-full lg:rounded-sm lg:overflow-hidden">
-            <CompareVisual className="h-full w-full max-lg:rounded-none lg:rounded-sm" />
+          <div className="h-[42svh] w-full min-w-full">
+            <CompareVisual className="h-full w-full rounded-none shadow-none" />
           </div>
         </motion.div>
       </div>
 
-      <BrandCarousel />
+      <div className="bg-beige">
+        <BrandCarousel />
+      </div>
     </section>
   );
 }
