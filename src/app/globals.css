@@ -70,6 +70,8 @@
   --color-pink: var(--pink-medium);
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-playfair);
+  --font-brand: var(--font-cormorant);
+  --font-display: var(--font-montserrat);
   --font-mono: var(--font-geist-mono);
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
@@ -121,4 +123,12 @@ body {
 
 .font-serif {
   font-family: var(--font-playfair), Georgia, "Times New Roman", serif;
+}
+
+.font-brand {
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+}
+
+.font-display {
+  font-family: var(--font-montserrat), system-ui, sans-serif;
 }

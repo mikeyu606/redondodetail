@@ -76,18 +76,28 @@ export function About() {
 
             <div className="space-y-4 text-base leading-relaxed text-slate sm:text-lg">
               <p>
-                I founded Redondo Detail to bring a higher standard of care,
-                convenience, and trust to South Bay driveways.
+                We believe that stepping into a pristine vehicle sets the tone
+                for your entire day—and that a great car is an asset worth
+                preserving.
               </p>
               <p>
-                As a local, I saw how tedious it was for busy families and
-                professionals to keep their cars pristine without wasting
-                precious weekend hours at traditional car washes—or worrying
-                about who was pulling onto their property. We built Redondo
-                Detail as a high-trust, boutique auto spa on wheels: seamless
-                bi-weekly maintenance, extreme attention to hidden details
-                (like door jambs and streak-free inner glass), and total peace
-                of mind for your home.
+                As a lifelong car enthusiast, I founded Redondo Detail out of a
+                genuine passion for fine automobiles and a frustration with how
+                quickly coastal salt, sun, and harsh drive-thru brushes ruin
+                them.
+              </p>
+              <p>
+                I saw how tedious it was for busy locals to keep their vehicles
+                immaculate without wasting precious weekend hours at traditional
+                car washes—or worrying about who was pulling onto their
+                property.
+              </p>
+              <p>
+                We built this service to give South Bay drivers a higher
+                standard of care: precision, paint-safe preservation and
+                effortless bi-weekly maintenance right in your driveway. Because
+                when you love what you drive, keeping it showroom-ready should
+                feel completely seamless.
               </p>
             </div>
 

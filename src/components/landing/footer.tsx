@@ -138,7 +138,7 @@ export function Footer() {
           ))}
         </div>
 
-        <p className="mt-10 text-center font-serif text-4xl lowercase tracking-tight text-charcoal sm:text-5xl">
+        <p className="mt-10 text-center font-brand text-4xl font-normal lowercase tracking-[-0.02em] text-charcoal sm:text-5xl">
           {siteConfig.businessName.toLowerCase()}
         </p>
 

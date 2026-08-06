@@ -33,14 +33,14 @@ export function Navbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 border-b transition-all duration-300",
         scrolled
-          ? "border-border/80 bg-beige/95 backdrop-blur-md shadow-sm"
-          : "border-transparent bg-beige/95"
+          ? "border-charcoal/15 bg-beige/95 backdrop-blur-md"
+          : "border-charcoal/10 bg-beige"
       )}
     >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="font-serif text-xl tracking-tight text-charcoal lowercase sm:text-2xl"
+          className="font-brand text-[1.65rem] font-normal lowercase leading-none tracking-[-0.02em] text-charcoal sm:text-[1.85rem]"
         >
           redondo detail
         </Link>

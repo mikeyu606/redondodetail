@@ -41,9 +41,9 @@ export function Hero() {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="flex flex-col justify-start pb-6 pt-12 text-center sm:pt-10 lg:justify-center lg:py-8 lg:text-left"
+            className="flex flex-col justify-start pb-6 pt-16 text-center sm:pt-10 lg:justify-center lg:py-8 lg:text-left"
           >
-            <h1 className="font-serif text-[clamp(2.5rem,8.5vw,3.75rem)] font-semibold leading-[1.05] tracking-tight text-stone-900">
+            <h1 className="font-display text-[clamp(2.5rem,8.5vw,3.75rem)] font-extrabold leading-[1.05] tracking-tight text-burgundy">
               A Pristine Vehicle Every Single Day
             </h1>
             <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-stone-700 sm:text-lg lg:mx-0">

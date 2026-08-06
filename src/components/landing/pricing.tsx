@@ -39,18 +39,6 @@ export function Pricing() {
             <div className="mt-8 inline-flex rounded-full border border-pink-medium/50 bg-white p-1 shadow-sm">
               <button
                 type="button"
-                onClick={() => setBilling("one-time")}
-                className={cn(
-                  "rounded-full px-5 py-2 text-sm font-medium transition-all duration-200",
-                  billing === "one-time"
-                    ? "bg-pink-light text-charcoal shadow-sm"
-                    : "text-slate hover:text-charcoal"
-                )}
-              >
-                One-Time Wash
-              </button>
-              <button
-                type="button"
                 onClick={() => setBilling("subscription")}
                 className={cn(
                   "rounded-full px-5 py-2 text-sm font-medium transition-all duration-200",
@@ -61,6 +49,18 @@ export function Pricing() {
               >
                 Bi-Weekly Subscription
                 <span className="ml-1.5 text-xs opacity-90">Save 20%</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setBilling("one-time")}
+                className={cn(
+                  "rounded-full px-5 py-2 text-sm font-medium transition-all duration-200",
+                  billing === "one-time"
+                    ? "bg-pink-light text-charcoal shadow-sm"
+                    : "text-slate hover:text-charcoal"
+                )}
+              >
+                One-Time Wash
               </button>
             </div>
           </div>
