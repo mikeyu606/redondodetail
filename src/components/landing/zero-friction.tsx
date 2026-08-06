@@ -29,7 +29,7 @@ const steps = [
 
 export function ZeroFriction() {
   return (
-    <section id="zero-friction" className="bg-beige pb-6 pt-16 sm:pb-8 sm:pt-20">
+    <section id="zero-friction" className="bg-white pb-6 pt-16 sm:pb-8 sm:pt-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <h2 className="text-center font-serif text-3xl tracking-tight text-charcoal sm:text-4xl">
           Zero Friction

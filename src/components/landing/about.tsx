@@ -10,7 +10,7 @@ export function About() {
   const { founderName, founderSchool } = siteConfig;
 
   return (
-    <section id="about" className="relative overflow-hidden bg-beige py-20 sm:py-28">
+    <section id="about" className="relative overflow-hidden bg-white py-20 sm:py-28">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -right-20 top-0 size-80 rounded-full bg-pink-medium/30 blur-3xl" />
         <div className="absolute -left-20 bottom-0 size-96 rounded-full bg-pink-light blur-3xl" />

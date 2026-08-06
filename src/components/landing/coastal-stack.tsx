@@ -28,7 +28,7 @@ const coastalItems = [
 
 export function CoastalStack() {
   return (
-    <section id="coastal-care" className="bg-beige py-20 sm:py-24">
+    <section id="coastal-care" className="bg-white py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <Badge variant="default" className="mb-4">

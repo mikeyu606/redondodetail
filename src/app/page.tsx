@@ -12,7 +12,7 @@ import { Footer } from "@/components/landing/footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-beige text-charcoal">
+    <div className="min-h-screen bg-white text-charcoal">
       <Navbar />
       <main>
         {/* 1. Hook & Outcome */}

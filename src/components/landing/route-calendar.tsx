@@ -79,7 +79,7 @@ export function RouteCalendar() {
   const routeIsFull = selectedRoute.status === "full";
 
   return (
-    <section id="route-schedule" className="py-20 sm:py-28">
+    <section id="route-schedule" className="bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <Badge variant="outline" className="mb-4">

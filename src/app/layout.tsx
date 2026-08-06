@@ -63,7 +63,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${cormorant.variable} ${montserrat.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-beige font-sans text-charcoal">
+      <body className="min-h-full flex flex-col bg-white font-sans text-charcoal">
         {children}
       </body>
     </html>

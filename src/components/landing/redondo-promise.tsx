@@ -34,10 +34,10 @@ export function RedondoPromise({
     return (
       <section
         id="promise"
-        className={cn("bg-dusty-rose py-14 sm:py-16", className)}
+        className={cn("bg-white py-14 sm:py-16", className)}
       >
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-beige/80">
+          <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-dusty-rose/50">
             <Shield className="size-6 text-burgundy" />
           </div>
           <h2 className="font-serif text-2xl text-burgundy sm:text-3xl">

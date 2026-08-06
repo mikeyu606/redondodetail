@@ -95,7 +95,7 @@ export function Hero() {
         </motion.div>
       </div>
 
-      <div className="bg-beige">
+      <div className="bg-white">
         <BrandCarousel />
       </div>
     </section>

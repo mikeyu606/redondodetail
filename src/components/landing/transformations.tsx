@@ -63,7 +63,7 @@ export function Transformations() {
   const [activeId, setActiveId] = useState(proofCards[1].id);
 
   return (
-    <section id="transformations" className="bg-beige py-20 sm:py-24">
+    <section id="transformations" className="bg-white py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <h2 className="max-w-xl text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
