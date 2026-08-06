@@ -7,7 +7,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BookingWizard, type BillingMode } from "@/components/landing/booking-wizard";
-import { RedondoPromise } from "@/components/landing/redondo-promise";
 import {
   pricingTiers,
   pricingFeatures,
@@ -88,13 +87,15 @@ export function Pricing() {
                         "border-pink-primary/50 ring-1 ring-pink-primary/20"
                     )}
                   >
-                    {tier.popular && (
-                      <Badge className="absolute -top-3 left-1/2 -translate-x-1/2">
-                        <Sparkles className="mr-1 size-3" />
-                        Most Popular
-                      </Badge>
-                    )}
                     <CardHeader className="text-center">
+                      {tier.popular && (
+                        <div className="mb-4 flex justify-center">
+                          <Badge className="px-3 py-1">
+                            <Sparkles className="mr-1 size-3" />
+                            Most Popular
+                          </Badge>
+                        </div>
+                      )}
                       <CardTitle className="text-lg">{tier.name}</CardTitle>
                       <CardDescription>{tier.description}</CardDescription>
                       <div className="mt-4">
@@ -147,9 +148,6 @@ export function Pricing() {
             })}
           </div>
 
-          <div className="mx-auto mt-12 max-w-2xl">
-            <RedondoPromise />
-          </div>
         </div>
       </section>
 

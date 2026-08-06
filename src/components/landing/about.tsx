@@ -4,7 +4,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Heart, Sparkles, GraduationCap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { RedondoPromise } from "@/components/landing/redondo-promise";
 import { siteConfig } from "@/lib/site-config";
 
 export function About() {
@@ -91,8 +90,6 @@ export function About() {
                 of mind for your home.
               </p>
             </div>
-
-            <RedondoPromise className="mt-2" />
 
             <div className="flex items-start gap-3 rounded-2xl border border-pink-medium/40 bg-white/80 px-5 py-4 shadow-sm">
               <Heart className="mt-0.5 size-5 shrink-0 fill-pink-primary/20 text-pink-primary" />

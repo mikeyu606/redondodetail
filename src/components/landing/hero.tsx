@@ -34,9 +34,6 @@ export function Hero() {
             variants={fadeUp}
             className="text-center lg:text-left"
           >
-            <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-burgundy/70">
-              ✨ Woman-Owned · South Bay Coastal Care
-            </p>
             <h1 className="font-serif text-4xl leading-[1.1] text-burgundy sm:text-5xl lg:text-[3.5rem]">
               Boutique mobile detailing, right in your driveway.
             </h1>
@@ -67,7 +64,7 @@ export function Hero() {
             variants={fadeUp}
             className="mx-auto w-full max-w-lg"
           >
-            <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-beige/90 shadow-xl shadow-burgundy/15 ring-2 ring-beige/60">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-beige/90 shadow-xl shadow-burgundy/15">
               <Image
                 src={hero.src}
                 alt={hero.alt}

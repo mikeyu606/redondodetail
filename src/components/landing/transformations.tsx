@@ -20,36 +20,36 @@ const workCards: WorkCard[] = [
     title: "Door Jamb Reset",
     subtitle: "north redondo detail day",
     image:
-      "https://images.unsplash.com/photo-1619642751034-611fe542faeb?w=1400&q=80&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1771491237218-cbd4a707497e?w=1400&q=80&auto=format&fit=crop",
     objectPosition: "center",
     overlayCopy: "Hidden grease and dust fully reset.",
   },
   {
-    id: "brand-finish",
-    title: "Gloss + Trim Finish",
+    id: "console-reset",
+    title: "Console + Screen Reset",
     subtitle: "manhattan beach evening route",
     image:
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1400&q=80&auto=format&fit=crop",
-    objectPosition: "center 38%",
-    overlayCopy: "Gloss restored with streak-free clarity.",
+      "https://images.unsplash.com/photo-1771491237225-01931a752f58?w=1400&q=80&auto=format&fit=crop",
+    objectPosition: "center 45%",
+    overlayCopy: "Touchpoints, trim, and screens restored to clean satin.",
   },
   {
-    id: "badge-detail",
-    title: "Badge + Hood Detail",
-    subtitle: "precision finish on dark paint",
+    id: "vent-crevice",
+    title: "Vent + Crevice Detail",
+    subtitle: "precision interior dust extraction",
+    image:
+      "https://images.unsplash.com/photo-1656077884513-efd5e02193af?w=1400&q=80&auto=format&fit=crop",
+    objectPosition: "center 50%",
+    overlayCopy: "Fine dust lifted from vents, seams, and hard-to-reach edges.",
+  },
+  {
+    id: "driver-view",
+    title: "Driver View Clarity",
+    subtitle: "hermosa beach weekly maintenance",
     image:
       "https://images.unsplash.com/photo-1485463611174-f302f6a5c1c9?w=1400&q=80&auto=format&fit=crop",
     objectPosition: "center 58%",
-    overlayCopy: "Fine dust and film removed around emblems.",
-  },
-  {
-    id: "door-jamb-repeat",
-    title: "Seam + Hinge Precision",
-    subtitle: "hermosa beach weekly maintenance",
-    image:
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400&q=80&auto=format&fit=crop",
-    objectPosition: "58% center",
-    overlayCopy: "Sand and salt lifted from hidden seams.",
+    overlayCopy: "Subtle exterior context, with interior finish still front-and-center.",
   },
 ];
 
