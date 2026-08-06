@@ -19,16 +19,49 @@ const fadeUp = {
   }),
 };
 
+function CompareVisual({ className }: { className?: string }) {
+  return (
+    <div
+      className={`relative overflow-hidden rounded-sm bg-beige/90 shadow-xl shadow-burgundy/15 ${className ?? ""}`}
+    >
+      <ReactCompareSlider
+        itemOne={
+          <ReactCompareSliderImage
+            src="/hero-before.png"
+            alt="Before detail condition"
+            style={{ objectFit: "cover", objectPosition: "center top" }}
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src="/hero-after.png"
+            alt="After detail finish"
+            style={{ objectFit: "cover", objectPosition: "center top" }}
+          />
+        }
+        className="h-full w-full"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+      <div className="absolute left-3 top-3 rounded-full bg-charcoal/65 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white/95 backdrop-blur-sm">
+        Before
+      </div>
+      <div className="absolute right-3 top-3 rounded-full bg-charcoal/65 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white/95 backdrop-blur-sm">
+        After
+      </div>
+    </div>
+  );
+}
+
 export function Hero() {
   return (
-    <section className="flex min-h-[100svh] flex-col overflow-hidden bg-beige pt-16 sm:pt-20">
+    <section className="flex min-h-[100svh] flex-col overflow-hidden bg-dusty-rose pt-16 sm:pt-20">
       <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 sm:px-6 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8 lg:px-8">
         <motion.div
           custom={0}
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="flex flex-1 flex-col justify-center py-8 text-center lg:flex-none lg:py-8 lg:text-left"
+          className="flex flex-1 flex-col justify-center py-6 text-center lg:flex-none lg:py-8 lg:text-left"
         >
           <h1 className="font-serif text-[clamp(2.5rem,8.5vw,3.75rem)] font-bold leading-[1.05] tracking-tight text-stone-900">
             Your boutique mobile detailing, right in your driveway.
@@ -54,38 +87,26 @@ export function Hero() {
           </p>
         </motion.div>
 
+        {/* Mobile: interactive slider teased at bottom (handle stays visible) */}
         <motion.div
           custom={1}
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="relative mx-auto w-full max-w-md shrink-0 max-lg:h-[24svh] max-lg:overflow-hidden lg:h-auto lg:overflow-visible"
+          className="mx-auto w-full max-w-lg shrink-0 pb-2 lg:hidden"
         >
-          <div className="relative mx-auto overflow-hidden rounded-sm bg-beige/90 shadow-xl shadow-burgundy/15 max-lg:absolute max-lg:inset-x-0 max-lg:top-0 max-lg:h-[70svh] max-lg:w-full lg:h-[min(64svh,580px)] lg:aspect-[4/5] lg:max-w-full">
-            <ReactCompareSlider
-              itemOne={
-                <ReactCompareSliderImage
-                  src="/hero-before.png"
-                  alt="Before detail condition"
-                />
-              }
-              itemTwo={
-                <ReactCompareSliderImage
-                  src="/hero-after.png"
-                  alt="After detail finish"
-                />
-              }
-              className="h-full w-full"
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+          <CompareVisual className="h-[28svh] w-full" />
+        </motion.div>
 
-            <div className="absolute left-4 top-4 rounded-full bg-charcoal/65 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white/95 backdrop-blur-sm">
-              Before
-            </div>
-            <div className="absolute right-4 top-4 rounded-full bg-charcoal/65 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-white/95 backdrop-blur-sm">
-              After
-            </div>
-          </div>
+        {/* Desktop: full tall slider */}
+        <motion.div
+          custom={1}
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          className="mx-auto hidden w-full max-w-md lg:block"
+        >
+          <CompareVisual className="mx-auto h-[min(64svh,580px)] aspect-[4/5] max-w-full" />
         </motion.div>
       </div>
     </section>
