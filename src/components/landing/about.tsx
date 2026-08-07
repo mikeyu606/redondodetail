@@ -30,10 +30,10 @@ export function About() {
             <div className="relative overflow-hidden rounded-3xl border-2 border-pink-medium/50 bg-white shadow-lg shadow-pink-medium/20">
               <div className="relative aspect-[4/5] w-full">
                 <Image
-                  src="/founder.png"
+                  src="/founder-mia.png"
                   alt={`${founderName}, founder of Redondo Detail`}
                   fill
-                  className="object-cover object-center"
+                  className="object-cover object-[center_15%]"
                   sizes="(max-width: 1024px) 100vw, 480px"
                   priority={false}
                 />
