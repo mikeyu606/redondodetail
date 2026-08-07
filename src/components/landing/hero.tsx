@@ -34,7 +34,7 @@ const fadeUp = {
 export function Hero() {
   return (
     <section className="flex flex-col">
-      <div className="bg-dusty-rose pt-14 sm:pt-16">
+      <div className="bg-dusty-rose pt-16 sm:pt-16 lg:pt-16">
         {/* Desktop: two-column */}
         <div className="mx-auto hidden w-full max-w-6xl px-4 sm:px-6 lg:grid lg:min-h-[calc(100svh-5rem)] lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-8 lg:pb-10">
           <motion.div
@@ -45,7 +45,7 @@ export function Hero() {
             className="flex flex-col justify-center py-8 text-left"
           >
             <h1 className="font-heading text-[clamp(2.5rem,4.5vw,3.75rem)] font-medium leading-[1.12] tracking-[-0.01em] text-burgundy">
-            Luxury car detailing at your doorstep, automated.
+              Luxury car detailing at your doorstep, automated.
             </h1>
             <p className="mt-5 max-w-md text-base leading-relaxed text-burgundy sm:text-lg">
               Complete interior and exterior coastal care every two
@@ -76,9 +76,14 @@ export function Hero() {
             variants={fadeUp}
             className="mx-auto w-full max-w-md"
           >
-            {/* Native photo ratio ~734×980 — avoid cover-cropping */}
-            <div className="aspect-[3/4] w-full overflow-hidden rounded-sm">
-              <CompareVisual className="h-full w-full rounded-sm" />
+            {/* Native photo ratio ~734×980 — arched top like a window frame */}
+            <div
+              className="aspect-[3/4] w-full overflow-hidden"
+              style={{
+                borderRadius: "50% 50% 0.5rem 0.5rem / 18% 18% 0.5rem 0.5rem",
+              }}
+            >
+              <CompareVisual className="h-full w-full" />
             </div>
           </motion.div>
         </div>
@@ -90,21 +95,21 @@ export function Hero() {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="mx-auto flex w-full max-w-2xl flex-col items-center px-5 pb-8 pt-10 text-center sm:px-8 sm:pb-10 sm:pt-12"
+            className="mx-auto flex w-full max-w-sm flex-col items-center px-6 pb-6 pt-12 text-center sm:max-w-md sm:px-8 sm:pb-8 sm:pt-14"
           >
-            <h1 className="font-heading text-[clamp(2.25rem,8vw,3.25rem)] font-medium leading-[1.12] tracking-[-0.01em] text-burgundy">
+            <h1 className="font-heading text-[1.75rem] font-medium leading-[1.2] tracking-[-0.01em] text-burgundy sm:text-[2rem]">
               Luxury car detailing at your doorstep, automated.
             </h1>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-burgundy sm:text-lg">
+            <p className="mt-3 max-w-[20rem] text-sm leading-relaxed text-burgundy sm:mt-4 sm:text-base">
               Complete interior and exterior coastal care every two
               weeks&mdash;freeing you from car wash lines while you enjoy the
               beach.
             </p>
-            <div className="mt-7">
+            <div className="mt-5 sm:mt-6">
               <Button
                 asChild
-                size="default"
-                className="h-11 rounded-sm px-8 text-xs tracking-[0.14em] bg-burgundy text-white hover:bg-pink-primary-hover"
+                size="sm"
+                className="h-10 rounded-sm px-6 text-xs tracking-[0.12em] bg-burgundy text-white hover:bg-pink-primary-hover"
               >
                 <Link href="#route-schedule">Reserve Your Slot</Link>
               </Button>

@@ -50,7 +50,7 @@ export function Navbar() {
 
         <Link
           href="/"
-          className="absolute left-1/2 z-10 -translate-x-1/2 font-brand text-[1.65rem] font-normal lowercase leading-none tracking-[-0.02em] text-charcoal sm:text-[1.85rem]"
+          className="absolute left-1/2 z-10 -translate-x-1/2 font-brand text-[1.4rem] font-normal lowercase leading-none tracking-[-0.02em] text-charcoal sm:text-[1.85rem]"
         >
           redondo detail
         </Link>
