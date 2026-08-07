@@ -31,22 +31,13 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 border-b transition-all duration-300",
-        scrolled
-          ? "border-charcoal/15 bg-beige/95 backdrop-blur-md"
-          : "border-charcoal/10 bg-beige"
+        "fixed inset-x-0 top-0 z-50 border-b border-charcoal/10 transition-all duration-300",
+        scrolled ? "bg-beige/95 backdrop-blur-md" : "bg-beige"
       )}
     >
-      <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6 lg:px-8">
-        <Link
-          href="/"
-          className="font-brand text-[1.65rem] font-normal lowercase leading-none tracking-[-0.02em] text-charcoal sm:text-[1.85rem]"
-        >
-          redondo detail
-        </Link>
-
-        <div className="hidden items-center gap-7 lg:flex">
-          {navLinks.map((link) => (
+      <nav className="relative mx-auto flex h-14 max-w-7xl items-center px-4 sm:h-16 sm:px-6 lg:px-8">
+        <div className="hidden flex-1 items-center gap-6 lg:flex">
+          {navLinks.slice(0, 4).map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -57,7 +48,25 @@ export function Navbar() {
           ))}
         </div>
 
-        <div className="flex items-center gap-3">
+        <Link
+          href="/"
+          className="absolute left-1/2 z-10 -translate-x-1/2 font-brand text-[1.65rem] font-normal lowercase leading-none tracking-[-0.02em] text-charcoal sm:text-[1.85rem]"
+        >
+          redondo detail
+        </Link>
+
+        <div className="ml-auto flex flex-1 items-center justify-end gap-3">
+          <div className="hidden items-center gap-6 lg:flex">
+            {navLinks.slice(4).map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm lowercase text-charcoal transition-colors hover:text-burgundy"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
           <Button asChild className="hidden sm:inline-flex" size="sm">
             <Link href="#route-schedule">Book Slot</Link>
           </Button>
@@ -78,12 +87,7 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className={cn(
-              "overflow-hidden border-t lg:hidden",
-              scrolled
-                ? "border-border bg-beige"
-                : "border-burgundy/10 bg-beige"
-            )}
+            className="overflow-hidden border-t border-charcoal/10 bg-beige lg:hidden"
           >
             <div className="flex flex-col gap-1 px-4 py-4">
               {navLinks.map((link) => (
