@@ -93,7 +93,7 @@ export function Hero() {
             className="mx-auto flex w-full max-w-2xl flex-col items-center px-5 pb-8 pt-10 text-center sm:px-8 sm:pb-10 sm:pt-12"
           >
             <h1 className="font-heading text-[clamp(2.25rem,8vw,3.25rem)] font-medium leading-[1.12] tracking-[-0.01em] text-burgundy">
-              Keep Your Vehicle Like New On Autopilot
+              Luxury car detailing at your doorstep, automated.
             </h1>
             <p className="mt-5 max-w-md text-base leading-relaxed text-burgundy sm:text-lg">
               Complete interior and exterior coastal care every two
