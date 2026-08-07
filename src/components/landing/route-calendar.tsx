@@ -56,7 +56,7 @@ const routes: RouteOption[] = [
     weekday: 6, // Saturday
     slotsLeft: 2,
     status: "open",
-    image: "/zero-friction-driveway.png",
+    image: "/route-north-redondo.jpg",
   },
   {
     id: "south-redondo",
@@ -65,7 +65,7 @@ const routes: RouteOption[] = [
     weekday: 0, // Sunday
     slotsLeft: 3,
     status: "open",
-    image: "/card3.png",
+    image: "/route-south-redondo.jpg",
   },
   {
     id: "hermosa-manhattan",
@@ -74,7 +74,7 @@ const routes: RouteOption[] = [
     weekday: 4,
     slotsLeft: null,
     status: "waitlist",
-    image: "/hero-after.png",
+    image: "/route-hermosa-manhattan.jpg",
   },
 ];
 
@@ -171,11 +171,20 @@ function buildWindows(weekday: Day, now: Date = new Date()): WindowOption[] {
   return windows.slice(0, 4);
 }
 
-function calcVisitTotal(tiers: TierId[], vehicleCount: VehicleCount) {
-  const selected = tiers.slice(0, vehicleCount).map((id) => getTierById(id));
-  const raw = selected.reduce((sum, t) => sum + t.subscriptionPrice, 0);
+function calcVisitPricing(tiers: TierId[], vehicleCount: VehicleCount) {
+  const selected = tiers.slice(0, vehicleCount).map((id, index) => {
+    const tier = getTierById(id);
+    return {
+      index,
+      id: tier.id,
+      label: tier.name.replace(" Care", ""),
+      price: tier.subscriptionPrice,
+    };
+  });
+  const subtotal = selected.reduce((sum, v) => sum + v.price, 0);
   const bundleDiscount = vehicleCount >= 2 ? 20 : 0;
-  return Math.max(0, raw - bundleDiscount);
+  const total = Math.max(0, subtotal - bundleDiscount);
+  return { selected, subtotal, bundleDiscount, total };
 }
 
 export function RouteCalendar() {
@@ -217,8 +226,8 @@ export function RouteCalendar() {
       setWindowId(null);
     }
   }, [windows, windowId]);
-  const visitTotal = calcVisitTotal(tiers, vehicleCount);
-  const primaryTier = getTierById(tiers[0] ?? "crossover");
+  const pricing = calcVisitPricing(tiers, vehicleCount);
+  const visitTotal = pricing.total;
 
   const canNext =
     step === 0
@@ -232,8 +241,9 @@ export function RouteCalendar() {
   function syncTier(count: VehicleCount) {
     setVehicleCount(count);
     setTiers((prev) => {
+      const fillWith = prev[0] ?? "crossover";
       const next = [...prev];
-      while (next.length < count) next.push("crossover");
+      while (next.length < count) next.push(fillWith);
       return next.slice(0, count);
     });
   }
@@ -308,16 +318,6 @@ export function RouteCalendar() {
     }
   }
 
-  const summaryLine = selectedRoute
-    ? [
-        `${selectedRoute.name} Route`,
-        selectedWindow
-          ? `${format(selectedWindow.date, "EEE, MMM d")} (${selectedWindow.period === "morning" ? "Morning" : "Afternoon"})`
-          : selectedRoute.dayLabel,
-        `${vehicleCount} ${vehicleCount === 1 ? primaryTier.name.replace(" Care", "") : "vehicles"} ($${visitTotal}/visit)`,
-      ].join(" · ")
-    : "Select your route to continue";
-
   return (
     <section id="route-schedule" className="bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -390,7 +390,7 @@ export function RouteCalendar() {
                                   {route.name}
                                 </p>
                                 <p className="mt-0.5 text-sm text-slate">
-                                  {route.dayLabel} · {route.slotsLeft} slots left
+                                  {route.slotsLeft} slots left
                                 </p>
                               </div>
                             </button>
@@ -412,7 +412,7 @@ export function RouteCalendar() {
                         <div
                           className="size-14 shrink-0 rounded-full bg-cover bg-center grayscale"
                           style={{
-                            backgroundImage: `url(/hero-after.png)`,
+                            backgroundImage: `url(/route-hermosa-manhattan.jpg)`,
                           }}
                         />
                         <div>
@@ -471,6 +471,11 @@ export function RouteCalendar() {
                             <div key={i}>
                               <p className="mb-2 text-xs font-medium uppercase tracking-wide text-slate/70">
                                 Vehicle {i + 1}
+                                {pricing.selected[i] ? (
+                                  <span className="ml-2 normal-case tracking-normal text-burgundy">
+                                    ${pricing.selected[i].price}
+                                  </span>
+                                ) : null}
                               </p>
                               <div className="flex flex-wrap gap-2">
                                 {pricingTiers.map((tier) => (
@@ -485,7 +490,8 @@ export function RouteCalendar() {
                                         : "border-border bg-white text-slate hover:border-burgundy/50"
                                     )}
                                   >
-                                    {tier.name.replace(" Care", "")}
+                                    {tier.name.replace(" Care", "")} · $
+                                    {tier.subscriptionPrice}
                                   </button>
                                 ))}
                               </div>
@@ -517,6 +523,32 @@ export function RouteCalendar() {
                           </div>
                         </div>
                       )}
+
+                      <div className="mt-6 rounded-2xl border border-burgundy/20 bg-pink-light/50 px-4 py-3 text-sm">
+                        {pricing.selected.map((v) => (
+                          <div
+                            key={`${v.index}-${v.id}`}
+                            className="flex items-center justify-between py-1 text-charcoal"
+                          >
+                            <span>
+                              Vehicle {v.index + 1} · {v.label}
+                            </span>
+                            <span className="font-medium">${v.price}</span>
+                          </div>
+                        ))}
+                        {pricing.bundleDiscount > 0 ? (
+                          <div className="flex items-center justify-between py-1 text-burgundy">
+                            <span>Driveway bundle discount</span>
+                            <span className="font-medium">
+                              −${pricing.bundleDiscount}
+                            </span>
+                          </div>
+                        ) : null}
+                        <div className="mt-2 flex items-center justify-between border-t border-burgundy/15 pt-2 font-semibold text-charcoal">
+                          <span>Per visit total</span>
+                          <span>${pricing.total}</span>
+                        </div>
+                      </div>
                     </div>
                   )}
 
@@ -597,9 +629,31 @@ export function RouteCalendar() {
                         </label>
                       </div>
 
-                      <div className="mt-6 flex items-start gap-3 rounded-full border border-burgundy/20 bg-pink-light/60 px-4 py-3 text-sm text-charcoal">
-                        <MapPin className="mt-0.5 size-4 shrink-0 text-burgundy" />
-                        <p className="leading-snug">{summaryLine}</p>
+                      <div className="mt-6 rounded-2xl border border-burgundy/20 bg-pink-light/60 px-4 py-3 text-sm text-charcoal">
+                        <div className="flex items-start gap-3">
+                          <MapPin className="mt-0.5 size-4 shrink-0 text-burgundy" />
+                          <div className="min-w-0 flex-1 space-y-1">
+                            <p className="font-medium">
+                              {selectedRoute?.name} Route
+                              {selectedWindow
+                                ? ` · ${format(selectedWindow.date, "EEE, MMM d")} (${selectedWindow.period === "morning" ? "Morning" : "Afternoon"})`
+                                : ""}
+                            </p>
+                            {pricing.selected.map((v) => (
+                              <p key={`${v.index}-${v.id}`} className="text-slate">
+                                Vehicle {v.index + 1}: {v.label} — ${v.price}
+                              </p>
+                            ))}
+                            {pricing.bundleDiscount > 0 ? (
+                              <p className="text-burgundy">
+                                Driveway bundle −${pricing.bundleDiscount}
+                              </p>
+                            ) : null}
+                            <p className="font-semibold text-charcoal">
+                              ${visitTotal}/visit
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}

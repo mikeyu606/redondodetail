@@ -76,7 +76,7 @@ export async function POST(request: Request) {
     };
 
     const session = await getStripe().checkout.sessions.create({
-      ui_mode: "embedded",
+      ui_mode: "embedded_page",
       mode: isSubscription ? "subscription" : "payment",
       customer_email: body.customerEmail || undefined,
       allow_promotion_codes: true,
