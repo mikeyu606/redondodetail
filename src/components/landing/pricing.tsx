@@ -29,7 +29,7 @@ export function Pricing() {
       <section id="pricing" className="bg-white py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
+            <h2 className="font-heading text-4xl font-medium tracking-tight text-charcoal sm:text-5xl">
               Simple, Transparent Pricing
             </h2>
             <p className="mt-4 text-slate">

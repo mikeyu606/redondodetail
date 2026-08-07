@@ -30,7 +30,7 @@ export function CoastalStack() {
     <section id="coastal-care" className="bg-white py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-4xl font-semibold leading-tight tracking-tight text-charcoal sm:text-5xl">
+          <h2 className="font-heading text-4xl font-medium leading-tight tracking-tight text-charcoal sm:text-5xl">
             Total Coastal Protection 
           </h2>
           <p className="mt-4 text-slate">

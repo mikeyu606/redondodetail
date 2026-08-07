@@ -9,7 +9,7 @@ export default function BookingSuccessPage() {
         <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-dusty-rose/40">
           <CheckCircle2 className="size-7 text-burgundy" />
         </div>
-        <h1 className="text-2xl font-semibold tracking-tight text-charcoal">
+        <h1 className="font-heading text-2xl font-medium tracking-tight text-charcoal">
           You&apos;re on the route!
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-slate">

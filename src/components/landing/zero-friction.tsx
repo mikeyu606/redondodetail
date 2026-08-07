@@ -35,7 +35,7 @@ export function ZeroFriction() {
   return (
     <section id="zero-friction" className="bg-white pb-6 pt-16 sm:pb-8 sm:pt-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
+        <h2 className="font-heading text-center text-4xl font-medium tracking-tight text-charcoal sm:text-5xl">
           Set It Once. Enjoy All Year.
         </h2>
 

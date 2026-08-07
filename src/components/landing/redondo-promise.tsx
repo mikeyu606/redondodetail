@@ -40,7 +40,7 @@ export function RedondoPromise({
           <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-dusty-rose/50">
             <Shield className="size-6 text-burgundy" />
           </div>
-          <h2 className="text-3xl font-semibold text-burgundy sm:text-4xl">
+          <h2 className="font-heading text-3xl font-medium text-burgundy sm:text-4xl">
             {title}
           </h2>
           <p className="mt-4 text-base leading-relaxed text-burgundy/80 sm:text-lg">
