@@ -3,9 +3,9 @@
 
 :root {
   /* Cocokind-inspired — warm beige + dusty rose */
-  --beige: #f0e6dc;
-  --background: #f0e6dc;
-  --cream: #f5ebe3;
+  --beige: #f9f5f1;
+  --background: #f9f5f1;
+  --cream: #f9f5f1;
   --foreground: #1a1a1a;
   --charcoal: #1a1a1a;
   --slate: #4a4a4a;
@@ -70,6 +70,7 @@
   --color-pink: var(--pink-medium);
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-playfair);
+  --font-heading: var(--font-petrona);
   --font-brand: var(--font-cormorant);
   --font-display: var(--font-montserrat);
   --font-mono: var(--font-geist-mono);
@@ -123,6 +124,10 @@ body {
 
 .font-serif {
   font-family: var(--font-playfair), Georgia, "Times New Roman", serif;
+}
+
+.font-heading {
+  font-family: var(--font-petrona), Georgia, "Times New Roman", serif;
 }
 
 .font-brand {

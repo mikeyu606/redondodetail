@@ -5,6 +5,7 @@ import {
   Playfair_Display,
   Cormorant_Garamond,
   Montserrat,
+  Petrona,
 } from "next/font/google";
 import "./globals.css";
 
@@ -35,6 +36,12 @@ const montserrat = Montserrat({
   weight: ["500", "600", "700", "800"],
 });
 
+const petrona = Petrona({
+  variable: "--font-petrona",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
   title: "Redondo Detail | Premier Mobile Auto Spa — South Bay",
   description:
@@ -61,7 +68,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${cormorant.variable} ${montserrat.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${cormorant.variable} ${montserrat.variable} ${petrona.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white font-sans text-charcoal">
         {children}

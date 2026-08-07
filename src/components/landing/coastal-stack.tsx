@@ -31,10 +31,10 @@ export function CoastalStack() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-4xl font-semibold leading-tight tracking-tight text-charcoal sm:text-5xl">
-            Total Coastal Protection System
+            Total Coastal Protection 
           </h2>
           <p className="mt-4 text-slate">
-            Not just a wash. Sand and salt armor built for Redondo, Hermosa,
+            More than just a wash. Sand and salt armor built for Redondo, Hermosa,
             Manhattan Beach, and Palos Verdes.
           </p>
         </div>
