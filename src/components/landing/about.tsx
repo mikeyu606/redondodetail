@@ -23,17 +23,17 @@ export function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="relative mx-auto w-full max-w-md lg:max-w-none"
+            className="relative mx-auto w-full max-w-sm lg:max-w-md"
           >
             <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-pink-medium/40 to-blush-deep/60 blur-sm" />
             <div className="relative overflow-hidden rounded-3xl border-2 border-pink-medium/50 bg-white shadow-lg shadow-pink-medium/20">
-              <div className="relative aspect-[4/5] w-full">
+              <div className="relative aspect-square w-full">
                 <Image
-                  src="/founder-mia.png"
+                  src="/founder-sophie.png"
                   alt={`${founderName}, founder of ${businessName}`}
                   fill
-                  className="object-cover object-[center_15%]"
-                  sizes="(max-width: 1024px) 100vw, 480px"
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 90vw, 420px"
                   priority={false}
                 />
               </div>

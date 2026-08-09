@@ -50,7 +50,7 @@ export function Navbar() {
 
         <Link
           href="/"
-          className="absolute left-1/2 z-10 -translate-x-1/2 whitespace-nowrap font-brand text-[1.15rem] font-normal lowercase leading-none tracking-[-0.02em] text-charcoal sm:text-[1.55rem]"
+          className="absolute left-1/2 z-10 -translate-x-1/2 whitespace-nowrap font-brand text-[1.3rem] font-normal lowercase leading-none tracking-[-0.02em] text-charcoal sm:text-[1.75rem]"
         >
           her driveway club
         </Link>

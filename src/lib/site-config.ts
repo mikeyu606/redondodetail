@@ -1,6 +1,6 @@
 /** Update founderName with your first name */
 export const siteConfig = {
-  founderName: "Mia",
+  founderName: "Sophie",
   businessName: "Her Driveway Club",
   founderSchool: "UCLA",
   tagline:
