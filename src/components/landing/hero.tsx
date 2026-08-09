@@ -94,12 +94,12 @@ export function Hero() {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="mx-auto flex w-full max-w-sm flex-col items-center px-6 pb-6 pt-12 text-center sm:max-w-md sm:px-8 sm:pb-8 sm:pt-14"
+            className="mx-auto flex w-full max-w-lg flex-col items-center px-5 pb-7 pt-12 text-center sm:px-8 sm:pb-9 sm:pt-14"
           >
-            <h1 className="font-heading text-[1.75rem] font-bold leading-[1.2] tracking-[-0.01em] text-burgundy sm:text-[2rem]">
+            <h1 className="font-heading w-full text-[clamp(2.35rem,9vw,2.85rem)] font-bold leading-[1.08] tracking-[-0.02em] text-burgundy">
               Never Wait in Line for a Car Wash Again
             </h1>
-            <p className="mt-3 max-w-[20rem] text-sm leading-relaxed text-burgundy sm:mt-4 sm:text-base">
+            <p className="mt-4 max-w-md text-base leading-relaxed text-burgundy sm:mt-5 sm:text-lg">
               Woman-owned, white-glove doorstep concierge resetting family SUVs
               so busy parents get their weekends back.
             </p>

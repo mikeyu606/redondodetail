@@ -71,7 +71,7 @@ export function About() {
                 Woman-owned
               </Badge>
               <Badge variant="secondary" className="px-3 py-1">
-                Launching in Newport
+                4.5+ yr of experience
               </Badge>
             </div>
 
@@ -81,29 +81,31 @@ export function About() {
                 resetting family SUVs so busy parents get their weekends back.
               </p>
               <p>
-                I started this because every car-wash option felt the same: a
-                guy with a hose, a long line, and another Saturday gone. Coastal
-                families deserve something easier—and someone they actually
-                trust pulling into the driveway.
+                I started this because every car-wash option felt identical:
+                long tunnel lines, unpredictable quality, and another Saturday
+                morning wasted. Coastal families deserve something
+                seamless—and a team they genuinely trust pulling into their
+                driveway.
               </p>
               <p>
-                We&apos;re building it the founder way: high energy, local, and
-                personal. One of our girls comes out, washes your car
-                bi-weekly, and leaves the interior looking brand new—on
-                auto-pay, like DoorDash for your driveway.
+                We&apos;re building this with a focus on details, high energy,
+                and personal service. Our team visits your driveway bi-weekly,
+                resets your interior and exterior, and leaves your SUV looking
+                brand new—all on hands-free auto-pay, like DoorDash for your
+                vehicle.
               </p>
               <p>
-                Launching in Newport Beach coastal zips first, then expanding
-                route by route (and yes—pool routes are on the roadmap once
-                you&apos;re hooked).
+                Launching across Newport Beach coastal zips first, building our
+                routes neighborhood by neighborhood.
               </p>
             </div>
 
             <div className="flex items-start gap-3 rounded-2xl border border-pink-medium/40 bg-white/80 px-5 py-4 shadow-sm">
               <Heart className="mt-0.5 size-5 shrink-0 fill-pink-primary/20 text-pink-primary" />
               <p className="text-base font-medium leading-relaxed text-charcoal">
-                Women supporting women—because when every competitor is another
-                guy with a sprayer, memorability matters.
+                Built on Trust &amp; Detail: Because when every other option is
+                just another cold service app, personal care and true peace of
+                mind matter.
               </p>
             </div>
           </motion.div>

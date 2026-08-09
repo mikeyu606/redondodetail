@@ -334,17 +334,19 @@ export function RouteCalendar() {
           </p>
         </div>
 
-        <div className="mx-auto mt-12 max-w-4xl rounded-[1.75rem] border border-border/80 bg-white p-5 shadow-[0_20px_60px_-30px_rgba(194,24,91,0.35)] sm:p-8">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={waitlistDone ? "done" : step}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.25 }}
-            >
+        <div className="mx-auto mt-12 flex max-w-4xl flex-col rounded-[1.75rem] border border-border/80 bg-white p-5 shadow-[0_20px_60px_-30px_rgba(194,24,91,0.35)] sm:p-8">
+          <div className="relative h-[30rem] overflow-y-auto overscroll-contain sm:h-[32rem]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={waitlistDone ? "done" : step}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+                className="min-h-full"
+              >
               {waitlistDone ? (
-                <div className="py-10 text-center">
+                <div className="flex min-h-full flex-col items-center justify-center py-10 text-center">
                   <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-dusty-rose/50">
                     <Check className="size-7 text-burgundy" />
                   </div>
@@ -660,6 +662,7 @@ export function RouteCalendar() {
               )}
             </motion.div>
           </AnimatePresence>
+          </div>
 
           {!waitlistDone ? (
             <div className="mt-8 flex flex-col gap-4 border-t border-border/70 pt-5 sm:flex-row sm:items-center sm:justify-between">
