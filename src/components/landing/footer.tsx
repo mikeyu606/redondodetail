@@ -143,14 +143,14 @@ export function Footer() {
         </p>
 
         <p className="mx-auto mt-4 max-w-md text-center text-xs lowercase leading-relaxed text-charcoal/70">
-          a woman-owned south bay mobile detailing studio. all services are
-          performed under full liability insurance for your peace of mind at
-          home.
+          a woman-owned coastal mobile car wash club. white-glove driveway
+          service under full liability insurance—so busy parents get weekends
+          back.
         </p>
 
         <p className="mt-6 text-center text-xs lowercase text-charcoal/70">
-          © {year}, {siteConfig.businessName.toLowerCase()} | proudly serving
-          redondo, hermosa, manhattan beach &amp; palos verdes
+          © {year}, {siteConfig.businessName.toLowerCase()} | launching newport
+          beach · palos verdes · south bay next
         </p>
       </div>
     </footer>

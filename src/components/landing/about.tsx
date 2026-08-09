@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { siteConfig } from "@/lib/site-config";
 
 export function About() {
-  const { founderName, founderSchool } = siteConfig;
+  const { founderName, founderSchool, businessName } = siteConfig;
 
   return (
     <section id="about" className="relative overflow-hidden bg-white py-20 sm:py-28">
@@ -18,7 +18,6 @@ export function About() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Photo */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -31,7 +30,7 @@ export function About() {
               <div className="relative aspect-[4/5] w-full">
                 <Image
                   src="/founder-mia.png"
-                  alt={`${founderName}, founder of Redondo Detail`}
+                  alt={`${founderName}, founder of ${businessName}`}
                   fill
                   className="object-cover object-[center_15%]"
                   sizes="(max-width: 1024px) 100vw, 480px"
@@ -41,13 +40,12 @@ export function About() {
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-pink-primary/80 via-pink-primary/40 to-transparent px-6 pb-5 pt-16">
                 <p className="text-lg font-semibold text-white">{founderName}</p>
                 <p className="text-sm text-white/85">
-                  Founder, Redondo Detail · Recent {founderSchool} grad
+                  Founder, {businessName} · Recent {founderSchool} grad
                 </p>
               </div>
             </div>
           </motion.div>
 
-          {/* Copy */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -70,42 +68,42 @@ export function About() {
                 Recent {founderSchool} graduate
               </Badge>
               <Badge variant="secondary" className="px-3 py-1">
-                South Bay local
+                Woman-owned
+              </Badge>
+              <Badge variant="secondary" className="px-3 py-1">
+                Launching in Newport
               </Badge>
             </div>
 
             <div className="space-y-4 text-base leading-relaxed text-slate sm:text-lg">
               <p>
-                We believe that stepping into a pristine vehicle sets the tone
-                for your entire day—and that a great car is an asset worth
-                preserving.
+                {businessName} is a woman-owned, white-glove doorstep concierge
+                resetting family SUVs so busy parents get their weekends back.
               </p>
               <p>
-                As a lifelong car enthusiast, I founded Redondo Detail out of a
-                genuine passion for fine automobiles and a frustration with how
-                quickly coastal salt, sun, and harsh drive-thru brushes ruin
-                them.
+                I started this because every car-wash option felt the same: a
+                guy with a hose, a long line, and another Saturday gone. Coastal
+                families deserve something easier—and someone they actually
+                trust pulling into the driveway.
               </p>
               <p>
-                I saw how tedious it was for busy locals to keep their vehicles
-                immaculate without wasting precious weekend hours at traditional
-                car washes—or worrying about who was pulling onto their
-                property.
+                We&apos;re building it the founder way: high energy, local, and
+                personal. One of our girls comes out, washes your car
+                bi-weekly, and leaves the interior looking brand new—on
+                auto-pay, like DoorDash for your driveway.
               </p>
               <p>
-                We built this service to give South Bay drivers a higher
-                standard of care: precision, paint-safe preservation and
-                effortless bi-weekly maintenance right in your driveway. Because
-                when you love what you drive, keeping it showroom-ready should
-                feel completely seamless.
+                Launching in Newport Beach coastal zips first, then expanding
+                route by route (and yes—pool routes are on the roadmap once
+                you&apos;re hooked).
               </p>
             </div>
 
             <div className="flex items-start gap-3 rounded-2xl border border-pink-medium/40 bg-white/80 px-5 py-4 shadow-sm">
               <Heart className="mt-0.5 size-5 shrink-0 fill-pink-primary/20 text-pink-primary" />
               <p className="text-base font-medium leading-relaxed text-charcoal">
-                When we&apos;re in your driveway, your vehicle is treated like
-                our own.
+                Women supporting women—because when every competitor is another
+                guy with a sprayer, memorability matters.
               </p>
             </div>
           </motion.div>

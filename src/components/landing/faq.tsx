@@ -11,33 +11,38 @@ import { siteConfig } from "@/lib/site-config";
 
 const faqs = [
   {
-    question: "What is The Redondo Detail Promise?",
+    question: "What is the Her Driveway Club Promise?",
     answer: siteConfig.promise.text,
+  },
+  {
+    question: "What’s included in the wash?",
+    answer:
+      "Exterior hand wash & rinse, interior vacuum and wipe-down, glass inside and out, wheels, tires, and door jambs—using 100% non-toxic, pet-safe products. 1% of income goes to cleaning up our coasts.",
   },
   {
     question: "Do I need to supply water or power?",
     answer:
-      "No, our mobile setup is fully self-contained! We bring our own water tanks, power generators, and professional-grade equipment. Your driveway is all we need.",
+      "No. Our mobile setup is fully self-contained. Your driveway is all we need.",
   },
   {
-    question: "Do I need to be home during the service?",
+    question: "Do I need to be home?",
     answer:
-      "No, as long as the vehicle is accessible in the driveway, we handle everything on autopilot. Many of our subscribers leave for work and come home to a spotless car.",
+      "Nope. We’ll text you about 30 minutes before arrival. As long as the car is in the driveway, one of our girls handles the rest—keys optional.",
   },
   {
     question: "How does the subscription work?",
     answer:
-      "Secured via Stripe. Pause, reschedule, or cancel anytime with zero hidden fees. You're billed automatically every two weeks, and we'll text you the night before each visit.",
+      "Think DoorDash for your driveway: bi-weekly washes on auto-pay via Stripe. Pause, reschedule, or cancel anytime. Family SUVs land around $180/mo.",
   },
   {
-    question: "What areas do you serve?",
+    question: "Where do you launch?",
     answer:
-      "We proudly serve Redondo Beach, Hermosa Beach, Manhattan Beach, and Palos Verdes. Routes are clustered by zip code for efficient, on-time service.",
+      "We’re launching in Newport Beach coastal zip codes first, with Palos Verdes and more South Bay routes next. Pool routes are coming once the driveway club is humming.",
   },
   {
-    question: "How long does a detail take?",
+    question: "Who actually washes my car?",
     answer:
-      "Most full details take 60–90 minutes depending on vehicle size and condition. We never rush — every jamb, vent, and glass panel gets our full attention.",
+      "We’re woman-owned and woman-operated. Trained team members—often local grads in their early 20s—come out for a focused few hours on your route day.",
   },
 ];
 

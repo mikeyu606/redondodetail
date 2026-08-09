@@ -1,27 +1,27 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Waves, Wind, Sun } from "lucide-react";
+import { Leaf, PawPrint, Waves } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const coastalItems = [
   {
-    icon: Wind,
-    title: "Deep Sand Extraction",
+    icon: Leaf,
+    title: "100% Non-Toxic",
     description:
-      "High-lift vacuuming and compressed air pull embedded beach sand out of deep carpet fibers and seams.",
+      "Gentle, paint-safe products you’d be comfortable around kids and coastal air—no harsh chemicals left behind.",
+  },
+  {
+    icon: PawPrint,
+    title: "Pet-Safe Always",
+    description:
+      "Formulas chosen with family life in mind. Dog hair, beach days, and busy back seats are our normal.",
   },
   {
     icon: Waves,
-    title: "Salt Air Paint Protection",
+    title: "1% for Our Coasts",
     description:
-      "Hydrophobic ceramic sealant helps neutralize salt-air oxidation and sticky ocean haze on paint and glass.",
-  },
-  {
-    icon: Sun,
-    title: "UV & Sunscreen Care",
-    description:
-      "Safe removal of sunscreen smudges from leather and door panels without stripping interior finishes.",
+      "One percent of income goes toward cleaning up the coastlines our neighborhoods love.",
   },
 ];
 
@@ -31,11 +31,11 @@ export function CoastalStack() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-heading text-4xl font-medium leading-tight tracking-tight text-charcoal sm:text-5xl">
-            Total Coastal Protection 
+            Built for Coastal Families
           </h2>
           <p className="mt-4 text-slate">
-            More than just a wash. Sand and salt armor built for Redondo, Hermosa,
-            Manhattan Beach, and Palos Verdes.
+            A bi-weekly mobile wash that feels like DoorDash for your driveway—
+            safe products, woman-owned care, and a little love for the coast.
           </p>
         </div>
 

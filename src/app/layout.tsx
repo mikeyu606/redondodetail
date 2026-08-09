@@ -43,22 +43,22 @@ const petrona = Petrona({
 });
 
 export const metadata: Metadata = {
-  title: "Redondo Detail | Premier Mobile Auto Spa — South Bay",
+  title: "Her Driveway Club | Woman-Owned Mobile Car Wash — Coastal CA",
   description:
-    "Boutique mobile car detailing for Redondo Beach, Hermosa Beach, Manhattan Beach & Palos Verdes. Woman-owned. Fully insured. Bi-weekly subscription slots available.",
+    "Woman-owned, white-glove doorstep car washes for busy coastal parents. Bi-weekly auto-pay from $180/mo. Launching in Newport Beach.",
   keywords: [
-    "mobile car detailing",
-    "Redondo Beach",
-    "South Bay",
-    "auto spa",
-    "car wash subscription",
+    "mobile car wash",
+    "Newport Beach",
+    "woman-owned",
+    "bi-weekly car wash",
+    "driveway car wash subscription",
   ],
   openGraph: {
-    title: "Redondo Detail | Premier Mobile Auto Spa",
+    title: "Her Driveway Club | Woman-Owned Mobile Car Wash",
     description:
-      "Spotless door jambs, streak-free glass, and satin tire finishes — delivered to your driveway on autopilot.",
+      "Doorstep concierge washes that reset family SUVs so busy parents get their weekends back.",
     url: "https://redondodetail.com",
-    siteName: "Redondo Detail",
+    siteName: "Her Driveway Club",
     locale: "en_US",
     type: "website",
   },

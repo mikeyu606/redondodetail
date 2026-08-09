@@ -26,7 +26,7 @@ import {
   type Day,
 } from "date-fns";
 
-type RouteId = "north-redondo" | "south-redondo" | "hermosa-manhattan";
+type RouteId = "newport" | "palos-verdes" | "south-bay";
 type VehicleCount = 1 | 2 | 3;
 
 type RouteOption = {
@@ -50,17 +50,17 @@ type WindowOption = {
 
 const routes: RouteOption[] = [
   {
-    id: "north-redondo",
-    name: "North Redondo",
+    id: "newport",
+    name: "Newport Beach",
     dayLabel: "Saturdays",
     weekday: 6, // Saturday
-    slotsLeft: 2,
+    slotsLeft: 4,
     status: "open",
     image: "/route-north-redondo.jpg",
   },
   {
-    id: "south-redondo",
-    name: "South Redondo",
+    id: "palos-verdes",
+    name: "Palos Verdes",
     dayLabel: "Sundays",
     weekday: 0, // Sunday
     slotsLeft: 3,
@@ -68,9 +68,9 @@ const routes: RouteOption[] = [
     image: "/route-south-redondo.jpg",
   },
   {
-    id: "hermosa-manhattan",
-    name: "Hermosa / Manhattan",
-    dayLabel: "Launching Soon",
+    id: "south-bay",
+    name: "South Bay / Pools",
+    dayLabel: "Coming Soon",
     weekday: 4,
     slotsLeft: null,
     status: "waitlist",
@@ -86,17 +86,17 @@ const vehicleOptions: {
   {
     count: 1,
     title: "1 Vehicle",
-    subtitle: "Standard Rate ($100–$140)",
+    subtitle: "From $140–$180/mo",
   },
   {
     count: 2,
     title: "2 Vehicles",
-    subtitle: "Driveway Bundle (Save $20/visit on 2nd car)",
+    subtitle: "Driveway Bundle (Save $20/visit)",
   },
   {
     count: 3,
     title: "3+ Vehicles",
-    subtitle: "Multi-Car Fleet",
+    subtitle: "Multi-car family fleet",
   },
 ];
 
@@ -191,7 +191,7 @@ export function RouteCalendar() {
   const [step, setStep] = useState(0);
   const [routeId, setRouteId] = useState<RouteId | null>(null);
   const [vehicleCount, setVehicleCount] = useState<VehicleCount>(1);
-  const [tiers, setTiers] = useState<TierId[]>(["crossover"]);
+  const [tiers, setTiers] = useState<TierId[]>(["suv"]);
   const [windowId, setWindowId] = useState<string | null>(null);
   const [address, setAddress] = useState("");
   const [zip, setZip] = useState("");
@@ -241,7 +241,7 @@ export function RouteCalendar() {
   function syncTier(count: VehicleCount) {
     setVehicleCount(count);
     setTiers((prev) => {
-      const fillWith = prev[0] ?? "crossover";
+      const fillWith = prev[0] ?? "suv";
       const next = [...prev];
       while (next.length < count) next.push(fillWith);
       return next.slice(0, count);
@@ -287,7 +287,7 @@ export function RouteCalendar() {
 
       const result = await createCheckoutSession({
         mode: "subscription",
-        tierId: tiers[0] ?? "crossover",
+        tierId: tiers[0] ?? "suv",
         amountCents: visitTotal * 100,
         frequency: "bi-weekly",
         routeId: selectedRoute.id,
@@ -352,8 +352,7 @@ export function RouteCalendar() {
                     You&apos;re on the waitlist
                   </h3>
                   <p className="mx-auto mt-3 max-w-md text-slate">
-                    We&apos;ll text you when Hermosa / Manhattan Thursday slots
-                    open.
+                    We&apos;ll text you when South Bay and pool routes open.
                   </p>
                 </div>
               ) : (
@@ -399,12 +398,12 @@ export function RouteCalendar() {
                       <button
                         type="button"
                         onClick={() => {
-                          setRouteId("hermosa-manhattan");
+                          setRouteId("south-bay");
                           setWindowId(null);
                         }}
                         className={cn(
                           "mt-4 flex w-full items-center gap-4 rounded-2xl border px-4 py-4 text-left transition-all",
-                          routeId === "hermosa-manhattan"
+                          routeId === "south-bay"
                             ? "border-burgundy bg-pink-light/50 ring-2 ring-burgundy/15"
                             : "border-dashed border-border bg-beige/40 opacity-80 hover:opacity-100"
                         )}
@@ -417,10 +416,10 @@ export function RouteCalendar() {
                         />
                         <div>
                           <p className="font-semibold text-charcoal">
-                            Hermosa / Manhattan
+                            South Bay / Pools
                           </p>
                           <p className="mt-0.5 text-sm text-slate">
-                            Launching Soon · Join waitlist
+                            Coming Soon · Join waitlist
                           </p>
                         </div>
                       </button>

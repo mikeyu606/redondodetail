@@ -10,6 +10,7 @@ import { BookingWizard, type BillingMode } from "@/components/landing/booking-wi
 import {
   pricingTiers,
   pricingFeatures,
+  getMonthlyEstimate,
   type TierId,
 } from "@/lib/pricing-data";
 import { cn } from "@/lib/utils";
@@ -17,7 +18,7 @@ import { cn } from "@/lib/utils";
 export function Pricing() {
   const [billing, setBilling] = useState<BillingMode>("subscription");
   const [wizardOpen, setWizardOpen] = useState(false);
-  const [selectedTierId, setSelectedTierId] = useState<TierId>("crossover");
+  const [selectedTierId, setSelectedTierId] = useState<TierId>("suv");
 
   function openWizard(tierId: TierId) {
     setSelectedTierId(tierId);
@@ -30,10 +31,10 @@ export function Pricing() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="font-heading text-4xl font-medium tracking-tight text-charcoal sm:text-5xl">
-              Simple, Transparent Pricing
+              Bi-Weekly Membership
             </h2>
             <p className="mt-4 text-slate">
-              Subscribe for the best rate and never think about scheduling again.
+              Auto-pay like DoorDash for your driveway. Family SUVs from $180/mo.
             </p>
 
             <div className="mt-8 inline-flex rounded-full border border-pink-medium/50 bg-white p-1 shadow-sm">
@@ -100,15 +101,18 @@ export function Pricing() {
                       <CardDescription>{tier.description}</CardDescription>
                       <div className="mt-4">
                         <span className="text-4xl font-bold text-charcoal">
-                          ${price}
+                          $
+                          {billing === "subscription"
+                            ? getMonthlyEstimate(price)
+                            : price}
                         </span>
                         <span className="text-slate">
-                          {billing === "subscription" ? "/visit" : " one-time"}
+                          {billing === "subscription" ? "/mo" : " one-time"}
                         </span>
                       </div>
                       {billing === "subscription" && (
                         <p className="mt-1 text-xs text-pink-primary">
-                          Billed automatically every 2 weeks
+                          ${price} every 2 weeks · pause anytime
                         </p>
                       )}
                     </CardHeader>
@@ -122,7 +126,7 @@ export function Pricing() {
                             <Check className="mt-0.5 size-4 shrink-0 text-pink-primary" />
                             <span
                               className={cn(
-                                feature.includes("bi-weekly billing") &&
+                                feature.toLowerCase().includes("bi-weekly") &&
                                   billing === "one-time" &&
                                   "line-through opacity-40"
                               )}

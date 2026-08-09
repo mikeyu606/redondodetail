@@ -438,11 +438,11 @@ export function BookingWizard({
                       [
                         {
                           value: "tuesday" as const,
-                          label: "Tuesdays — North Redondo",
+                          label: "Saturdays — Newport Beach",
                         },
                         {
                           value: "thursday" as const,
-                          label: "Thursdays — South Redondo / Riviera",
+                          label: "Sundays — Palos Verdes",
                         },
                         {
                           value: "either" as const,

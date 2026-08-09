@@ -3,6 +3,7 @@ export type TierId = "sedan" | "crossover" | "suv";
 export type PricingTier = {
   id: TierId;
   name: string;
+  /** Charged per bi-weekly visit */
   subscriptionPrice: number;
   oneTimePrice: number;
   description: string;
@@ -12,37 +13,37 @@ export type PricingTier = {
 export const pricingTiers: PricingTier[] = [
   {
     id: "sedan",
-    name: "Sedan / Coupe Care",
-    subscriptionPrice: 100,
-    oneTimePrice: 125,
-    description: "Perfect for daily drivers & compact luxury",
+    name: "Sedan / Coupe",
+    subscriptionPrice: 70,
+    oneTimePrice: 95,
+    description: "Daily drivers & compact cars",
     popular: false,
   },
   {
     id: "crossover",
     name: "Crossover / Mid-SUV",
-    subscriptionPrice: 120,
-    oneTimePrice: 150,
-    description: "Ideal for family crossovers & mid-size SUVs",
-    popular: true,
+    subscriptionPrice: 80,
+    oneTimePrice: 110,
+    description: "Family crossovers & mid-size SUVs",
+    popular: false,
   },
   {
     id: "suv",
-    name: "Full SUV / Truck",
-    subscriptionPrice: 140,
-    oneTimePrice: 175,
-    description: "Full-size SUVs, trucks & larger vehicles",
-    popular: false,
+    name: "Full SUV / Family",
+    subscriptionPrice: 90,
+    oneTimePrice: 125,
+    description: "Full-size SUVs — our $180/mo club favorite",
+    popular: true,
   },
 ];
 
 export const pricingFeatures = [
-  "Hand wash & touchless blow dry",
-  "Deep door & trunk jambs cleaned",
-  "AC vent dusting & console restoration",
-  "Interior glass haze removal",
-  "Satin tire dressing & brake dust clean",
-  "Stripe automated bi-weekly billing",
+  "Exterior hand wash & rinse",
+  "Interior vacuum, wipe-down & glass",
+  "Wheels, tires & door jambs",
+  "100% non-toxic & pet-safe products",
+  "1% of income goes to cleaning our coasts",
+  "Bi-weekly auto-pay — pause anytime",
 ];
 
 export function getTierById(id: TierId) {
@@ -54,4 +55,9 @@ export function getTierPrice(
   billing: "subscription" | "one-time"
 ) {
   return billing === "subscription" ? tier.subscriptionPrice : tier.oneTimePrice;
+}
+
+/** Approximate monthly total for bi-weekly visits */
+export function getMonthlyEstimate(visitPrice: number) {
+  return visitPrice * 2;
 }

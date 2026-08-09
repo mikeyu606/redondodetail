@@ -31,7 +31,7 @@ const proofCards: ProofCard[] = [
     id: "interior",
     name: "Lauren",
     quote:
-      "Mia is incredible—so thorough, so easy to work with, and my SUV has never looked this good. Absolute game changer.",
+      "You have to check out this woman-owned mobile car service—she comes every two weeks on auto-pay and the interior looks brand new. Lifesaver for our family.",
     afterLabel: "After 2 weeks",
     beforeSrc:
       "https://images.unsplash.com/photo-1771491237218-cbd4a707497e?w=800&q=80&auto=format&fit=crop",
@@ -67,7 +67,7 @@ export function Transformations() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <h2 className="font-heading max-w-xl text-3xl font-medium tracking-tight text-charcoal sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
-            South Bay drivers keep their cars pristine on autopilot*
+            Coastal parents get their weekends back on autopilot*
           </h2>
           <Button
             asChild

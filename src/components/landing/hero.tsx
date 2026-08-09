@@ -44,13 +44,12 @@ export function Hero() {
             variants={fadeUp}
             className="flex flex-col justify-center py-8 text-left"
           >
-            <h1 className="font-heading text-[clamp(2.5rem,4.5vw,3.75rem)] font-medium leading-[1.12] tracking-[-0.01em] text-burgundy">
-              Luxury car detailing at your doorstep, automated.
+            <h1 className="font-heading text-[clamp(2.5rem,4.5vw,3.75rem)] font-bold leading-[1.12] tracking-[-0.01em] text-burgundy">
+              Never Wait in Line for a Car Wash Again
             </h1>
             <p className="mt-5 max-w-md text-base leading-relaxed text-burgundy sm:text-lg">
-              Complete interior and exterior coastal care every two
-              weeks&mdash;freeing you from car wash lines while you enjoy the
-              beach.
+              Woman-owned, white-glove doorstep concierge resetting family SUVs
+              so busy parents get their weekends back.
             </p>
             <div className="mt-7">
               <Button
@@ -65,7 +64,7 @@ export function Hero() {
               </Button>
             </div>
             <p className="mt-4 text-xs tracking-wide text-burgundy/70 uppercase">
-              Fully insured · Coastal sand + salt care · 100% delight guarantee
+              Woman-owned · Non-toxic & pet-safe · From $180/mo
             </p>
           </motion.div>
 
@@ -97,13 +96,12 @@ export function Hero() {
             variants={fadeUp}
             className="mx-auto flex w-full max-w-sm flex-col items-center px-6 pb-6 pt-12 text-center sm:max-w-md sm:px-8 sm:pb-8 sm:pt-14"
           >
-            <h1 className="font-heading text-[1.75rem] font-medium leading-[1.2] tracking-[-0.01em] text-burgundy sm:text-[2rem]">
-              Luxury car detailing at your doorstep, automated.
+            <h1 className="font-heading text-[1.75rem] font-bold leading-[1.2] tracking-[-0.01em] text-burgundy sm:text-[2rem]">
+              Never Wait in Line for a Car Wash Again
             </h1>
             <p className="mt-3 max-w-[20rem] text-sm leading-relaxed text-burgundy sm:mt-4 sm:text-base">
-              Complete interior and exterior coastal care every two
-              weeks&mdash;freeing you from car wash lines while you enjoy the
-              beach.
+              Woman-owned, white-glove doorstep concierge resetting family SUVs
+              so busy parents get their weekends back.
             </p>
             <div className="mt-5 sm:mt-6">
               <Button

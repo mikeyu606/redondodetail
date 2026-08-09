@@ -6,27 +6,27 @@ import { motion } from "framer-motion";
 const steps = [
   {
     number: "01",
-    title: "Select Your Neighborhood",
+    title: "Pick Your Coastal Route",
     description:
-      "Pick your recurring day and window (Saturdays for North Redondo, Sundays for South Redondo).",
+      "Start with Newport Beach or Palos Verdes. Join the waitlist for South Bay—and pool routes once we’re live.",
     image: "/zero-friction-schedule.png",
-    alt: "Hand scheduling a Redondo Detail route on a phone",
+    alt: "Hand scheduling a Her Driveway Club route on a phone",
   },
   {
     number: "02",
     title: "Park in Your Driveway",
     description:
-      "We come to you bi-weekly—no keys needed, no waiting in lines. Just park in your driveway and we handle the rest.",
+      "We come to you bi-weekly. We'll text you 30 minutes before arrival—no keys needed, no waiting in lines. Just park in your driveway and we handle the rest.",
     image: "/zero-friction-driveway.png",
-    alt: "Pristine luxury vehicle parked on a bright coastal South Bay driveway",
+    alt: "Family SUV parked on a bright coastal driveway",
   },
   {
     number: "03",
-    title: "Automatic Coastal Care",
+    title: "Weekends Back on Autopilot",
     description:
-      "Your car stays pristine 365 days a year on autopilot. Pause, reschedule, or cancel anytime in one click.",
+      "One of our girls resets your SUV every two weeks on auto-pay. Pause anytime. Get your Saturdays back.",
     image: "/card3.png",
-    alt: "Owner with freshly detailed white Tesla after Redondo Detail coastal care",
+    alt: "Freshly washed white Tesla after Her Driveway Club visit",
     showNotification: true,
   },
 ];
@@ -69,13 +69,13 @@ export function ZeroFriction() {
                       <div className="flex items-start gap-2.5">
                         <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-burgundy">
                           <span className="font-brand text-[10px] font-semibold leading-none text-white">
-                            RD
+                            HD
                           </span>
                         </div>
                         <div className="min-w-0 flex-1 text-left">
                           <div className="flex items-baseline justify-between gap-2">
                             <p className="truncate font-brand text-sm leading-tight text-charcoal">
-                              Redondo Detail
+                              Her Driveway Club
                             </p>
                             <span className="shrink-0 text-[10px] text-slate">
                               now

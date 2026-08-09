@@ -47,7 +47,7 @@ export function BrandCarousel() {
   return (
     <div className="w-full pt-8 pb-10 sm:pt-10 sm:pb-12">
       <p className="mb-5 text-center text-[11px] font-medium tracking-[0.18em] text-slate/70 uppercase">
-        Vehicles We Regularly Service
+        Family SUVs We Love Washing
       </p>
 
       <div className="mx-auto flex max-w-5xl flex-nowrap items-center justify-center gap-x-4 px-4 sm:gap-x-10 lg:gap-x-12">
