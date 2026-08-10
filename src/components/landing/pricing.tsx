@@ -34,7 +34,7 @@ export function Pricing() {
               Bi-Weekly Membership
             </h2>
             <p className="mt-4 text-slate">
-              Auto-pay like DoorDash for your driveway. Family SUVs from $180/mo.
+              Automated driveway care for busy families. Pause or cancel anytime.
             </p>
 
             <div className="mt-8 inline-flex rounded-full border border-pink-medium/50 bg-white p-1 shadow-sm">
@@ -126,7 +126,8 @@ export function Pricing() {
                             <Check className="mt-0.5 size-4 shrink-0 text-pink-primary" />
                             <span
                               className={cn(
-                                feature.toLowerCase().includes("bi-weekly") &&
+                                (feature.toLowerCase().includes("bi-weekly") ||
+                                  feature.toLowerCase().includes("per month")) &&
                                   billing === "one-time" &&
                                   "line-through opacity-40"
                               )}

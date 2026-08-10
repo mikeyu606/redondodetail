@@ -1,7 +1,6 @@
 import { Navbar } from "@/components/landing/navbar";
 import { Hero } from "@/components/landing/hero";
 import { Transformations } from "@/components/landing/transformations";
-import { CoastalStack } from "@/components/landing/coastal-stack";
 import { ZeroFriction } from "@/components/landing/zero-friction";
 import { RouteCalendar } from "@/components/landing/route-calendar";
 import { Pricing } from "@/components/landing/pricing";
@@ -15,29 +14,24 @@ export default function Home() {
     <div className="min-h-screen bg-white text-charcoal">
       <Navbar />
       <main>
-        {/* 1. Hook & Outcome */}
+        {/* Hero: What is this & why should I care? */}
         <Hero />
 
-        {/* 2. Immediate Visual Proof (Desire) */}
+        {/* Transformations: Does it actually look good? */}
         <Transformations />
 
-        {/* 3. The Coastal Problem & Solution */}
-        <CoastalStack />
-
-        {/* 4. Friction Removal (1-2-3 How It Works) */}
+        {/* Zero Friction: How hard is it for me to do this? */}
         <ZeroFriction />
 
-        {/* 5. Scarcity & Route Selection */}
+        {/* Route Calendar: Can I get this in my neighborhood right now? */}
         <RouteCalendar />
 
-        {/* 6. Clear Subscription Offer */}
+        {/* Pricing: How much does it cost? */}
         <Pricing />
 
-        {/* 7. Trust & Guarantee */}
+        {/* About / FAQ: Can I trust this person on my driveway? */}
         <RedondoPromise variant="banner" />
         <About />
-
-        {/* 8. Risk Reversal & Answers */}
         <FAQ />
       </main>
       <Footer />

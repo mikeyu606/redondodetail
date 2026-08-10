@@ -43,7 +43,8 @@ export const pricingFeatures = [
   "Wheels, tires & door jambs",
   "100% non-toxic & pet-safe products",
   "1% of income goes to cleaning our coasts",
-  "Bi-weekly auto-pay — pause anytime",
+  "2 scheduled driveway resets per month",
+  "Automated bi-weekly billing — pause anytime",
 ];
 
 export function getTierById(id: TierId) {
