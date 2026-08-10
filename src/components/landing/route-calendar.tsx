@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   CalendarDays,
@@ -13,18 +13,9 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { pricingTiers, getTierById, type TierId } from "@/lib/pricing-data";
 import { createCheckoutSession } from "@/lib/checkout";
 import { EmbeddedCheckoutModal } from "@/components/landing/embedded-checkout-modal";
-import {
-  addDays,
-  addWeeks,
-  format,
-  getDay,
-  set,
-  startOfDay,
-  type Day,
-} from "date-fns";
+import { addDays, addWeeks, format, getDay, startOfDay } from "date-fns";
 
 type RouteId = "newport" | "palos-verdes" | "south-bay";
 type VehicleCount = 1 | 2 | 3;
@@ -32,28 +23,27 @@ type VehicleCount = 1 | 2 | 3;
 type RouteOption = {
   id: RouteId;
   name: string;
-  dayLabel: string;
-  weekday: Day;
+  windowLabel: string;
+  /** 0 = Sunday … 6 = Saturday */
+  weekday: number;
   slotsLeft: number | null;
   status: "open" | "waitlist";
   image: string;
 };
 
-type WindowOption = {
+type CycleOption = {
   id: string;
-  date: Date;
-  period: "morning" | "afternoon";
+  startDate: Date;
   label: string;
-  hours: string;
-  endsAt: Date;
+  detail: string;
 };
 
 const routes: RouteOption[] = [
   {
     id: "newport",
     name: "Newport Beach",
-    dayLabel: "Saturdays",
-    weekday: 6, // Saturday
+    windowLabel: "Saturdays · 8 AM – 4 PM",
+    weekday: 6,
     slotsLeft: 4,
     status: "open",
     image: "/route-north-redondo.jpg",
@@ -61,16 +51,16 @@ const routes: RouteOption[] = [
   {
     id: "palos-verdes",
     name: "Palos Verdes",
-    dayLabel: "Sundays",
-    weekday: 0, // Sunday
-    slotsLeft: 3,
-    status: "open",
+    windowLabel: "Coming Soon",
+    weekday: 0,
+    slotsLeft: null,
+    status: "waitlist",
     image: "/route-south-redondo.jpg",
   },
   {
     id: "south-bay",
     name: "South Bay / Pools",
-    dayLabel: "Coming Soon",
+    windowLabel: "Coming Soon",
     weekday: 4,
     slotsLeft: null,
     status: "waitlist",
@@ -78,232 +68,153 @@ const routes: RouteOption[] = [
   },
 ];
 
-const vehicleOptions: {
+const fleetOptions: {
   count: VehicleCount;
   title: string;
-  subtitle: string;
+  visitPrice: number;
+  monthlyPrice: number;
+  savings?: number;
 }[] = [
   {
     count: 1,
     title: "1 Vehicle",
-    subtitle: "From $140–$180/mo",
+    visitPrice: 90,
+    monthlyPrice: 180,
   },
   {
     count: 2,
     title: "2 Vehicles",
-    subtitle: "Driveway Bundle (Save $20/visit)",
+    visitPrice: 160,
+    monthlyPrice: 320,
+    savings: 20,
   },
   {
     count: 3,
     title: "3+ Vehicles",
-    subtitle: "Multi-car family fleet",
+    visitPrice: 225,
+    monthlyPrice: 450,
+    savings: 30,
   },
 ];
 
-const stepLabels = ["Route", "Vehicles", "Window", "Address"] as const;
+const stepLabels = ["Route", "Vehicles", "Schedule", "Address"] as const;
 
-const PERIODS = [
-  {
-    period: "morning" as const,
-    label: "Morning",
-    hours: "8:00 AM – 12:00 PM",
-    endHour: 12,
-  },
-  {
-    period: "afternoon" as const,
-    label: "Afternoon",
-    hours: "1:00 PM – 5:00 PM",
-    endHour: 17,
-  },
-];
+function getFleetPricing(count: VehicleCount) {
+  return fleetOptions.find((o) => o.count === count)!;
+}
 
-/** Next service day on/after today that still has at least one bookable window. */
-function getNextServiceDay(weekday: Day, now: Date): Date {
+/** Next two route weekdays — customer picks which bi-weekly cycle to start on. */
+function buildCycleOptions(weekday: number, now: Date = new Date()): CycleOption[] {
   let day = startOfDay(now);
-
-  for (let i = 0; i < 14; i++) {
-    if (getDay(day) === weekday) {
-      const afternoonEnds = set(day, {
-        hours: 17,
-        minutes: 0,
-        seconds: 0,
-        milliseconds: 0,
-      });
-      if (now < afternoonEnds) return day;
-    }
+  while (getDay(day) !== weekday) {
     day = addDays(day, 1);
   }
 
-  // Fallback — should never happen
-  return startOfDay(addDays(now, 7));
-}
+  const first = day;
+  const second = addWeeks(first, 1);
+  const dayName = format(first, "EEEE");
 
-/** Always builds the next 2 future service days × morning/afternoon, dropping past windows. */
-function buildWindows(weekday: Day, now: Date = new Date()): WindowOption[] {
-  const first = getNextServiceDay(weekday, now);
-  const serviceDays = [first, addWeeks(first, 2), addWeeks(first, 4)];
-
-  const windows: WindowOption[] = [];
-
-  for (const date of serviceDays) {
-    const day = startOfDay(date);
-    for (const p of PERIODS) {
-      const endsAt = set(day, {
-        hours: p.endHour,
-        minutes: 0,
-        seconds: 0,
-        milliseconds: 0,
-      });
-      if (now >= endsAt) continue;
-
-      windows.push({
-        id: `${format(day, "yyyy-MM-dd")}-${p.period}`,
-        date: day,
-        period: p.period,
-        label: `${format(day, "EEE, MMM d")} · ${p.label}`,
-        hours: p.hours,
-        endsAt,
-      });
-    }
-    if (windows.length >= 4) break;
-  }
-
-  return windows.slice(0, 4);
-}
-
-function calcVisitPricing(tiers: TierId[], vehicleCount: VehicleCount) {
-  const selected = tiers.slice(0, vehicleCount).map((id, index) => {
-    const tier = getTierById(id);
-    return {
-      index,
-      id: tier.id,
-      label: tier.name.replace(" Care", ""),
-      price: tier.subscriptionPrice,
-    };
-  });
-  const subtotal = selected.reduce((sum, v) => sum + v.price, 0);
-  const bundleDiscount = vehicleCount >= 2 ? 20 : 0;
-  const total = Math.max(0, subtotal - bundleDiscount);
-  return { selected, subtotal, bundleDiscount, total };
+  return [
+    {
+      id: format(first, "yyyy-MM-dd"),
+      startDate: first,
+      label: format(first, "EEE, MMM d"),
+      detail: `Start ${format(first, "MMMM d")} · then every other ${dayName}`,
+    },
+    {
+      id: format(second, "yyyy-MM-dd"),
+      startDate: second,
+      label: format(second, "EEE, MMM d"),
+      detail: `Start ${format(second, "MMMM d")} · then every other ${dayName}`,
+    },
+  ];
 }
 
 export function RouteCalendar() {
   const [step, setStep] = useState(0);
-  const [routeId, setRouteId] = useState<RouteId | null>(null);
+  const [routeId, setRouteId] = useState<RouteId | null>("newport");
   const [vehicleCount, setVehicleCount] = useState<VehicleCount>(1);
-  const [tiers, setTiers] = useState<TierId[]>(["suv"]);
-  const [windowId, setWindowId] = useState<string | null>(null);
+  const [cycleId, setCycleId] = useState<string | null>(null);
   const [address, setAddress] = useState("");
   const [zip, setZip] = useState("");
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [waitlistDone, setWaitlistDone] = useState(false);
-  const [now, setNow] = useState(() => new Date());
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
 
-  // Refresh "now" whenever we land on the window step so dates never go stale.
-  useEffect(() => {
-    if (step === 2) {
-      setNow(new Date());
-    }
-  }, [step, routeId]);
-
   const selectedRoute = routes.find((r) => r.id === routeId) ?? null;
-  const windows = useMemo(
+  const fleet = getFleetPricing(vehicleCount);
+  const visitTotal = fleet.visitPrice;
+
+  const cycles = useMemo(
     () =>
       selectedRoute && selectedRoute.status === "open"
-        ? buildWindows(selectedRoute.weekday, now)
+        ? buildCycleOptions(selectedRoute.weekday)
         : [],
-    [selectedRoute, now]
+    [selectedRoute]
   );
-  const selectedWindow = windows.find((w) => w.id === windowId) ?? null;
-
-  // Drop selection if that window expired after a refresh.
-  useEffect(() => {
-    if (windowId && !windows.some((w) => w.id === windowId)) {
-      setWindowId(null);
-    }
-  }, [windows, windowId]);
-  const pricing = calcVisitPricing(tiers, vehicleCount);
-  const visitTotal = pricing.total;
+  const selectedCycle = cycles.find((c) => c.id === cycleId) ?? null;
 
   const canNext =
     step === 0
       ? !!routeId
       : step === 1
-        ? vehicleCount >= 1 && tiers.slice(0, vehicleCount).every(Boolean)
+        ? vehicleCount >= 1
         : step === 2
-          ? !!windowId || selectedRoute?.status === "waitlist"
+          ? !!cycleId
           : address.trim().length > 3 && zip.trim().length >= 5;
-
-  function syncTier(count: VehicleCount) {
-    setVehicleCount(count);
-    setTiers((prev) => {
-      const fillWith = prev[0] ?? "suv";
-      const next = [...prev];
-      while (next.length < count) next.push(fillWith);
-      return next.slice(0, count);
-    });
-  }
-
-  function updateTier(index: number, id: TierId) {
-    setTiers((prev) => prev.map((t, i) => (i === index ? id : t)));
-  }
 
   async function handlePrimary() {
     setError(null);
 
     if (step < 3) {
-      if (!canNext) return;
-      // Waitlist route: skip windows, jump toward address/confirm
-      if (step === 0 && selectedRoute?.status === "waitlist") {
-        setStep(3);
+      if (!canNext || !selectedRoute) return;
+
+      if (step === 0 && selectedRoute.status === "waitlist") {
+        setLoading(true);
+        try {
+          const result = await createCheckoutSession({
+            mode: "waitlist",
+            routeId: selectedRoute.id,
+            routeName: selectedRoute.name,
+          });
+          if (result.waitlist) setWaitlistDone(true);
+        } catch (err) {
+          setError(err instanceof Error ? err.message : "Something went wrong.");
+        } finally {
+          setLoading(false);
+        }
         return;
       }
-      if (step === 1 && selectedRoute?.status === "waitlist") {
-        setStep(3);
-        return;
-      }
+
       setStep((s) => s + 1);
       return;
     }
 
-    if (!selectedRoute || !canNext) return;
+    if (!selectedRoute || !selectedCycle || !canNext) return;
     setLoading(true);
     try {
-      if (selectedRoute.status === "waitlist") {
-        const result = await createCheckoutSession({
-          mode: "waitlist",
-          routeId: selectedRoute.id,
-          routeName: selectedRoute.name,
-        });
-        if (result.waitlist) setWaitlistDone(true);
-        return;
-      }
-
-      if (!selectedWindow) return;
-
       const result = await createCheckoutSession({
         mode: "subscription",
-        tierId: tiers[0] ?? "suv",
+        tierId: "suv",
         amountCents: visitTotal * 100,
         frequency: "bi-weekly",
         routeId: selectedRoute.id,
-        routeName: `${selectedRoute.name} · ${selectedRoute.dayLabel}`,
-        windowId: selectedWindow.id,
-        windowLabel: `${selectedWindow.label} (${selectedWindow.hours})`,
+        routeName: `${selectedRoute.name} · ${selectedRoute.windowLabel}`,
+        windowId: selectedCycle.id,
+        windowLabel: selectedCycle.detail,
         metadata: {
           address,
           zip,
           notes,
           vehicleCount: String(vehicleCount),
           visitTotal: String(visitTotal),
-          vehicles: tiers
-            .slice(0, vehicleCount)
-            .map((id, i) => `${i + 1}:${id}`)
-            .join("|"),
+          monthlyEstimate: String(fleet.monthlyPrice),
+          fleet: fleet.title,
+          firstVisit: selectedCycle.id,
+          cadence: "every-other-saturday",
         },
       });
 
@@ -335,7 +246,7 @@ export function RouteCalendar() {
         </div>
 
         <div className="mx-auto mt-12 flex max-w-4xl flex-col rounded-[1.75rem] border border-border/80 bg-white p-5 shadow-[0_20px_60px_-30px_rgba(194,24,91,0.35)] sm:p-8">
-          <div className="relative h-[30rem] overflow-y-auto overscroll-contain sm:h-[32rem]">
+          <div className="relative h-[28rem] overflow-y-auto overscroll-contain sm:h-[30rem]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={waitlistDone ? "done" : step}
@@ -345,330 +256,272 @@ export function RouteCalendar() {
                 transition={{ duration: 0.25 }}
                 className="min-h-full"
               >
-              {waitlistDone ? (
-                <div className="flex min-h-full flex-col items-center justify-center py-10 text-center">
-                  <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-dusty-rose/50">
-                    <Check className="size-7 text-burgundy" />
-                  </div>
-                  <h3 className="text-2xl font-semibold text-charcoal">
-                    You&apos;re on the waitlist
-                  </h3>
-                  <p className="mx-auto mt-3 max-w-md text-slate">
-                    We&apos;ll text you when South Bay and pool routes open.
-                  </p>
-                </div>
-              ) : (
-                <>
-                  {step === 0 && (
-                    <div>
-                      <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
-                        Where should we service your vehicle?
-                      </h3>
-                      <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                        {routes
-                          .filter((r) => r.status === "open")
-                          .map((route) => (
-                            <button
-                              key={route.id}
-                              type="button"
-                              onClick={() => {
-                                setRouteId(route.id);
-                                setWindowId(null);
-                              }}
-                              className={cn(
-                                "flex items-center gap-4 rounded-2xl border px-4 py-4 text-left transition-all",
-                                routeId === route.id
-                                  ? "border-burgundy bg-pink-light/70 ring-2 ring-burgundy/20"
-                                  : "border-border bg-white hover:border-burgundy/40"
-                              )}
-                            >
-                              <div
-                                className="size-14 shrink-0 rounded-full bg-cover bg-center"
-                                style={{ backgroundImage: `url(${route.image})` }}
-                              />
-                              <div>
-                                <p className="font-semibold text-charcoal">
-                                  {route.name}
-                                </p>
-                                <p className="mt-0.5 text-sm text-slate">
-                                  {route.slotsLeft} slots left
-                                </p>
-                              </div>
-                            </button>
-                          ))}
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setRouteId("south-bay");
-                          setWindowId(null);
-                        }}
-                        className={cn(
-                          "mt-4 flex w-full items-center gap-4 rounded-2xl border px-4 py-4 text-left transition-all",
-                          routeId === "south-bay"
-                            ? "border-burgundy bg-pink-light/50 ring-2 ring-burgundy/15"
-                            : "border-dashed border-border bg-beige/40 opacity-80 hover:opacity-100"
-                        )}
-                      >
-                        <div
-                          className="size-14 shrink-0 rounded-full bg-cover bg-center grayscale"
-                          style={{
-                            backgroundImage: `url(/route-hermosa-manhattan.jpg)`,
-                          }}
-                        />
-                        <div>
-                          <p className="font-semibold text-charcoal">
-                            South Bay / Pools
-                          </p>
-                          <p className="mt-0.5 text-sm text-slate">
-                            Coming Soon · Join waitlist
-                          </p>
-                        </div>
-                      </button>
+                {waitlistDone ? (
+                  <div className="flex min-h-full flex-col items-center justify-center py-10 text-center">
+                    <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-dusty-rose/50">
+                      <Check className="size-7 text-burgundy" />
                     </div>
-                  )}
+                    <h3 className="text-2xl font-semibold text-charcoal">
+                      You&apos;re on the waitlist
+                    </h3>
+                    <p className="mx-auto mt-3 max-w-md text-slate">
+                      We&apos;ll text you when {selectedRoute?.name ?? "your area"}{" "}
+                      opens. Newport Beach is live now.
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    {step === 0 && (
+                      <div>
+                        <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
+                          Where should we service your vehicle?
+                        </h3>
+                        <p className="mt-2 text-sm text-slate">
+                          Currently serving Newport Beach Saturdays, 8 AM – 4 PM.
+                        </p>
 
-                  {step === 1 && (
-                    <div>
-                      <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
-                        How many vehicles are we caring for?
-                      </h3>
-                      <div className="mt-6 grid gap-3">
-                        {vehicleOptions.map((option) => (
-                          <button
-                            key={option.count}
-                            type="button"
-                            onClick={() => syncTier(option.count)}
-                            className={cn(
-                              "flex items-center justify-between rounded-2xl border px-4 py-4 text-left transition-all",
-                              vehicleCount === option.count
-                                ? "border-burgundy bg-pink-light/70 ring-2 ring-burgundy/20"
-                                : "border-border bg-white hover:border-burgundy/40"
-                            )}
-                          >
-                            <div>
-                              <p className="font-semibold text-charcoal">
-                                {option.title}
-                              </p>
-                              <p className="mt-0.5 text-sm text-slate">
-                                {option.subtitle}
-                              </p>
-                            </div>
-                            {vehicleCount === option.count ? (
-                              <span className="rounded-full bg-burgundy px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
-                                Selected
-                              </span>
-                            ) : null}
-                          </button>
-                        ))}
-                      </div>
-
-                      {vehicleCount >= 2 ? (
-                        <div className="mt-6 space-y-4">
-                          <p className="text-sm font-medium text-slate">
-                            Select body type for each vehicle
-                          </p>
-                          {Array.from({ length: vehicleCount }).map((_, i) => (
-                            <div key={i}>
-                              <p className="mb-2 text-xs font-medium uppercase tracking-wide text-slate/70">
-                                Vehicle {i + 1}
-                                {pricing.selected[i] ? (
-                                  <span className="ml-2 normal-case tracking-normal text-burgundy">
-                                    ${pricing.selected[i].price}
-                                  </span>
-                                ) : null}
-                              </p>
-                              <div className="flex flex-wrap gap-2">
-                                {pricingTiers.map((tier) => (
-                                  <button
-                                    key={tier.id}
-                                    type="button"
-                                    onClick={() => updateTier(i, tier.id)}
-                                    className={cn(
-                                      "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
-                                      tiers[i] === tier.id
-                                        ? "border-burgundy bg-burgundy text-white"
-                                        : "border-border bg-white text-slate hover:border-burgundy/50"
-                                    )}
-                                  >
-                                    {tier.name.replace(" Care", "")} · $
-                                    {tier.subscriptionPrice}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="mt-6">
-                          <p className="mb-2 text-sm font-medium text-slate">
-                            Vehicle body type
-                          </p>
-                          <div className="flex flex-wrap gap-2">
-                            {pricingTiers.map((tier) => (
+                        <div className="mt-6 space-y-3">
+                          {routes.map((route) => {
+                            const selected = routeId === route.id;
+                            const open = route.status === "open";
+                            return (
                               <button
-                                key={tier.id}
+                                key={route.id}
                                 type="button"
-                                onClick={() => updateTier(0, tier.id)}
+                                onClick={() => {
+                                  setRouteId(route.id);
+                                  setWaitlistDone(false);
+                                  setCycleId(null);
+                                }}
                                 className={cn(
-                                  "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
-                                  tiers[0] === tier.id
-                                    ? "border-burgundy bg-burgundy text-white"
-                                    : "border-border bg-white text-slate hover:border-burgundy/50"
+                                  "flex w-full items-center gap-4 rounded-2xl border px-4 py-4 text-left transition-all",
+                                  selected
+                                    ? open
+                                      ? "border-burgundy bg-pink-light/70 ring-2 ring-burgundy/20"
+                                      : "border-burgundy bg-pink-light/50 ring-2 ring-burgundy/15"
+                                    : open
+                                      ? "border-border bg-white hover:border-burgundy/40"
+                                      : "border-dashed border-border bg-beige/40 opacity-80 hover:opacity-100"
                                 )}
                               >
-                                {tier.name.replace(" Care", "")} · $
-                                {tier.subscriptionPrice}
+                                <div
+                                  className={cn(
+                                    "size-14 shrink-0 rounded-full bg-cover bg-center",
+                                    !open && "grayscale"
+                                  )}
+                                  style={{
+                                    backgroundImage: `url(${route.image})`,
+                                  }}
+                                />
+                                <div className="min-w-0 flex-1">
+                                  <p className="font-semibold text-charcoal">
+                                    {route.name}
+                                  </p>
+                                  <p className="mt-0.5 text-sm text-slate">
+                                    {open
+                                      ? `${route.windowLabel} · ${route.slotsLeft} slots left`
+                                      : `${route.windowLabel} · Join waitlist`}
+                                  </p>
+                                </div>
+                                {selected ? (
+                                  <span
+                                    className={cn(
+                                      "rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white",
+                                      open ? "bg-burgundy" : "bg-charcoal/50"
+                                    )}
+                                  >
+                                    {open ? "Selected" : "Waitlist"}
+                                  </span>
+                                ) : null}
                               </button>
-                            ))}
-                          </div>
+                            );
+                          })}
                         </div>
-                      )}
+                      </div>
+                    )}
 
-                      <div className="mt-6 rounded-2xl border border-burgundy/20 bg-pink-light/50 px-4 py-3 text-sm">
-                        {pricing.selected.map((v) => (
-                          <div
-                            key={`${v.index}-${v.id}`}
-                            className="flex items-center justify-between py-1 text-charcoal"
-                          >
-                            <span>
-                              Vehicle {v.index + 1} · {v.label}
+                    {step === 1 && selectedRoute?.status === "open" && (
+                      <div>
+                        <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
+                          How many vehicles?
+                        </h3>
+                        <p className="mt-2 text-sm text-slate">
+                          {selectedRoute.name} · {selectedRoute.windowLabel}
+                        </p>
+
+                        <div className="mt-6 grid gap-3">
+                          {fleetOptions.map((option) => {
+                            const selected = vehicleCount === option.count;
+                            return (
+                              <button
+                                key={option.count}
+                                type="button"
+                                onClick={() => setVehicleCount(option.count)}
+                                className={cn(
+                                  "rounded-2xl border px-4 py-4 text-left transition-all",
+                                  selected
+                                    ? "border-burgundy bg-pink-light/70 ring-2 ring-burgundy/20"
+                                    : "border-border bg-white hover:border-burgundy/40"
+                                )}
+                              >
+                                <div className="flex items-start justify-between gap-3">
+                                  <div>
+                                    <p className="font-semibold text-charcoal">
+                                      {option.title}
+                                    </p>
+                                    <p className="mt-1 text-sm text-charcoal">
+                                      <span className="font-semibold text-burgundy">
+                                        ${option.visitPrice} / visit
+                                      </span>
+                                      <span className="text-slate">
+                                        {" "}
+                                        · Billed bi-weekly at $
+                                        {option.monthlyPrice}/mo
+                                      </span>
+                                    </p>
+                                    {option.savings ? (
+                                      <p className="mt-1 text-xs font-medium text-burgundy">
+                                        Save ${option.savings}/visit
+                                      </p>
+                                    ) : null}
+                                  </div>
+                                  {selected ? (
+                                    <span className="rounded-full bg-burgundy px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
+                                      Selected
+                                    </span>
+                                  ) : null}
+                                </div>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {step === 2 && selectedRoute?.status === "open" && (
+                      <div>
+                        <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
+                          Which Saturday starts your bi-weekly cycle?
+                        </h3>
+                        <p className="mt-2 text-sm text-slate">
+                          We&apos;ll come every other Saturday, 8 AM – 4 PM, from
+                          your chosen start date.
+                        </p>
+
+                        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                          {cycles.map((cycle) => {
+                            const selected = cycleId === cycle.id;
+                            return (
+                              <button
+                                key={cycle.id}
+                                type="button"
+                                onClick={() => setCycleId(cycle.id)}
+                                className={cn(
+                                  "rounded-2xl border px-4 py-5 text-left transition-all",
+                                  selected
+                                    ? "border-burgundy bg-pink-light/70 ring-2 ring-burgundy/20"
+                                    : "border-border bg-white hover:border-burgundy/40"
+                                )}
+                              >
+                                <p className="font-semibold text-charcoal">
+                                  {cycle.label}
+                                </p>
+                                <p className="mt-1 text-sm text-slate">
+                                  Then every other{" "}
+                                  {format(cycle.startDate, "EEEE")}
+                                </p>
+                                {selected ? (
+                                  <span className="mt-3 inline-block rounded-full bg-burgundy px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
+                                    Selected
+                                  </span>
+                                ) : null}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {step === 3 && selectedRoute?.status === "open" && (
+                      <div>
+                        <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
+                          Where is your driveway located?
+                        </h3>
+                        <p className="mt-2 text-sm text-slate">
+                          Last step — then secure checkout with Stripe.
+                        </p>
+
+                        <div className="mt-6 space-y-4">
+                          <label className="block">
+                            <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate">
+                              Street Address
                             </span>
-                            <span className="font-medium">${v.price}</span>
-                          </div>
-                        ))}
-                        {pricing.bundleDiscount > 0 ? (
-                          <div className="flex items-center justify-between py-1 text-burgundy">
-                            <span>Driveway bundle discount</span>
-                            <span className="font-medium">
-                              −${pricing.bundleDiscount}
+                            <input
+                              value={address}
+                              onChange={(e) => setAddress(e.target.value)}
+                              placeholder="1234 Blossom Ln"
+                              className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-charcoal outline-none ring-burgundy/20 placeholder:text-slate/50 focus:border-burgundy focus:ring-2"
+                            />
+                          </label>
+                          <label className="block">
+                            <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate">
+                              Zip Code
                             </span>
-                          </div>
-                        ) : null}
-                        <div className="mt-2 flex items-center justify-between border-t border-burgundy/15 pt-2 font-semibold text-charcoal">
-                          <span>Per visit total</span>
-                          <span>${pricing.total}</span>
+                            <input
+                              value={zip}
+                              onChange={(e) => setZip(e.target.value)}
+                              placeholder="92660"
+                              className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-charcoal outline-none ring-burgundy/20 placeholder:text-slate/50 focus:border-burgundy focus:ring-2"
+                            />
+                          </label>
+                          <label className="block">
+                            <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate">
+                              Parking / Gate Notes (Optional)
+                            </span>
+                            <input
+                              value={notes}
+                              onChange={(e) => setNotes(e.target.value)}
+                              placeholder="e.g., Left side of driveway"
+                              className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-charcoal outline-none ring-burgundy/20 placeholder:text-slate/50 focus:border-burgundy focus:ring-2"
+                            />
+                          </label>
                         </div>
-                      </div>
-                    </div>
-                  )}
 
-                  {step === 2 && selectedRoute?.status === "open" && (
-                    <div>
-                      <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
-                        Select your route launch window
-                      </h3>
-                      <p className="mt-2 text-sm text-slate">
-                        {selectedRoute.name} · {selectedRoute.dayLabel}
-                      </p>
-                      <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                        {windows.map((window) => (
-                          <button
-                            key={window.id}
-                            type="button"
-                            onClick={() => setWindowId(window.id)}
-                            className={cn(
-                              "rounded-2xl border px-4 py-4 text-left transition-all",
-                              windowId === window.id
-                                ? "border-burgundy bg-pink-light/70 ring-2 ring-burgundy/20"
-                                : "border-border bg-white hover:border-burgundy/40"
-                            )}
-                          >
-                            <p className="font-semibold text-charcoal">
-                              {format(window.date, "EEE, MMM d")}
-                            </p>
-                            <p className="mt-1 text-sm text-slate">
-                              {window.period === "morning"
-                                ? "Morning"
-                                : "Afternoon"}{" "}
-                              ({window.hours})
-                            </p>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {step === 3 && (
-                    <div>
-                      <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
-                        Where is your driveway located?
-                      </h3>
-                      <div className="mt-6 space-y-4">
-                        <label className="block">
-                          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate">
-                            Street Address
-                          </span>
-                          <input
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            placeholder="1234 Blossom Ln"
-                            className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-charcoal outline-none ring-burgundy/20 placeholder:text-slate/50 focus:border-burgundy focus:ring-2"
-                          />
-                        </label>
-                        <label className="block">
-                          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate">
-                            Zip Code
-                          </span>
-                          <input
-                            value={zip}
-                            onChange={(e) => setZip(e.target.value)}
-                            placeholder="90278"
-                            className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-charcoal outline-none ring-burgundy/20 placeholder:text-slate/50 focus:border-burgundy focus:ring-2"
-                          />
-                        </label>
-                        <label className="block">
-                          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate">
-                            Parking / Gate Notes (Optional)
-                          </span>
-                          <input
-                            value={notes}
-                            onChange={(e) => setNotes(e.target.value)}
-                            placeholder="e.g., Left side of driveway"
-                            className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-charcoal outline-none ring-burgundy/20 placeholder:text-slate/50 focus:border-burgundy focus:ring-2"
-                          />
-                        </label>
-                      </div>
-
-                      <div className="mt-6 rounded-2xl border border-burgundy/20 bg-pink-light/60 px-4 py-3 text-sm text-charcoal">
-                        <div className="flex items-start gap-3">
-                          <MapPin className="mt-0.5 size-4 shrink-0 text-burgundy" />
-                          <div className="min-w-0 flex-1 space-y-1">
-                            <p className="font-medium">
-                              {selectedRoute?.name} Route
-                              {selectedWindow
-                                ? ` · ${format(selectedWindow.date, "EEE, MMM d")} (${selectedWindow.period === "morning" ? "Morning" : "Afternoon"})`
-                                : ""}
-                            </p>
-                            {pricing.selected.map((v) => (
-                              <p key={`${v.index}-${v.id}`} className="text-slate">
-                                Vehicle {v.index + 1}: {v.label} — ${v.price}
+                        <div className="mt-6 rounded-2xl border border-burgundy/20 bg-pink-light/60 px-4 py-3 text-sm text-charcoal">
+                          <div className="flex items-start gap-3">
+                            <MapPin className="mt-0.5 size-4 shrink-0 text-burgundy" />
+                            <div className="min-w-0 flex-1 space-y-1">
+                              <p className="font-medium">
+                                {selectedRoute.name} · {selectedRoute.windowLabel}
                               </p>
-                            ))}
-                            {pricing.bundleDiscount > 0 ? (
-                              <p className="text-burgundy">
-                                Driveway bundle −${pricing.bundleDiscount}
+                              {selectedCycle ? (
+                                <p className="text-slate">
+                                  First visit {selectedCycle.label} · every other
+                                  Saturday
+                                </p>
+                              ) : null}
+                              <p className="text-slate">
+                                {fleet.title} — ${visitTotal}/visit
                               </p>
-                            ) : null}
-                            <p className="font-semibold text-charcoal">
-                              ${visitTotal}/visit
-                            </p>
+                              <p className="font-semibold text-charcoal">
+                                ${fleet.monthlyPrice}/mo bi-weekly billing
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  )}
-                </>
-              )}
-            </motion.div>
-          </AnimatePresence>
+                    )}
+                  </>
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {!waitlistDone ? (
             <div className="mt-8 flex flex-col gap-4 border-t border-border/70 pt-5 sm:flex-row sm:items-center sm:justify-between">
               <div className="min-w-0 flex-1">
                 <p className="text-xs font-medium text-slate">
-                  Step {Math.min(step + 1, 4)}: {stepLabels[Math.min(step, 3)]}
+                  Step {step + 1}: {stepLabels[step]}
                 </p>
                 <div className="relative mt-2 h-1.5 max-w-xs overflow-hidden rounded-full bg-border">
                   <div
@@ -682,13 +535,7 @@ export function RouteCalendar() {
                 {step > 0 ? (
                   <button
                     type="button"
-                    onClick={() =>
-                      setStep((s) =>
-                        selectedRoute?.status === "waitlist" && s === 3
-                          ? 0
-                          : Math.max(0, s - 1)
-                      )
-                    }
+                    onClick={() => setStep((s) => Math.max(0, s - 1))}
                     className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-border bg-white px-5 text-sm font-semibold uppercase tracking-wide text-charcoal transition-colors hover:border-burgundy/40 hover:text-burgundy sm:flex-none"
                   >
                     <ChevronLeft className="size-4" />
@@ -707,15 +554,19 @@ export function RouteCalendar() {
                   {loading ? (
                     <>
                       <Loader2 className="size-4 animate-spin" />
-                      Opening checkout…
+                      {selectedRoute?.status === "waitlist" && step === 0
+                        ? "Joining…"
+                        : "Opening checkout…"}
                     </>
                   ) : step < 3 ? (
-                    <>
-                      Next
-                      <ChevronRight className="size-4" />
-                    </>
-                  ) : selectedRoute?.status === "waitlist" ? (
-                    "Join Waitlist"
+                    selectedRoute?.status === "waitlist" && step === 0 ? (
+                      "Join Waitlist"
+                    ) : (
+                      <>
+                        Next
+                        <ChevronRight className="size-4" />
+                      </>
+                    )
                   ) : (
                     <>
                       <Lock className="size-4" />

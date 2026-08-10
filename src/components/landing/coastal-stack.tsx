@@ -1,27 +1,27 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Leaf, PawPrint, Waves } from "lucide-react";
+import { Shield, Clock, Heart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const coastalItems = [
   {
-    icon: Leaf,
-    title: "100% Non-Toxic",
+    icon: Shield,
+    title: "Asset Protection",
     description:
-      "Gentle, paint-safe products you’d be comfortable around kids and coastal air—no harsh chemicals left behind.",
+      "Automatic car wash brushes leave permanent swirl marks and micro-scratches. Our 100% hand wash uses soft microfibers and pH-balanced foam to protect your paint, ceramic finish, and resale value.",
   },
   {
-    icon: PawPrint,
-    title: "Pet-Safe Always",
+    icon: Clock,
+    title: "Zero Weekend Effort",
     description:
-      "Formulas chosen with family life in mind. Dog hair, beach days, and busy back seats are our normal.",
+      "Stop wasting 2 hours sitting in car wash lobbies. We service your vehicle right on your driveway while you relax, work, or spend time with family.",
   },
   {
-    icon: Waves,
-    title: "1% for Our Coasts",
+    icon: Heart,
+    title: "Family & Pet Safe",
     description:
-      "One percent of income goes toward cleaning up the coastlines our neighborhoods love.",
+      "We remove crumbs, dog hair, and beach sand using gentle, non-toxic products. No harsh chemical fumes or synthetic residues left behind.",
   },
 ];
 

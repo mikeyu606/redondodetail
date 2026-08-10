@@ -44,7 +44,7 @@ export function Hero() {
             variants={fadeUp}
             className="flex flex-col justify-center py-8 text-left"
           >
-            <h1 className="font-heading text-[clamp(2.5rem,4.5vw,3.75rem)] font-bold leading-[1.12] tracking-[-0.01em] text-burgundy">
+            <h1 className="font-heading text-[clamp(3rem,5.8vw,5rem)] font-bold leading-[1.06] tracking-[-0.02em] text-burgundy">
               Never Wait in Line for a Car Wash Again
             </h1>
             <p className="mt-5 max-w-md text-base leading-relaxed text-burgundy sm:text-lg">

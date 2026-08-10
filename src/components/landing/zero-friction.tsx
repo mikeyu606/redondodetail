@@ -8,7 +8,7 @@ const steps = [
     number: "01",
     title: "Pick Your Coastal Route",
     description:
-      "Start with Newport Beach or Palos Verdes. Join the waitlist for South Bay—and pool routes once we’re live.",
+      "Newport Beach is live Saturdays 8 AM – 4 PM. Join the waitlist for Palos Verdes and South Bay / pool routes.",
     image: "/zero-friction-schedule.png",
     alt: "Hand scheduling a Her Driveway Club route on a phone",
   },

@@ -37,7 +37,7 @@ const faqs = [
   {
     question: "Where do you launch?",
     answer:
-      "We’re launching in Newport Beach coastal zip codes first, with Palos Verdes and more South Bay routes next. Pool routes are coming once the driveway club is humming.",
+      "We’re live in Newport Beach coastal zips first (Saturdays). Palos Verdes, South Bay, and pool routes are on the waitlist as we expand neighborhood by neighborhood.",
   },
   {
     question: "Who actually washes my car?",
