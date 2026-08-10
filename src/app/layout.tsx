@@ -53,6 +53,10 @@ export const metadata: Metadata = {
     "bi-weekly car wash",
     "driveway car wash subscription",
   ],
+  icons: {
+    icon: [{ url: "/hdclogo.png", type: "image/png" }],
+    apple: [{ url: "/hdclogo.png", type: "image/png" }],
+  },
   openGraph: {
     title: "Her Driveway Club | Woman-Owned Mobile Car Wash",
     description:
@@ -61,6 +65,7 @@ export const metadata: Metadata = {
     siteName: "Her Driveway Club",
     locale: "en_US",
     type: "website",
+    images: [{ url: "/hdclogo.png", alt: "Her Driveway Club" }],
   },
 };
 

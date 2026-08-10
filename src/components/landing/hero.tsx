@@ -44,12 +44,12 @@ export function Hero() {
             variants={fadeUp}
             className="flex flex-col justify-center py-8 text-left"
           >
-            <h1 className="font-heading text-[clamp(3rem,5.8vw,5rem)] font-bold leading-[1.06] tracking-[-0.02em] text-burgundy">
+            <h1 className="font-heading text-[clamp(2.6rem,4.6vw,4rem)] font-bold leading-[1.1] tracking-[-0.015em] text-burgundy">
               Never Wait in Line for a Car Wash Again
             </h1>
             <p className="mt-5 max-w-md text-base leading-relaxed text-burgundy sm:text-lg">
-              Woman-owned, white-glove doorstep concierge resetting family SUVs
-              so busy parents get their weekends back.
+              Eco-chic, non-toxic cabin resets delivered right to your
+              doorstep. We keep your family SUV spotless on autopilot.
             </p>
             <div className="mt-7">
               <Button
@@ -100,8 +100,8 @@ export function Hero() {
               Never Wait in Line for a Car Wash Again
             </h1>
             <p className="mt-4 max-w-md text-base leading-relaxed text-burgundy sm:mt-5 sm:text-lg">
-              Woman-owned, white-glove doorstep concierge resetting family SUVs
-              so busy parents get their weekends back.
+              Eco-chic, non-toxic cabin resets delivered right to your
+              doorstep. We keep your family SUV spotless on autopilot.
             </p>
             <div className="mt-5 sm:mt-6">
               <Button

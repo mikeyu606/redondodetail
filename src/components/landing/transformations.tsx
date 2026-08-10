@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 type ProofCard = {
   id: string;
@@ -24,8 +22,8 @@ const proofCards: ProofCard[] = [
     quote:
       "Beach sand was everywhere after Hermosa. One visit and the carpets looked brand new.",
     afterLabel: "After 1 visit",
-    beforeSrc: "/hero-before.png",
-    afterSrc: "/hero-after.png",
+    beforeSrc: "/reviews/1.png",
+    afterSrc: "/reviews/2.png",
   },
   {
     id: "interior",
@@ -33,10 +31,8 @@ const proofCards: ProofCard[] = [
     quote:
       "You have to check out this woman-owned mobile car service—she comes every two weeks on auto-pay and the interior looks brand new. Lifesaver for our family.",
     afterLabel: "After 2 weeks",
-    beforeSrc:
-      "https://images.unsplash.com/photo-1771491237218-cbd4a707497e?w=800&q=80&auto=format&fit=crop",
-    afterSrc:
-      "https://images.unsplash.com/photo-1656077884513-efd5e02193af?w=800&q=80&auto=format&fit=crop",
+    beforeSrc: "/reviews/3.png",
+    afterSrc: "/reviews/4.png",
   },
   {
     id: "console",
@@ -44,24 +40,12 @@ const proofCards: ProofCard[] = [
     quote:
       "Door jambs and vents finally get cleaned. You can tell they care about the tiny details.",
     afterLabel: "After 1 month",
-    beforeSrc:
-      "https://images.unsplash.com/photo-1771491237225-01931a752f58?w=800&q=80&auto=format&fit=crop",
-    afterSrc: "/door.png",
-  },
-  {
-    id: "family",
-    name: "Sam",
-    quote:
-      "With kids and beach days, this subscription is the only thing that keeps up.",
-    afterLabel: "After 3 months",
-    beforeSrc: "/hero-before.png",
-    afterSrc: "/hero-after.png",
+    beforeSrc: "/reviews/5.png",
+    afterSrc: "/reviews/6.png",
   },
 ];
 
 export function Transformations() {
-  const [activeId, setActiveId] = useState(proofCards[1].id);
-
   return (
     <section id="transformations" className="bg-white py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -81,85 +65,65 @@ export function Transformations() {
           </Button>
         </div>
 
-        <div className="mt-12 overflow-x-auto overscroll-x-contain pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <div className="flex min-w-max snap-x snap-mandatory gap-4 sm:gap-5">
-            {proofCards.map((card, index) => (
-              <motion.article
-                key={card.id}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.06, duration: 0.35 }}
-                onClick={() => setActiveId(card.id)}
-                className={cn(
-                  "shrink-0 snap-center cursor-pointer transition-all duration-300",
-                  activeId === card.id
-                    ? "w-[285px] sm:w-[320px]"
-                    : "w-[240px] sm:w-[270px]"
-                )}
-              >
-                <div
-                  className={cn(
-                    "overflow-hidden rounded-sm transition-all duration-300",
-                    activeId === card.id
-                      ? "ring-2 ring-burgundy/40 shadow-lg shadow-burgundy/15"
-                      : "ring-1 ring-border/80"
-                  )}
-                >
-                  <div className="grid grid-cols-2">
-                    <div className="relative aspect-square bg-pink-soft">
-                      <Image
-                        src={card.beforeSrc}
-                        alt={`${card.name} before detailing`}
-                        fill
-                        className="object-cover"
-                        sizes="160px"
-                        draggable={false}
-                      />
-                      <span className="absolute left-2 top-2 bg-burgundy px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
-                        Before
-                      </span>
-                    </div>
-                    <div className="relative aspect-square bg-pink-soft">
-                      <Image
-                        src={card.afterSrc}
-                        alt={`${card.name} after detailing`}
-                        fill
-                        className="object-cover"
-                        sizes="160px"
-                        draggable={false}
-                      />
-                      <span className="absolute left-2 top-2 bg-burgundy px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
-                        {card.afterLabel}
-                      </span>
-                    </div>
+        <div className="mt-12 grid gap-8 sm:gap-6 md:grid-cols-3 md:gap-8">
+          {proofCards.map((card, index) => (
+            <motion.article
+              key={card.id}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.06, duration: 0.35 }}
+              className="flex flex-col"
+            >
+              <div className="overflow-hidden rounded-sm ring-1 ring-border/80">
+                <div className="grid grid-cols-2">
+                  <div className="relative aspect-[4/5] bg-pink-soft sm:aspect-[3/4]">
+                    <Image
+                      src={card.beforeSrc}
+                      alt={`${card.name} before detailing`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 50vw, 20vw"
+                      draggable={false}
+                    />
+                    <span className="absolute left-2.5 top-2.5 bg-burgundy px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
+                      Before
+                    </span>
+                  </div>
+                  <div className="relative aspect-[4/5] bg-pink-soft sm:aspect-[3/4]">
+                    <Image
+                      src={card.afterSrc}
+                      alt={`${card.name} after detailing`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 50vw, 20vw"
+                      draggable={false}
+                    />
+                    <span className="absolute left-2.5 top-2.5 bg-burgundy px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
+                      {card.afterLabel}
+                    </span>
                   </div>
                 </div>
+              </div>
 
-                <p className="mt-2 text-xs text-slate/70">Results may vary</p>
-                <p
-                  className="mt-3 font-serif text-3xl leading-none text-burgundy"
-                  aria-hidden
-                >
-                  &ldquo;
-                </p>
-                <p
-                  className={cn(
-                    "mt-1 text-base font-semibold transition-colors",
-                    activeId === card.id ? "text-burgundy" : "text-charcoal"
-                  )}
-                >
-                  {card.name}
-                </p>
-                <p className="mt-1.5 text-sm leading-relaxed text-slate">
-                  {card.quote}
-                </p>
-              </motion.article>
-            ))}
-          </div>
+              <p className="mt-2.5 text-xs text-slate/70">Results may vary</p>
+              <p
+                className="mt-4 font-serif text-3xl leading-none text-burgundy"
+                aria-hidden
+              >
+                &ldquo;
+              </p>
+              <p className="mt-1 text-lg font-semibold text-charcoal">
+                {card.name}
+              </p>
+              <p className="mt-2 text-[15px] leading-relaxed text-slate">
+                {card.quote}
+              </p>
+            </motion.article>
+          ))}
         </div>
 
-        <p className="mt-6 text-xs text-slate/60">
+        <p className="mt-8 text-xs text-slate/60">
           *Based on subscriber feedback from recurring South Bay routes. Individual
           results may vary by vehicle condition and visit frequency.
         </p>
