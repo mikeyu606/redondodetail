@@ -34,7 +34,7 @@ const fadeUp = {
 export function Hero() {
   return (
     <section className="flex flex-col">
-      <div className="bg-white pt-16 sm:pt-16 lg:pt-16">
+      <div className="bg-dusty-rose pt-16 sm:pt-16 lg:pt-16">
         {/* Desktop: two-column */}
         <div className="mx-auto hidden w-full max-w-6xl px-4 sm:px-6 lg:grid lg:min-h-[calc(100svh-5rem)] lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-8 lg:pb-10">
           <motion.div
