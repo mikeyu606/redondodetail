@@ -48,8 +48,7 @@ export function Hero() {
               Never Wait in Line for a Car Wash Again
             </h1>
             <p className="mt-5 max-w-md text-base leading-relaxed text-burgundy sm:text-lg">
-              Eco-chic, non-toxic washes delivered right to your doorstep.
-              We keep your family SUV spotless on autopilot.
+            Eco-chic, non-toxic washes delivered right to your doorstep. We keep your family SUV spotless on autopilot.
             </p>
             <div className="mt-7">
               <Button
@@ -64,7 +63,7 @@ export function Hero() {
               </Button>
             </div>
             <p className="mt-4 text-xs tracking-wide text-burgundy/70 uppercase">
-              Woman-owned · Non-toxic & pet-safe · From $180/mo
+              Woman-owned · Non-toxic & pet-safe · From $140/mo
             </p>
           </motion.div>
 

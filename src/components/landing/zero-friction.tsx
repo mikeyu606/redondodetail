@@ -17,7 +17,7 @@ const steps = [
     title: "Park in Your Driveway",
     description:
       "We come to you bi-weekly. We'll text you 30 minutes before arrival—no keys needed, no waiting in lines. Just park in your driveway and we handle the rest.",
-    image: "/zero-friction-driveway-v2.png",
+    image: "/how-it-works-step-2.jpg",
     alt: "Range Rover parked in a sunny modern Newport Beach driveway",
   },
   {
@@ -25,7 +25,7 @@ const steps = [
     title: "Weekends Back on Autopilot",
     description:
       "One of our girls resets your SUV every two weeks on auto-pay. Pause anytime. Get your Saturdays back.",
-    image: "/zero-friction-complete-v2.png",
+    image: "/how-it-works-step-3.jpg",
     alt: "Woman opening her Range Rover after a driveway wash with coastal views",
     showNotification: true,
   },
@@ -59,13 +59,7 @@ export function ZeroFriction() {
                 />
                 {"showNotification" in step && step.showNotification ? (
                   <div className="absolute inset-x-3 top-3 z-10 sm:inset-x-4 sm:top-4">
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.35, duration: 0.45 }}
-                      className="rounded-2xl bg-white/95 p-2.5 shadow-lg shadow-black/15 ring-1 ring-black/5 backdrop-blur-md"
-                    >
+                    <div className="rounded-2xl bg-white/95 p-2.5 shadow-lg shadow-black/15 ring-1 ring-black/5 backdrop-blur-md">
                       <div className="flex items-start gap-2.5">
                         <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-burgundy">
                           <span className="font-brand text-[10px] font-semibold leading-none text-white">
@@ -86,7 +80,7 @@ export function ZeroFriction() {
                           </p>
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   </div>
                 ) : null}
               </div>

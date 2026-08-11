@@ -17,7 +17,7 @@ import { createCheckoutSession } from "@/lib/checkout";
 import { EmbeddedCheckoutModal } from "@/components/landing/embedded-checkout-modal";
 import { addDays, addWeeks, format, getDay, startOfDay } from "date-fns";
 
-type RouteId = "newport" | "palos-verdes" | "south-bay";
+type RouteId = "newport";
 type VehicleCount = 1 | 2 | 3;
 
 type RouteOption = {
@@ -47,24 +47,6 @@ const routes: RouteOption[] = [
     slotsLeft: 4,
     status: "open",
     image: "/route-north-redondo.jpg",
-  },
-  {
-    id: "palos-verdes",
-    name: "Palos Verdes",
-    windowLabel: "Coming Soon",
-    weekday: 0,
-    slotsLeft: null,
-    status: "waitlist",
-    image: "/route-south-redondo.jpg",
-  },
-  {
-    id: "south-bay",
-    name: "South Bay / Pools",
-    windowLabel: "Coming Soon",
-    weekday: 4,
-    slotsLeft: null,
-    status: "waitlist",
-    image: "/route-hermosa-manhattan.jpg",
   },
 ];
 

@@ -77,26 +77,20 @@ export function About() {
 
             <div className="space-y-4 text-base leading-relaxed text-slate sm:text-lg">
               <p>
-                {businessName} is a woman-owned, white-glove doorstep concierge
-                resetting family SUVs so busy parents get their weekends back.
+                I started this passion back in college out of a simple
+                frustration: every local car wash option felt identical—long
+                tunnel lines, harsh chemical smells, and another Saturday
+                morning wasted sitting in a waiting room.
               </p>
               <p>
-                I started this because every car-wash option felt identical:
-                long tunnel lines, unpredictable quality, and another Saturday
-                morning wasted. Coastal families deserve something
-                seamless—and a team they genuinely trust pulling into their
-                driveway.
+                What began as a hands-on service for neighbors grew into{" "}
+                {businessName}. I knew coastal families deserved an elevated,
+                non-toxic alternative—and a detail-obsessed team they genuinely
+                trust pulling into their driveway.
               </p>
               <p>
-                We&apos;re building this with a focus on details, high energy,
-                and personal service. Our team visits your driveway bi-weekly,
-                resets your interior and exterior, and leaves your SUV looking
-                brand new—all on hands-free auto-pay, like DoorDash for your
-                vehicle.
-              </p>
-              <p>
-                Launching across Newport Beach coastal zips first, building our
-                routes neighborhood by neighborhood.
+                We&apos;re building this neighborhood by neighborhood, giving
+                busy parents their weekends back on autopilot.
               </p>
             </div>
 
