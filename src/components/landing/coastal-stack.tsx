@@ -6,22 +6,22 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const coastalItems = [
   {
-    icon: Shield,
-    title: "Asset Protection",
+    icon: Heart,
+    title: "Non-Toxic & Family Safe",
     description:
-      "Automatic car wash brushes leave permanent swirl marks and micro-scratches. Our 100% hand wash uses soft microfibers and pH-balanced foam to protect your paint, ceramic finish, and resale value.",
+      "Crushed snacks, dog hair, and beach sand vanish without a trace. We restore your cabin using strictly non-toxic, pet-safe formulas—leaving zero synthetic fumes or sticky chemical residues behind.",
   },
   {
     icon: Clock,
-    title: "Zero Weekend Effort",
+    title: "Reclaim 2 Hours Every Weekend",
     description:
-      "Stop wasting 2 hours sitting in car wash lobbies. We service your vehicle right on your driveway while you relax, work, or spend time with family.",
+      "Stop wasting sunny Saturdays sitting in loud car wash lobbies or waiting in drive-thru lines. We service your vehicle right in your driveway while you work, relax, or spend time with family.",
   },
   {
-    icon: Heart,
-    title: "Family & Pet Safe",
+    icon: Shield,
+    title: "Preserve Paint & Resale Value",
     description:
-      "We remove crumbs, dog hair, and beach sand using gentle, non-toxic products. No harsh chemical fumes or synthetic residues left behind.",
+      "Automatic wash brushes leave permanent swirl marks and micro-scratches on clear coats. Our scratch-free hand resets use ultra-soft microfibers and pH-balanced foam to protect your luxury SUV’s finish and long-term value.",
   },
 ];
 
@@ -31,11 +31,12 @@ export function CoastalStack() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-heading text-4xl font-medium leading-tight tracking-tight text-charcoal sm:text-5xl">
-            Built for Newport Beach Families
+            Designed for Newport Beach Living
           </h2>
           <p className="mt-4 text-slate">
-            A bi-weekly mobile wash that feels like DoorDash for your driveway—
-            safe products, woman-owned care, and a little love for the coast.
+            A bi-weekly driveway care membership keeping your family SUV
+            spotless on autopilot—using gentle, non-toxic products and a touch
+            of coastal care.
           </p>
         </div>
 

@@ -17,16 +17,16 @@ const steps = [
     title: "Park in Your Driveway",
     description:
       "We come to you bi-weekly. We'll text you 30 minutes before arrival—no keys needed, no waiting in lines. Just park in your driveway and we handle the rest.",
-    image: "/zero-friction-driveway.png",
-    alt: "Family SUV parked on a bright coastal driveway",
+    image: "/zero-friction-driveway-v2.png",
+    alt: "Range Rover parked in a sunny modern Newport Beach driveway",
   },
   {
     number: "03",
     title: "Weekends Back on Autopilot",
     description:
       "One of our girls resets your SUV every two weeks on auto-pay. Pause anytime. Get your Saturdays back.",
-    image: "/card3.png",
-    alt: "Freshly washed white Tesla after Her Driveway Club visit",
+    image: "/zero-friction-complete-v2.png",
+    alt: "Woman opening her Range Rover after a driveway wash with coastal views",
     showNotification: true,
   },
 ];

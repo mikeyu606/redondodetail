@@ -55,10 +55,10 @@ export function Hero() {
               <Button
                 asChild
                 size="sm"
-                className="h-10 px-5 text-xs tracking-[0.12em] bg-burgundy text-white hover:bg-pink-primary-hover"
+                className="h-10 px-5 text-xs normal-case tracking-[0.12em] bg-burgundy text-white hover:bg-pink-primary-hover"
               >
                 <Link href="#route-schedule">
-                  Reserve Your Bi-Weekly Slot
+                  Reserve your slot
                   <ArrowRight className="size-3.5" />
                 </Link>
               </Button>
@@ -107,9 +107,9 @@ export function Hero() {
               <Button
                 asChild
                 size="sm"
-                className="h-10 rounded-sm px-6 text-xs tracking-[0.12em] bg-burgundy text-white hover:bg-pink-primary-hover"
+                className="h-10 rounded-sm px-6 text-xs normal-case tracking-[0.12em] bg-burgundy text-white hover:bg-pink-primary-hover"
               >
-                <Link href="#route-schedule">Reserve Your Slot</Link>
+                <Link href="#route-schedule">Reserve your slot</Link>
               </Button>
             </div>
           </motion.div>

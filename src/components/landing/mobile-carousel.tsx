@@ -11,8 +11,9 @@ type MobileCarouselProps = {
 };
 
 /**
- * Horizontal snap carousel on mobile; normal grid/flow from md up.
- * Forwards vertical wheel/trackpad scroll to the page so hover doesn't trap scroll.
+ * Horizontal snap carousel on mobile; normal grid from md up.
+ * Vertical page scroll is preserved (overflow-x alone creates a scrollport
+ * that otherwise eats wheel/trackpad and can feel "stuck").
  */
 export function MobileCarousel({
   children,
@@ -25,11 +26,18 @@ export function MobileCarousel({
     const el = ref.current;
     if (!el) return;
 
+    const isMobileCarousel = () =>
+      window.matchMedia("(max-width: 767px)").matches;
+
     const onWheel = (e: WheelEvent) => {
-      if (window.matchMedia("(min-width: 768px)").matches) return;
-      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+      if (!isMobileCarousel()) return;
+      // Horizontal gesture — let the carousel handle it
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+
+      // Vertical intent — move the page instead of trapping in the row
       e.preventDefault();
-      window.scrollBy({ top: e.deltaY, left: 0 });
+      const scroller = document.scrollingElement ?? document.documentElement;
+      scroller.scrollTop += e.deltaY;
     };
 
     el.addEventListener("wheel", onWheel, { passive: false });
@@ -40,9 +48,12 @@ export function MobileCarousel({
     <div
       ref={ref}
       className={cn(
-        "-mx-4 flex touch-pan-x snap-x snap-proximity gap-4 overflow-x-auto px-4 pb-3",
-        "[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-        "md:mx-0 md:grid md:overflow-visible md:px-0 md:pb-0 md:touch-auto",
+        // Mobile: side-scroll only. Do NOT use touch-pan-x — it blocks vertical page scroll.
+        "-mx-4 flex gap-4 px-4 pb-3",
+        "max-md:snap-x max-md:snap-proximity max-md:overflow-x-auto max-md:overscroll-x-contain",
+        "max-md:[-ms-overflow-style:none] max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden",
+        // Desktop: normal grid, no scrollport
+        "md:mx-0 md:grid md:overflow-visible md:px-0 md:pb-0",
         desktopClassName,
         className
       )}

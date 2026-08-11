@@ -10,6 +10,7 @@ import { MobileCarousel } from "@/components/landing/mobile-carousel";
 type ProofCard = {
   id: string;
   name: string;
+  location: string;
   quote: string;
   afterLabel: string;
   beforeSrc: string;
@@ -18,28 +19,31 @@ type ProofCard = {
 
 const proofCards: ProofCard[] = [
   {
-    id: "console",
-    name: "Alex",
+    id: "exterior",
+    name: "Sarah M.",
+    location: "Newport Coast",
     quote:
-      "Door jambs and vents finally get cleaned. You can tell they care about the tiny details.",
-    afterLabel: "After 1 month",
+      "Between soccer practice and school runs, our Q7 was constantly coated in dust and salt air. Having Her Driveway Club reset it every two weeks on autopilot is absolute magic. The paint stays glowing and I never have to spend my Saturdays in line.",
+    afterLabel: "After 1 visit",
     beforeSrc: "/reviews/5.png",
     afterSrc: "/reviews/6.png",
   },
   {
     id: "interior",
-    name: "Lauren",
+    name: "Lauren K.",
+    location: "Balboa Island",
     quote:
-      "You have to check out this woman-owned mobile car service—she comes every two weeks on auto-pay and the interior looks brand new. Lifesaver for our family.",
+      "The coffee spills and dusty vents were driving me crazy, but I hate the chemical smell of regular car washes. Her Driveway Club leaves the interior completely spotless with zero harsh fumes. My kids actually noticed how fresh the cabin felt!",
     afterLabel: "After 2 weeks",
     beforeSrc: "/reviews/3.png",
     afterSrc: "/reviews/4.png",
   },
   {
-    id: "sand",
-    name: "Jordan",
+    id: "carpet",
+    name: "Jessica T.",
+    location: "Eastbluff",
     quote:
-      "Beach sand was everywhere after Hermosa. One visit and the carpets looked brand new.",
+      "After weekend beach trips with two toddlers and a golden retriever, our carpets were a disaster area. One visit and the sand was completely gone. Getting our cabin reset while taking Zoom calls inside is the ultimate life hack.",
     afterLabel: "After 1 visit",
     beforeSrc: "/reviews/1.png",
     afterSrc: "/reviews/2.png",
@@ -51,9 +55,15 @@ export function Transformations() {
     <section id="transformations" className="bg-white py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-          <h2 className="font-heading max-w-xl text-3xl font-medium tracking-tight text-charcoal sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
-            Newport parents get their weekends back on autopilot*
-          </h2>
+          <div className="max-w-2xl">
+            <h2 className="font-heading text-3xl font-medium tracking-tight text-charcoal sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
+              Our back seats used to be disaster zones.
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-slate sm:text-lg">
+              See how local coastal families keep their SUVs pristine, non-toxic,
+              and beach-ready without lifting a finger.
+            </p>
+          </div>
           <Button
             asChild
             size="sm"
@@ -66,7 +76,10 @@ export function Transformations() {
           </Button>
         </div>
 
-        <MobileCarousel className="mt-12" desktopClassName="md:grid-cols-3 md:gap-8">
+        <MobileCarousel
+          className="mt-12"
+          desktopClassName="md:grid-cols-3 md:gap-8"
+        >
           {proofCards.map((card, index) => (
             <motion.article
               key={card.id}
@@ -114,8 +127,15 @@ export function Transformations() {
               >
                 &ldquo;
               </p>
-              <p className="mt-1 text-lg font-semibold text-charcoal">
-                {card.name}
+              <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                <p className="text-lg font-semibold text-charcoal">{card.name}</p>
+                <p className="text-sm text-slate">{card.location}</p>
+              </div>
+              <p
+                className="mt-1 text-sm tracking-wide text-burgundy"
+                aria-label="5 out of 5 stars"
+              >
+                ★★★★★
               </p>
               <p className="mt-2 text-[15px] leading-relaxed text-slate">
                 {card.quote}
@@ -125,8 +145,7 @@ export function Transformations() {
         </MobileCarousel>
 
         <p className="mt-8 text-xs text-slate/60">
-          *Based on subscriber feedback from recurring South Bay routes. Individual
-          results may vary by vehicle condition and visit frequency.
+          Individual results may vary by vehicle condition and visit frequency.
         </p>
       </div>
     </section>
