@@ -67,7 +67,14 @@ export function Pricing() {
             </div>
           </div>
 
-          <MobileCarousel className="mt-14" desktopClassName="md:grid-cols-3 md:gap-6">
+          <div className="mx-auto mt-10 max-w-3xl px-1 text-center">
+            <p className="inline-flex rounded-full border border-pink-medium/60 bg-pink-light/70 px-4 py-2 text-sm leading-snug text-charcoal">
+              🍎 Community Care: 1% of every active membership goes directly to
+              local Newport Beach PTAs &amp; schools.
+            </p>
+          </div>
+
+          <MobileCarousel className="mt-8" desktopClassName="md:grid-cols-3 md:gap-6">
             {pricingTiers.map((tier, i) => {
               const price =
                 billing === "subscription"
@@ -81,24 +88,24 @@ export function Pricing() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.5 }}
-                  className="w-[82vw] max-w-sm shrink-0 snap-center md:w-auto md:max-w-none"
+                  className="flex w-[82vw] max-w-sm shrink-0 snap-center md:w-auto md:max-w-none"
                 >
                   <Card
                     className={cn(
-                      "relative h-full bg-white transition-all duration-300 hover:border-pink-primary/40 hover:shadow-md hover:shadow-pink-medium/10",
+                      "relative flex h-full w-full flex-col bg-white transition-all duration-300 hover:border-pink-primary/40 hover:shadow-md hover:shadow-pink-medium/10",
                       tier.popular &&
                         "border-pink-primary/50 ring-1 ring-pink-primary/20"
                     )}
                   >
                     <CardHeader className="text-center">
-                      {tier.popular && (
-                        <div className="mb-4 flex justify-center">
+                      <div className="mb-3 flex h-7 items-center justify-center">
+                        {tier.popular ? (
                           <Badge className="px-3 py-1">
                             <Sparkles className="mr-1 size-3" />
                             Most Popular
                           </Badge>
-                        </div>
-                      )}
+                        ) : null}
+                      </div>
                       <CardTitle className="text-lg">{tier.name}</CardTitle>
                       <CardDescription>{tier.description}</CardDescription>
                       <div className="mt-4">
@@ -112,35 +119,39 @@ export function Pricing() {
                           {billing === "subscription" ? "/mo" : " one-time"}
                         </span>
                       </div>
-                      {billing === "subscription" && (
-                        <p className="mt-1 text-xs text-pink-primary">
-                          ${price} every 2 weeks · pause anytime
-                        </p>
-                      )}
+                      <p
+                        className={cn(
+                          "mt-1 text-xs text-pink-primary",
+                          billing !== "subscription" && "invisible"
+                        )}
+                      >
+                        ${price} every 2 weeks · pause anytime
+                      </p>
                     </CardHeader>
-                    <CardContent className="space-y-6">
-                      <ul className="space-y-3">
+                    <CardContent className="flex flex-1 flex-col pt-0">
+                      <ul className="flex-1 space-y-3">
                         {pricingFeatures.map((feature) => (
                           <li
-                            key={feature}
-                            className="flex items-start gap-2.5 text-sm text-slate"
+                            key={feature.label}
+                            className={cn(
+                              "flex items-start gap-2.5 text-sm",
+                              feature.subscriptionOnly &&
+                                billing === "one-time" &&
+                                "line-through opacity-40"
+                            )}
                           >
                             <Check className="mt-0.5 size-4 shrink-0 text-pink-primary" />
-                            <span
-                              className={cn(
-                                (feature.toLowerCase().includes("bi-weekly") ||
-                                  feature.toLowerCase().includes("per month")) &&
-                                  billing === "one-time" &&
-                                  "line-through opacity-40"
-                              )}
-                            >
-                              {feature}
+                            <span>
+                              <span className="font-semibold text-charcoal">
+                                {feature.label}:
+                              </span>{" "}
+                              <span className="text-slate">{feature.detail}</span>
                             </span>
                           </li>
                         ))}
                       </ul>
                       <Button
-                        className="w-full"
+                        className="mt-6 w-full"
                         variant={tier.popular ? "default" : "secondary"}
                         onClick={() => openWizard(tier.id)}
                       >

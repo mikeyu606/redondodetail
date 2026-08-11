@@ -38,13 +38,23 @@ export const pricingTiers: PricingTier[] = [
 ];
 
 export const pricingFeatures = [
-  "Exterior hand wash & rinse",
-  "Interior vacuum, wipe-down & glass",
-  "Wheels, tires & door jambs",
-  "100% non-toxic & pet-safe products",
-  "1% of income goes to cleaning our coasts",
-  "2 scheduled driveway resets per month",
-  "Automated bi-weekly billing — pause anytime",
+  {
+    label: "Exterior & Wheels Reset",
+    detail: "Hand wash, pH-balanced foam rinse, and tire dressing",
+  },
+  {
+    label: "Full Interior Cabin Detail",
+    detail: "Deep vacuum, streak-free glass, and door jamb wipe",
+  },
+  {
+    label: "100% Non-Toxic & Pet-Safe",
+    detail: "Plant-derived formulas with zero synthetic chemical fumes",
+  },
+  {
+    label: "2 Bi-Weekly Visits / Month",
+    detail: "Direct driveway service on autopilot (pause or skip anytime)",
+    subscriptionOnly: true,
+  },
 ];
 
 export function getTierById(id: TierId) {
