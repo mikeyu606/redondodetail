@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   CalendarDays,
@@ -95,6 +95,11 @@ export function RouteCalendar() {
   const [error, setError] = useState<string | null>(null);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const stepScrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    stepScrollRef.current?.scrollTo({ top: 0 });
+  }, [step]);
 
   const visitSubtotal = vehicleTypes.reduce(
     (sum, id) => sum + getTierById(id).subscriptionPrice,
@@ -195,7 +200,10 @@ export function RouteCalendar() {
         </div>
 
         <div className="mx-auto mt-12 flex max-w-4xl flex-col rounded-[1.75rem] border border-border/80 bg-white p-5 shadow-[0_20px_60px_-30px_rgba(194,24,91,0.35)] sm:p-8">
-          <div className="relative">
+          <div
+            ref={stepScrollRef}
+            className="relative h-[28rem] overflow-y-auto sm:h-[32rem]"
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={step}
@@ -434,7 +442,7 @@ export function RouteCalendar() {
             </AnimatePresence>
           </div>
 
-          <div className="mt-8 flex flex-col gap-4 border-t border-border/70 pt-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-5 flex shrink-0 flex-col gap-4 border-t border-border/70 pt-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="min-w-0 flex-1">
               <p className="text-xs font-medium text-slate">
                 Step {step + 1}: {stepLabels[step]}
@@ -447,12 +455,12 @@ export function RouteCalendar() {
               </div>
             </div>
 
-            <div className="flex w-full items-center gap-3 sm:w-auto">
+            <div className="flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
               {step > 0 ? (
                 <button
                   type="button"
                   onClick={() => setStep((s) => Math.max(0, s - 1))}
-                  className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-border bg-white px-5 text-sm font-semibold uppercase tracking-wide text-charcoal transition-colors hover:border-burgundy/40 hover:text-burgundy sm:flex-none"
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-border bg-white px-5 text-sm font-semibold uppercase tracking-wide text-charcoal transition-colors hover:border-burgundy/40 hover:text-burgundy sm:flex-none"
                 >
                   <ChevronLeft className="size-4" />
                   Back
@@ -463,7 +471,7 @@ export function RouteCalendar() {
                 type="button"
                 onClick={handlePrimary}
                 disabled={!canNext || loading}
-                className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-burgundy to-[#e85a8a] px-7 text-sm font-semibold uppercase tracking-wide text-white shadow-[0_12px_30px_-10px_rgba(194,24,91,0.75)] transition-all hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-40 sm:flex-none"
+                className="inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-gradient-to-r from-burgundy to-[#e85a8a] px-6 text-sm font-semibold uppercase tracking-wide text-white shadow-[0_12px_30px_-10px_rgba(194,24,91,0.75)] transition-all hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-40 sm:px-7"
               >
                 {loading ? (
                   <>
@@ -478,7 +486,7 @@ export function RouteCalendar() {
                 ) : (
                   <>
                     <Lock className="size-4" />
-                    Lock In Slot — Proceed to Payment
+                    Proceed to Payment
                   </>
                 )}
               </button>

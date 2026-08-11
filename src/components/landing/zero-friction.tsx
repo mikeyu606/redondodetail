@@ -27,7 +27,6 @@ const steps = [
       "We give your SUV a full interior & exterior deep clean every two weeks on auto-pay. Pause anytime. Get your Saturdays back.",
     image: "/how-it-works-step-3.jpg",
     alt: "Woman opening her Range Rover after a driveway wash with coastal views",
-    showNotification: true,
   },
 ];
 
@@ -57,32 +56,6 @@ export function ZeroFriction() {
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
-                {"showNotification" in step && step.showNotification ? (
-                  <div className="absolute inset-x-3 top-3 z-10 sm:inset-x-4 sm:top-4">
-                    <div className="rounded-2xl bg-white/95 p-2.5 shadow-lg shadow-black/15 ring-1 ring-black/5 backdrop-blur-md">
-                      <div className="flex items-start gap-2.5">
-                        <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-burgundy">
-                          <span className="font-brand text-[10px] font-semibold leading-none text-white">
-                            HD
-                          </span>
-                        </div>
-                        <div className="min-w-0 flex-1 text-left">
-                          <div className="flex items-baseline justify-between gap-2">
-                            <p className="truncate font-brand text-sm leading-tight text-charcoal">
-                              Her Driveway Club
-                            </p>
-                            <span className="shrink-0 text-[10px] text-slate">
-                              now
-                            </span>
-                          </div>
-                          <p className="mt-0.5 text-[11px] leading-snug text-slate">
-                            Your driveway clean is complete!
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : null}
               </div>
               <span className="font-serif text-2xl text-burgundy/45">
                 {step.number}
