@@ -111,6 +111,9 @@ export function Hero() {
                 <Link href="#route-schedule">Reserve your slot</Link>
               </Button>
             </div>
+            <p className="mt-4 text-xs tracking-wide text-burgundy/70 uppercase">
+              Woman-owned · Non-toxic & pet-safe · From $140/mo
+            </p>
           </motion.div>
 
           <motion.div
