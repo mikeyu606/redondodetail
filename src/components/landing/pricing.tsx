@@ -118,15 +118,7 @@ export function Pricing() {
                       </div>
                       <p
                         className={cn(
-                          "mt-1 text-xs text-pink-primary",
-                          billing !== "subscription" && "invisible"
-                        )}
-                      >
-                        Billed every 2 weeks • Pause or skip anytime
-                      </p>
-                      <p
-                        className={cn(
-                          "mt-0.5 text-xs text-slate/70",
+                          "mt-1 text-xs text-slate/70",
                           billing !== "subscription" && "invisible"
                         )}
                       >
@@ -164,6 +156,14 @@ export function Pricing() {
                           ? "Start Subscription"
                           : "Book One-Time Wash"}
                       </Button>
+                      <p
+                        className={cn(
+                          "mt-2.5 text-center text-xs text-pink-primary",
+                          billing !== "subscription" && "invisible"
+                        )}
+                      >
+                        Billed every 2 weeks • Pause or skip anytime
+                      </p>
                     </CardContent>
                   </Card>
                 </motion.div>

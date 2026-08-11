@@ -6,25 +6,25 @@ import { motion } from "framer-motion";
 const steps = [
   {
     number: "01",
-    title: "Pick Your Saturday",
+    title: "Lock In Your Saturday",
     description:
-      "Newport Beach is live Saturdays 8 AM – 4 PM. Join the waitlist for Palos Verdes and South Bay / pool routes.",
+      "Select your starting date in under 60 seconds. Your spot on the bi-weekly route is reserved all season long.",
     image: "/zero-friction-schedule.png",
     alt: "Hand scheduling a Her Driveway Club route on a phone",
   },
   {
     number: "02",
-    title: "Park in Your Driveway",
+    title: "Zero Interruption",
     description:
-      "We come to you bi-weekly. We'll text you 30 minutes before arrival—no keys needed, no waiting in lines. Just park in your driveway and we handle the rest.",
+      "No driving to car washes or waiting in lines. Just park at home—we bring everything needed directly to your driveway.",
     image: "/how-it-works-step-2.jpg",
     alt: "Range Rover parked in a sunny modern Newport Beach driveway",
   },
   {
     number: "03",
-    title: "We Clean It Every Two Weeks",
+    title: "Always Drive Clean",
     description:
-      "We give your SUV a full interior & exterior deep clean every two weeks on auto-pay. Pause anytime. Get your Saturdays back.",
+      "Enjoy a spotless interior & exterior every two weeks on auto-pay. Pause or reschedule anytime with one simple text.",
     image: "/how-it-works-step-3.jpg",
     alt: "Woman opening her Range Rover after a driveway wash with coastal views",
   },
@@ -37,6 +37,10 @@ export function ZeroFriction() {
         <h2 className="font-heading text-center text-4xl font-medium tracking-tight text-charcoal sm:text-5xl">
           Set It Once. Enjoy All Year.
         </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-center text-slate">
+          Effortless bi-weekly care brought right to your driveway—so your
+          weekend stays yours.
+        </p>
 
         <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
           {steps.map((step, i) => (

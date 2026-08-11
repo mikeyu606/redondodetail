@@ -49,7 +49,7 @@ const fleetOptions: {
   { count: 3, title: "3+ Vehicles", savings: 30 },
 ];
 
-const stepLabels = ["Start Date", "Vehicles", "Address"] as const;
+const stepLabels = ["Start Date", "Vehicles", "Vehicle Type", "Address"] as const;
 const TOTAL_STEPS = stepLabels.length;
 
 function fleetSavings(count: VehicleCount) {
@@ -81,6 +81,65 @@ function buildCycleOptions(weekday: number, now: Date = new Date()): CycleOption
       detail: `Start ${format(second, "MMMM d")} · then every other ${dayName}`,
     },
   ];
+}
+
+function DateStep({
+  cycles,
+  cycleId,
+  slotsMonth,
+  onSelect,
+}: {
+  cycles: CycleOption[];
+  cycleId: string | null;
+  slotsMonth: string;
+  onSelect?: (id: string) => void;
+}) {
+  return (
+    <div>
+      <div className="mb-4">
+        <span className="inline-flex items-center rounded-full bg-burgundy px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
+          Only {newportRoute.slotsLeft} slots left for {slotsMonth}
+        </span>
+      </div>
+      <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
+        Which Saturday starts your bi-weekly cycle?
+      </h3>
+      <p className="mt-2 text-sm text-slate">
+        Full interior &amp; exterior deep clean every other Saturday between 8
+        AM – 4 PM, starting on your chosen date. (Newport Beach Route)
+      </p>
+
+      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        {cycles.map((cycle) => {
+          const selected = cycleId === cycle.id;
+          return (
+            <button
+              key={cycle.id}
+              type="button"
+              tabIndex={onSelect ? 0 : -1}
+              onClick={onSelect ? () => onSelect(cycle.id) : undefined}
+              className={cn(
+                "rounded-2xl border px-4 py-5 text-left transition-all",
+                selected
+                  ? "border-burgundy bg-pink-light/70 ring-2 ring-burgundy/20"
+                  : "border-border bg-white hover:border-burgundy/40"
+              )}
+            >
+              <p className="font-semibold text-charcoal">{cycle.label}</p>
+              <p className="mt-1 text-sm text-slate">
+                Then every other {format(cycle.startDate, "EEEE")}
+              </p>
+              {selected ? (
+                <span className="mt-3 inline-block rounded-full bg-burgundy px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
+                  Selected
+                </span>
+              ) : null}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 export function RouteCalendar() {
@@ -135,7 +194,9 @@ export function RouteCalendar() {
       ? !!cycleId
       : step === 1
         ? vehicleCount >= 1
-        : address.trim().length > 3 && zip.trim().length >= 5;
+        : step === 2
+          ? vehicleTypes.length === vehicleCount
+          : address.trim().length > 3 && zip.trim().length >= 5;
 
   async function handlePrimary() {
     setError(null);
@@ -195,15 +256,20 @@ export function RouteCalendar() {
             Lock In Your Bi-Weekly Care
           </h2>
           <p className="mt-4 text-slate">
-            Three quick steps. Secure checkout with Stripe.
+            Four quick steps. Secure checkout with Stripe.
           </p>
         </div>
 
         <div className="mx-auto mt-12 flex max-w-4xl flex-col rounded-[1.75rem] border border-border/80 bg-white p-5 shadow-[0_20px_60px_-30px_rgba(194,24,91,0.35)] sm:p-8">
-          <div
-            ref={stepScrollRef}
-            className="relative h-[28rem] overflow-y-auto sm:h-[32rem]"
-          >
+          <div className="relative">
+            <div className="invisible pointer-events-none select-none" aria-hidden>
+              <DateStep
+                cycles={cycles}
+                cycleId={cycleId}
+                slotsMonth={slotsMonth}
+              />
+            </div>
+            <div ref={stepScrollRef} className="absolute inset-0 overflow-y-auto">
             <AnimatePresence mode="wait">
               <motion.div
                 key={step}
@@ -213,52 +279,12 @@ export function RouteCalendar() {
                 transition={{ duration: 0.25 }}
               >
                 {step === 0 && (
-                  <div>
-                    <div className="mb-4">
-                      <span className="inline-flex items-center rounded-full bg-burgundy px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
-                        Only {newportRoute.slotsLeft} slots left for {slotsMonth}
-                      </span>
-                    </div>
-                    <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
-                      Which Saturday starts your bi-weekly cycle?
-                    </h3>
-                    <p className="mt-2 text-sm text-slate">
-                      We&apos;ll give your SUV a full interior &amp; exterior
-                      deep clean every other Saturday between 8 AM – 4 PM
-                      starting on your chosen date. (Newport Beach Route)
-                    </p>
-
-                    <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                      {cycles.map((cycle) => {
-                        const selected = cycleId === cycle.id;
-                        return (
-                          <button
-                            key={cycle.id}
-                            type="button"
-                            onClick={() => setCycleId(cycle.id)}
-                            className={cn(
-                              "rounded-2xl border px-4 py-5 text-left transition-all",
-                              selected
-                                ? "border-burgundy bg-pink-light/70 ring-2 ring-burgundy/20"
-                                : "border-border bg-white hover:border-burgundy/40"
-                            )}
-                          >
-                            <p className="font-semibold text-charcoal">
-                              {cycle.label}
-                            </p>
-                            <p className="mt-1 text-sm text-slate">
-                              Then every other {format(cycle.startDate, "EEEE")}
-                            </p>
-                            {selected ? (
-                              <span className="mt-3 inline-block rounded-full bg-burgundy px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
-                                Selected
-                              </span>
-                            ) : null}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
+                  <DateStep
+                    cycles={cycles}
+                    cycleId={cycleId}
+                    slotsMonth={slotsMonth}
+                    onSelect={setCycleId}
+                  />
                 )}
 
                 {step === 1 && (
@@ -302,23 +328,31 @@ export function RouteCalendar() {
                         );
                       })}
                     </div>
+                  </div>
+                )}
 
-                    <h4 className="mt-8 text-lg font-semibold text-charcoal">
-                      What type is each vehicle?
-                    </h4>
-                    <p className="mt-1 text-sm text-slate">
+                {step === 2 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
+                      {vehicleCount === 1
+                        ? "Which type of vehicle?"
+                        : "What type is each vehicle?"}
+                    </h3>
+                    <p className="mt-2 text-sm text-slate">
                       Sedan, crossover, or full SUV — each is priced on its own.
                     </p>
 
-                    <div className="mt-4 space-y-4">
+                    <div className="mt-6 space-y-4">
                       {vehicleTypes.map((tierId, index) => (
                         <div
                           key={index}
                           className="rounded-2xl border border-border bg-white px-4 py-4"
                         >
-                          <p className="mb-3 text-sm font-semibold text-charcoal">
-                            Vehicle {index + 1}
-                          </p>
+                          {vehicleCount > 1 ? (
+                            <p className="mb-3 text-sm font-semibold text-charcoal">
+                              Vehicle {index + 1}
+                            </p>
+                          ) : null}
                           <div className="grid gap-2">
                             {pricingTiers.map((tier) => {
                               const selected = tierId === tier.id;
@@ -344,9 +378,7 @@ export function RouteCalendar() {
                                     {tier.name}
                                   </span>
                                   <span className="ml-2 text-slate">
-                                    ${tier.subscriptionPrice}/visit · $
-                                    {getMonthlyEstimate(tier.subscriptionPrice)}
-                                    /mo
+                                    ${tier.subscriptionPrice} / bi-weekly
                                   </span>
                                 </button>
                               );
@@ -358,18 +390,22 @@ export function RouteCalendar() {
 
                     <div className="mt-5 rounded-2xl border border-burgundy/20 bg-pink-light/60 px-4 py-3 text-sm text-charcoal">
                       <p className="font-medium">{fleetLabel}</p>
-                      <p className="mt-1 text-slate">
-                        ${visitTotal}/visit
-                        {savings ? ` · includes $${savings} multi-car savings` : ""}
+                      <p className="mt-1 font-semibold text-charcoal">
+                        ${visitTotal} every 2 weeks
                       </p>
-                      <p className="font-semibold text-charcoal">
-                        ${monthlyPrice}/mo bi-weekly billing
+                      {savings ? (
+                        <p className="mt-0.5 text-slate">
+                          Includes ${savings} multi-car savings
+                        </p>
+                      ) : null}
+                      <p className="mt-0.5 text-xs text-slate/70">
+                        (~${monthlyPrice}/mo equivalent)
                       </p>
                     </div>
                   </div>
                 )}
 
-                {step === 2 && (
+                {step === 3 && (
                   <div>
                     <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
                       Where is your driveway located?
@@ -427,11 +463,11 @@ export function RouteCalendar() {
                               Saturday
                             </p>
                           ) : null}
-                          <p className="text-slate">
-                            {fleetLabel} — ${visitTotal}/visit
-                          </p>
                           <p className="font-semibold text-charcoal">
-                            ${monthlyPrice}/mo bi-weekly billing
+                            {fleetLabel} — ${visitTotal} every 2 weeks
+                          </p>
+                          <p className="text-xs text-slate/70">
+                            (~${monthlyPrice}/mo equivalent)
                           </p>
                         </div>
                       </div>
@@ -440,6 +476,7 @@ export function RouteCalendar() {
                 )}
               </motion.div>
             </AnimatePresence>
+            </div>
           </div>
 
           <div className="mt-5 flex shrink-0 flex-col gap-4 border-t border-border/70 pt-5 sm:flex-row sm:items-center sm:justify-between">
@@ -497,6 +534,19 @@ export function RouteCalendar() {
             <p className="mt-3 text-sm text-red-600">{error}</p>
           ) : null}
         </div>
+
+        <p className="mx-auto mt-6 max-w-4xl text-center text-sm leading-relaxed text-slate sm:mt-8">
+          <span className="mr-1.5" aria-hidden>
+            💬
+          </span>
+          Have a question before booking? Text us directly at{" "}
+          <a
+            href="sms:+14242487189"
+            className="font-medium text-burgundy underline decoration-burgundy/30 underline-offset-2 transition-colors hover:text-burgundy/80"
+          >
+            (424)-248-7189
+          </a>
+        </p>
       </div>
 
       <EmbeddedCheckoutModal

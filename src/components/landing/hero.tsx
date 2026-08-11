@@ -45,21 +45,20 @@ export function Hero() {
             className="flex flex-col justify-center py-6 text-left"
           >
             <h1 className="font-heading text-[clamp(2.15rem,3.4vw,3.15rem)] font-bold leading-[1.12] tracking-[-0.015em] text-burgundy">
-              A Spotless Car in Your Driveway Every Weekend—Without Lifting a Finger.
+              A Spotless Car in Your Driveway Every Weekend Without Lifting a Finger.
             </h1>
             <p className="mt-5 max-w-md text-base leading-relaxed text-burgundy sm:text-lg">
-              Plant-based, non-toxic deep cleans—safe for kids &amp; pets, with
+              Plant-based, non-toxic deep cleans, safe for kids &amp; pets, with
               zero harsh chemical fumes.
             </p>
-            <div className="mt-7">
+            <div className="mt-8">
               <Button
                 asChild
-                size="sm"
-                className="h-10 px-5 text-xs normal-case tracking-[0.12em] bg-burgundy text-white hover:bg-pink-primary-hover"
+                className="h-14 px-8 text-base font-semibold tracking-[0.08em] bg-burgundy text-white hover:bg-pink-primary-hover"
               >
                 <Link href="#route-schedule">
-                  Book Your Driveway Clean
-                  <ArrowRight className="size-3.5" />
+                  Book Now
+                  <ArrowRight className="size-5" />
                 </Link>
               </Button>
             </div>
@@ -97,19 +96,18 @@ export function Hero() {
             className="mx-auto flex w-full max-w-lg flex-col items-center px-5 pb-7 pt-12 text-center sm:px-8 sm:pb-9 sm:pt-14"
           >
             <h1 className="font-heading w-full text-[clamp(1.85rem,7.2vw,2.35rem)] font-bold leading-[1.12] tracking-[-0.02em] text-burgundy">
-              A Spotless Car in Your Driveway Every Weekend—Without Lifting a Finger.
+              A Spotless Car in Your Driveway Every Weekend Without Lifting a Finger.
             </h1>
             <p className="mt-4 max-w-md text-base leading-relaxed text-burgundy sm:mt-5 sm:text-lg">
-              Plant-based, non-toxic deep cleans—safe for kids &amp; pets, with
+              Plant-based, non-toxic deep cleans, safe for kids &amp; pets, with
               zero harsh chemical fumes.
             </p>
-            <div className="mt-5 sm:mt-6">
+            <div className="mt-6 sm:mt-7">
               <Button
                 asChild
-                size="sm"
-                className="h-10 rounded-sm px-6 text-xs normal-case tracking-[0.12em] bg-burgundy text-white hover:bg-pink-primary-hover"
+                className="h-14 rounded-sm px-10 text-base font-semibold tracking-[0.08em] bg-burgundy text-white hover:bg-pink-primary-hover"
               >
-                <Link href="#route-schedule">Book Your Driveway Clean</Link>
+                <Link href="#route-schedule">Book Now</Link>
               </Button>
             </div>
             <p className="mt-4 text-xs tracking-wide text-burgundy/70 uppercase">
