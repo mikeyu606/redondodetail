@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { MobileCarousel } from "@/components/landing/mobile-carousel";
 
 type ProofCard = {
   id: string;
@@ -17,13 +18,13 @@ type ProofCard = {
 
 const proofCards: ProofCard[] = [
   {
-    id: "sand",
-    name: "Jordan",
+    id: "console",
+    name: "Alex",
     quote:
-      "Beach sand was everywhere after Hermosa. One visit and the carpets looked brand new.",
-    afterLabel: "After 1 visit",
-    beforeSrc: "/reviews/1.png",
-    afterSrc: "/reviews/2.png",
+      "Door jambs and vents finally get cleaned. You can tell they care about the tiny details.",
+    afterLabel: "After 1 month",
+    beforeSrc: "/reviews/5.png",
+    afterSrc: "/reviews/6.png",
   },
   {
     id: "interior",
@@ -35,13 +36,13 @@ const proofCards: ProofCard[] = [
     afterSrc: "/reviews/4.png",
   },
   {
-    id: "console",
-    name: "Alex",
+    id: "sand",
+    name: "Jordan",
     quote:
-      "Door jambs and vents finally get cleaned. You can tell they care about the tiny details.",
-    afterLabel: "After 1 month",
-    beforeSrc: "/reviews/5.png",
-    afterSrc: "/reviews/6.png",
+      "Beach sand was everywhere after Hermosa. One visit and the carpets looked brand new.",
+    afterLabel: "After 1 visit",
+    beforeSrc: "/reviews/1.png",
+    afterSrc: "/reviews/2.png",
   },
 ];
 
@@ -65,7 +66,7 @@ export function Transformations() {
           </Button>
         </div>
 
-        <div className="mt-12 grid gap-8 sm:gap-6 md:grid-cols-3 md:gap-8">
+        <MobileCarousel className="mt-12" desktopClassName="md:grid-cols-3 md:gap-8">
           {proofCards.map((card, index) => (
             <motion.article
               key={card.id}
@@ -73,7 +74,7 @@ export function Transformations() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.06, duration: 0.35 }}
-              className="flex flex-col"
+              className="flex w-[82vw] max-w-sm shrink-0 snap-center flex-col md:w-auto md:max-w-none"
             >
               <div className="overflow-hidden rounded-sm ring-1 ring-border/80">
                 <div className="grid grid-cols-2">
@@ -121,7 +122,7 @@ export function Transformations() {
               </p>
             </motion.article>
           ))}
-        </div>
+        </MobileCarousel>
 
         <p className="mt-8 text-xs text-slate/60">
           *Based on subscriber feedback from recurring South Bay routes. Individual

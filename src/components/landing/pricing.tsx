@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BookingWizard, type BillingMode } from "@/components/landing/booking-wizard";
+import { MobileCarousel } from "@/components/landing/mobile-carousel";
 import {
   pricingTiers,
   pricingFeatures,
@@ -66,7 +67,7 @@ export function Pricing() {
             </div>
           </div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
+          <MobileCarousel className="mt-14" desktopClassName="md:grid-cols-3 md:gap-6">
             {pricingTiers.map((tier, i) => {
               const price =
                 billing === "subscription"
@@ -80,6 +81,7 @@ export function Pricing() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.5 }}
+                  className="w-[82vw] max-w-sm shrink-0 snap-center md:w-auto md:max-w-none"
                 >
                   <Card
                     className={cn(
@@ -151,7 +153,7 @@ export function Pricing() {
                 </motion.div>
               );
             })}
-          </div>
+          </MobileCarousel>
 
         </div>
       </section>

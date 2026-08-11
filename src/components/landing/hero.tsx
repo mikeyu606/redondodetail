@@ -48,8 +48,8 @@ export function Hero() {
               Never Wait in Line for a Car Wash Again
             </h1>
             <p className="mt-5 max-w-md text-base leading-relaxed text-burgundy sm:text-lg">
-              Eco-chic, non-toxic cabin resets delivered right to your
-              doorstep. We keep your family SUV spotless on autopilot.
+              Eco-chic, non-toxic washes delivered right to your doorstep.
+              We keep your family SUV spotless on autopilot.
             </p>
             <div className="mt-7">
               <Button
@@ -100,8 +100,8 @@ export function Hero() {
               Never Wait in Line for a Car Wash Again
             </h1>
             <p className="mt-4 max-w-md text-base leading-relaxed text-burgundy sm:mt-5 sm:text-lg">
-              Eco-chic, non-toxic cabin resets delivered right to your
-              doorstep. We keep your family SUV spotless on autopilot.
+              Eco-chic, non-toxic washes delivered right to your doorstep.
+              We keep your family SUV spotless on autopilot.
             </p>
             <div className="mt-5 sm:mt-6">
               <Button
