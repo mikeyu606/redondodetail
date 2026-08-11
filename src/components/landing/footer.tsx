@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 
@@ -138,9 +139,15 @@ export function Footer() {
           ))}
         </div>
 
-        <p className="mt-10 text-center font-brand text-4xl font-normal lowercase tracking-[-0.02em] text-charcoal sm:text-5xl">
-          {siteConfig.businessName.toLowerCase()}
-        </p>
+        <div className="mt-10 flex justify-center">
+          <Image
+            src="/hdc-logo.png"
+            alt="Her Driveway Club"
+            width={96}
+            height={96}
+            className="h-20 w-20 sm:h-24 sm:w-24"
+          />
+        </div>
 
         <p className="mx-auto mt-4 max-w-md text-center text-xs lowercase leading-relaxed text-charcoal/70">
           a woman-owned coastal mobile car wash. driveway service under full
