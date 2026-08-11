@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getStripe, getSiteUrl } from "@/lib/stripe";
+import { getCatalogPriceId } from "@/lib/stripe-prices";
 import { getTierById, type TierId } from "@/lib/pricing-data";
 
 export const runtime = "nodejs";
@@ -75,6 +76,17 @@ export async function POST(request: Request) {
       ...body.metadata,
     };
 
+    const catalogPriceId = getCatalogPriceId(
+      tierId,
+      isSubscription ? "subscription" : "one-time"
+    );
+    const catalogUnitAmount =
+      (isSubscription ? tier.subscriptionPrice : tier.oneTimePrice) * 100;
+    const useCatalogPrice =
+      !!catalogPriceId &&
+      body.frequency !== "monthly" &&
+      (body.amountCents == null || body.amountCents === catalogUnitAmount);
+
     const session = await getStripe().checkout.sessions.create({
       ui_mode: "embedded_page",
       mode: isSubscription ? "subscription" : "payment",
@@ -97,25 +109,27 @@ export async function POST(request: Request) {
             },
           }),
       line_items: [
-        {
-          quantity,
-          price_data: {
-            currency: "usd",
-            unit_amount: unitAmount,
-            product_data: {
-              name: productName,
-              description: description || tier.description,
+        useCatalogPrice
+          ? { price: catalogPriceId, quantity }
+          : {
+              quantity,
+              price_data: {
+                currency: "usd",
+                unit_amount: unitAmount,
+                product_data: {
+                  name: productName,
+                  description: description || tier.description,
+                },
+                ...(isSubscription
+                  ? {
+                      recurring: {
+                        interval: "week" as const,
+                        interval_count: body.frequency === "monthly" ? 4 : 2,
+                      },
+                    }
+                  : {}),
+              },
             },
-            ...(isSubscription
-              ? {
-                  recurring: {
-                    interval: "week" as const,
-                    interval_count: body.frequency === "monthly" ? 4 : 2,
-                  },
-                }
-              : {}),
-          },
-        },
       ],
     });
 
