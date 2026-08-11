@@ -101,8 +101,7 @@ export function Hero() {
             </h1>
             <p className="mt-4 max-w-md text-base leading-relaxed text-burgundy sm:mt-5 sm:text-lg">
               Plant-based, non-toxic deep cleans—safe for kids &amp; pets, with
-              zero harsh chemical fumes. 1% of every membership goes to local
-              Newport Beach PTAs &amp; schools.
+              zero harsh chemical fumes.
             </p>
             <div className="mt-5 sm:mt-6">
               <Button

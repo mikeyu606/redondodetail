@@ -32,7 +32,7 @@ export const pricingTiers: PricingTier[] = [
     name: "Full SUV / Family",
     subscriptionPrice: 90,
     oneTimePrice: 125,
-    description: "Full-size SUVs — our $180/mo club favorite",
+    description: "Full-size SUVs — our $90 bi-weekly favorite",
     popular: true,
   },
 ];

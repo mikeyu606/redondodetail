@@ -110,13 +110,10 @@ export function Pricing() {
                       <CardDescription>{tier.description}</CardDescription>
                       <div className="mt-4">
                         <span className="text-4xl font-bold text-charcoal">
-                          $
-                          {billing === "subscription"
-                            ? getMonthlyEstimate(price)
-                            : price}
+                          ${price}
                         </span>
                         <span className="text-slate">
-                          {billing === "subscription" ? "/mo" : " one-time"}
+                          {billing === "subscription" ? " / bi-weekly" : " one-time"}
                         </span>
                       </div>
                       <p
@@ -125,7 +122,15 @@ export function Pricing() {
                           billing !== "subscription" && "invisible"
                         )}
                       >
-                        ${price} every 2 weeks · pause anytime
+                        Billed every 2 weeks • Pause or skip anytime
+                      </p>
+                      <p
+                        className={cn(
+                          "mt-0.5 text-xs text-slate/70",
+                          billing !== "subscription" && "invisible"
+                        )}
+                      >
+                        (~${getMonthlyEstimate(price)}/mo equivalent)
                       </p>
                     </CardHeader>
                     <CardContent className="flex flex-1 flex-col pt-0">
