@@ -4,7 +4,7 @@ export const siteConfig = {
   businessName: "Her Driveway Club",
   founderSchool: "UCLA",
   tagline:
-    "Woman-owned, white-glove doorstep concierge resetting family SUVs so busy parents get their weekends back.",
+    "Woman-owned driveway car washes for busy parents. Plant-based, non-toxic deep cleans—safe for kids and pets.",
   promise: {
     title: "Her Driveway Club Promise",
     text: "If you aren't 100% delighted with your wash, tell us within 24 hours. We'll come straight back to make it right—or refund 100% of your payment, no questions asked.",

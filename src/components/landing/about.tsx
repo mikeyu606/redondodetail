@@ -25,11 +25,10 @@ export function About() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="relative mx-auto w-full max-w-sm lg:max-w-md"
           >
-            <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-pink-medium/40 to-blush-deep/60 blur-sm" />
             <div className="relative overflow-hidden rounded-3xl border-2 border-pink-medium/50 bg-white shadow-lg shadow-pink-medium/20">
               <div className="relative aspect-square w-full">
                 <Image
-                  src="/founder-sophie.png"
+                  src="/founder-sophie-v2.jpg"
                   alt={`${founderName}, founder of ${businessName}`}
                   fill
                   className="object-cover object-center"
@@ -90,7 +89,7 @@ export function About() {
               </p>
               <p>
                 We&apos;re building this neighborhood by neighborhood, giving
-                busy parents their weekends back on autopilot.
+                busy parents their weekends back.
               </p>
             </div>
 

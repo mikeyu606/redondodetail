@@ -52,8 +52,8 @@ export async function POST(request: Request) {
 
     const siteUrl = getSiteUrl();
     const productName = isSubscription
-      ? `${tier.name} · Bi-Weekly Coastal Care`
-      : `${tier.name} · One-Time Coastal Care`;
+      ? `${tier.name} · Bi-Weekly Driveway Clean`
+      : `${tier.name} · One-Time Driveway Clean`;
 
     const description = [
       body.routeName,

@@ -9,7 +9,7 @@ const coastalItems = [
     icon: Heart,
     title: "Non-Toxic & Family Safe",
     description:
-      "Crushed snacks, dog hair, and beach sand vanish without a trace. We restore your cabin using strictly non-toxic, pet-safe formulas—leaving zero synthetic fumes or sticky chemical residues behind.",
+      "Crushed snacks, dog hair, and beach sand vanish without a trace. We deep-clean the interior with plant-based, pet-safe formulas—safe for kids and pets, with zero harsh chemical fumes.",
   },
   {
     icon: Clock,
@@ -21,7 +21,7 @@ const coastalItems = [
     icon: Shield,
     title: "Preserve Paint & Resale Value",
     description:
-      "Automatic wash brushes leave permanent swirl marks and micro-scratches on clear coats. Our scratch-free hand resets use ultra-soft microfibers and pH-balanced foam to protect your luxury SUV’s finish and long-term value.",
+      "Automatic wash brushes leave permanent swirl marks and micro-scratches on clear coats. Our scratch-free hand wash uses ultra-soft microfibers and pH-balanced foam to protect your luxury SUV’s finish and long-term value.",
   },
 ];
 
@@ -34,9 +34,9 @@ export function CoastalStack() {
             Designed for Newport Beach Living
           </h2>
           <p className="mt-4 text-slate">
-            A bi-weekly driveway care membership keeping your family SUV
-            spotless on autopilot—using gentle, non-toxic products and a touch
-            of coastal care.
+            A bi-weekly driveway membership that keeps your family SUV
+            spotless—using plant-based, non-toxic products that are safe for
+            kids and pets.
           </p>
         </div>
 

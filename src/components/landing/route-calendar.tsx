@@ -14,6 +14,12 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { createCheckoutSession } from "@/lib/checkout";
 import { EmbeddedCheckoutModal } from "@/components/landing/embedded-checkout-modal";
+import {
+  pricingTiers,
+  getTierById,
+  getMonthlyEstimate,
+  type TierId,
+} from "@/lib/pricing-data";
 import { addDays, addWeeks, format, getDay, startOfDay } from "date-fns";
 
 type VehicleCount = 1 | 2 | 3;
@@ -36,37 +42,18 @@ const newportRoute = {
 const fleetOptions: {
   count: VehicleCount;
   title: string;
-  visitPrice: number;
-  monthlyPrice: number;
   savings?: number;
 }[] = [
-  {
-    count: 1,
-    title: "1 Vehicle",
-    visitPrice: 90,
-    monthlyPrice: 180,
-  },
-  {
-    count: 2,
-    title: "2 Vehicles",
-    visitPrice: 160,
-    monthlyPrice: 320,
-    savings: 20,
-  },
-  {
-    count: 3,
-    title: "3+ Vehicles",
-    visitPrice: 225,
-    monthlyPrice: 450,
-    savings: 30,
-  },
+  { count: 1, title: "1 Vehicle" },
+  { count: 2, title: "2 Vehicles", savings: 20 },
+  { count: 3, title: "3+ Vehicles", savings: 30 },
 ];
 
 const stepLabels = ["Start Date", "Vehicles", "Address"] as const;
 const TOTAL_STEPS = stepLabels.length;
 
-function getFleetPricing(count: VehicleCount) {
-  return fleetOptions.find((o) => o.count === count)!;
+function fleetSavings(count: VehicleCount) {
+  return fleetOptions.find((o) => o.count === count)?.savings ?? 0;
 }
 
 /** Next two Saturdays — customer picks which bi-weekly cycle to start on. */
@@ -99,6 +86,7 @@ function buildCycleOptions(weekday: number, now: Date = new Date()): CycleOption
 export function RouteCalendar() {
   const [step, setStep] = useState(0);
   const [vehicleCount, setVehicleCount] = useState<VehicleCount>(1);
+  const [vehicleTypes, setVehicleTypes] = useState<TierId[]>(["suv"]);
   const [cycleId, setCycleId] = useState<string | null>(null);
   const [address, setAddress] = useState("");
   const [zip, setZip] = useState("");
@@ -108,8 +96,27 @@ export function RouteCalendar() {
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
 
-  const fleet = getFleetPricing(vehicleCount);
-  const visitTotal = fleet.visitPrice;
+  const visitSubtotal = vehicleTypes.reduce(
+    (sum, id) => sum + getTierById(id).subscriptionPrice,
+    0
+  );
+  const savings = fleetSavings(vehicleCount);
+  const visitTotal = Math.max(0, visitSubtotal - savings);
+  const monthlyPrice = getMonthlyEstimate(visitTotal);
+  const primaryTier = vehicleTypes[0] ?? "suv";
+  const fleetLabel =
+    vehicleCount === 1
+      ? getTierById(primaryTier).name
+      : `${vehicleCount} vehicles · ${vehicleTypes.map((id) => getTierById(id).name).join(", ")}`;
+
+  function setCount(count: VehicleCount) {
+    setVehicleCount(count);
+    setVehicleTypes((prev) => {
+      const next = [...prev];
+      while (next.length < count) next.push("suv");
+      return next.slice(0, count);
+    });
+  }
 
   const cycles = useMemo(
     () => buildCycleOptions(newportRoute.weekday),
@@ -139,7 +146,7 @@ export function RouteCalendar() {
     try {
       const result = await createCheckoutSession({
         mode: "subscription",
-        tierId: "suv",
+        tierId: primaryTier,
         amountCents: visitTotal * 100,
         frequency: "bi-weekly",
         routeId: newportRoute.id,
@@ -151,9 +158,10 @@ export function RouteCalendar() {
           zip,
           notes,
           vehicleCount: String(vehicleCount),
+          vehicleTypes: vehicleTypes.join(","),
           visitTotal: String(visitTotal),
-          monthlyEstimate: String(fleet.monthlyPrice),
-          fleet: fleet.title,
+          monthlyEstimate: String(monthlyPrice),
+          fleet: fleetLabel,
           firstVisit: selectedCycle.id,
           cadence: "every-other-saturday",
         },
@@ -207,8 +215,9 @@ export function RouteCalendar() {
                       Which Saturday starts your bi-weekly cycle?
                     </h3>
                     <p className="mt-2 text-sm text-slate">
-                      We&apos;ll reset your SUV every other Saturday between 8 AM
-                      – 4 PM starting on your chosen date. (Newport Beach Route)
+                      We&apos;ll give your SUV a full interior &amp; exterior
+                      deep clean every other Saturday between 8 AM – 4 PM
+                      starting on your chosen date. (Newport Beach Route)
                     </p>
 
                     <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -254,14 +263,14 @@ export function RouteCalendar() {
                       {selectedCycle ? ` · First visit ${selectedCycle.label}` : ""}
                     </p>
 
-                    <div className="mt-6 grid gap-3">
+                    <div className="mt-6 grid gap-3 sm:grid-cols-3">
                       {fleetOptions.map((option) => {
                         const selected = vehicleCount === option.count;
                         return (
                           <button
                             key={option.count}
                             type="button"
-                            onClick={() => setVehicleCount(option.count)}
+                            onClick={() => setCount(option.count)}
                             className={cn(
                               "rounded-2xl border px-4 py-4 text-left transition-all",
                               selected
@@ -269,36 +278,85 @@ export function RouteCalendar() {
                                 : "border-border bg-white hover:border-burgundy/40"
                             )}
                           >
-                            <div className="flex items-start justify-between gap-3">
-                              <div>
-                                <p className="font-semibold text-charcoal">
-                                  {option.title}
-                                </p>
-                                <p className="mt-1 text-sm text-charcoal">
-                                  <span className="font-semibold text-burgundy">
-                                    ${option.visitPrice} / visit
-                                  </span>
-                                  <span className="text-slate">
-                                    {" "}
-                                    · Billed bi-weekly at $
-                                    {option.monthlyPrice}/mo
-                                  </span>
-                                </p>
-                                {option.savings ? (
-                                  <p className="mt-1 text-xs font-medium text-burgundy">
-                                    Save ${option.savings}/visit
-                                  </p>
-                                ) : null}
-                              </div>
-                              {selected ? (
-                                <span className="rounded-full bg-burgundy px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
-                                  Selected
-                                </span>
-                              ) : null}
-                            </div>
+                            <p className="font-semibold text-charcoal">
+                              {option.title}
+                            </p>
+                            {option.savings ? (
+                              <p className="mt-1 text-xs font-medium text-burgundy">
+                                Save ${option.savings}/visit
+                              </p>
+                            ) : (
+                              <p className="mt-1 text-xs text-slate">
+                                Priced by vehicle type
+                              </p>
+                            )}
                           </button>
                         );
                       })}
+                    </div>
+
+                    <h4 className="mt-8 text-lg font-semibold text-charcoal">
+                      What type is each vehicle?
+                    </h4>
+                    <p className="mt-1 text-sm text-slate">
+                      Sedan, crossover, or full SUV — each is priced on its own.
+                    </p>
+
+                    <div className="mt-4 space-y-4">
+                      {vehicleTypes.map((tierId, index) => (
+                        <div
+                          key={index}
+                          className="rounded-2xl border border-border bg-white px-4 py-4"
+                        >
+                          <p className="mb-3 text-sm font-semibold text-charcoal">
+                            Vehicle {index + 1}
+                          </p>
+                          <div className="grid gap-2">
+                            {pricingTiers.map((tier) => {
+                              const selected = tierId === tier.id;
+                              return (
+                                <button
+                                  key={tier.id}
+                                  type="button"
+                                  onClick={() =>
+                                    setVehicleTypes((prev) => {
+                                      const next = [...prev];
+                                      next[index] = tier.id;
+                                      return next;
+                                    })
+                                  }
+                                  className={cn(
+                                    "rounded-xl border px-3 py-2.5 text-left text-sm transition-all",
+                                    selected
+                                      ? "border-burgundy bg-pink-light/70 ring-2 ring-burgundy/20"
+                                      : "border-border bg-white hover:border-burgundy/40"
+                                  )}
+                                >
+                                  <span className="font-medium text-charcoal">
+                                    {tier.name}
+                                  </span>
+                                  <span className="ml-2 text-slate">
+                                    ${tier.subscriptionPrice}/visit · $
+                                    {getMonthlyEstimate(tier.subscriptionPrice)}
+                                    /mo
+                                  </span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-5 rounded-2xl border border-burgundy/20 bg-pink-light/60 px-4 py-3 text-sm text-charcoal">
+                      <p className="font-medium">{fleetLabel}</p>
+                      <p className="mt-1 text-slate">
+                        ${visitTotal}/visit
+                        {savings ? ` · includes $${savings} multi-car savings` : ""}
+                      </p>
+                      <p className="font-semibold text-charcoal">
+                        ${monthlyPrice}/mo bi-weekly billing
+                      </p>
                     </div>
                   </div>
                 )}
@@ -362,10 +420,10 @@ export function RouteCalendar() {
                             </p>
                           ) : null}
                           <p className="text-slate">
-                            {fleet.title} — ${visitTotal}/visit
+                            {fleetLabel} — ${visitTotal}/visit
                           </p>
                           <p className="font-semibold text-charcoal">
-                            ${fleet.monthlyPrice}/mo bi-weekly billing
+                            ${monthlyPrice}/mo bi-weekly billing
                           </p>
                         </div>
                       </div>

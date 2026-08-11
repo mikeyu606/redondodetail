@@ -52,7 +52,7 @@ export const pricingFeatures = [
   },
   {
     label: "2 Bi-Weekly Visits / Month",
-    detail: "Direct driveway service on autopilot (pause or skip anytime)",
+    detail: "Direct driveway service—pause or skip anytime",
     subscriptionOnly: true,
   },
 ];

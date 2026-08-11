@@ -23,7 +23,7 @@ const proofCards: ProofCard[] = [
     name: "Sarah M.",
     location: "Newport Coast",
     quote:
-      "Between soccer practice and school runs, our Q7 was constantly coated in dust and salt air. Having Her Driveway Club reset it every two weeks on autopilot is absolute magic. The paint stays glowing and I never have to spend my Saturdays in line.",
+      "Between soccer practice and school runs, our Q7 was constantly coated in dust and salt air. Having Her Driveway Club deep-clean it every two weeks is absolute magic. The paint stays glowing and I never have to spend my Saturdays in line.",
     afterLabel: "After 1 visit",
     beforeSrc: "/reviews/5.png",
     afterSrc: "/reviews/6.png",
@@ -43,7 +43,7 @@ const proofCards: ProofCard[] = [
     name: "Jessica T.",
     location: "Eastbluff",
     quote:
-      "After weekend beach trips with two toddlers and a golden retriever, our carpets were a disaster area. One visit and the sand was completely gone. Getting our cabin reset while taking Zoom calls inside is the ultimate life hack.",
+      "After weekend beach trips with two toddlers and a golden retriever, our carpets were a disaster area. One visit and the sand was completely gone. Getting a full interior clean while taking Zoom calls inside is the ultimate life hack.",
     afterLabel: "After 1 visit",
     beforeSrc: "/reviews/1.png",
     afterSrc: "/reviews/2.png",
@@ -60,8 +60,8 @@ export function Transformations() {
               Our back seats used to be disaster zones.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate sm:text-lg">
-              See how local coastal families keep their SUVs pristine, non-toxic,
-              and beach-ready without lifting a finger.
+              See how local families keep their SUVs spotless with plant-based,
+              non-toxic deep cleans—without lifting a finger.
             </p>
           </div>
           <Button
@@ -70,7 +70,7 @@ export function Transformations() {
             className="h-10 shrink-0 self-start bg-burgundy px-5 text-xs tracking-[0.12em] text-white hover:bg-pink-primary-hover sm:mt-1"
           >
             <Link href="#pricing">
-              Reserve Your Slot
+              Book Your Driveway Clean
               <ArrowRight className="size-3.5" />
             </Link>
           </Button>

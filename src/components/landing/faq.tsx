@@ -17,7 +17,7 @@ const faqs = [
   {
     question: "What’s included in the wash?",
     answer:
-      "Exterior hand wash & rinse, interior vacuum and wipe-down, glass inside and out, wheels, tires, and door jambs—using 100% non-toxic, pet-safe products. 1% of income goes to cleaning up our coasts.",
+      "A full interior & exterior deep clean: hand wash, vacuum, wipe-down, glass inside and out, wheels, tires, and door jambs—using plant-based, non-toxic products that are safe for kids and pets. 1% of every membership goes to local Newport Beach PTAs & schools.",
   },
   {
     question: "Do I need to supply water or power?",
@@ -32,7 +32,7 @@ const faqs = [
   {
     question: "How does the subscription work?",
     answer:
-      "Think DoorDash for your driveway: bi-weekly washes on auto-pay via Stripe. Pause, reschedule, or cancel anytime. Family SUVs land around $180/mo.",
+      "Bi-weekly driveway washes on auto-pay via Stripe. Pause, reschedule, or cancel anytime. Family SUVs start around $140/mo.",
   },
   {
     question: "Where do you launch?",

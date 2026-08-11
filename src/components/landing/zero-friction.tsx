@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const steps = [
   {
     number: "01",
-    title: "Pick Your Coastal Route",
+    title: "Pick Your Saturday",
     description:
       "Newport Beach is live Saturdays 8 AM – 4 PM. Join the waitlist for Palos Verdes and South Bay / pool routes.",
     image: "/zero-friction-schedule.png",
@@ -22,9 +22,9 @@ const steps = [
   },
   {
     number: "03",
-    title: "Weekends Back on Autopilot",
+    title: "We Clean It Every Two Weeks",
     description:
-      "One of our girls resets your SUV every two weeks on auto-pay. Pause anytime. Get your Saturdays back.",
+      "We give your SUV a full interior & exterior deep clean every two weeks on auto-pay. Pause anytime. Get your Saturdays back.",
     image: "/how-it-works-step-3.jpg",
     alt: "Woman opening her Range Rover after a driveway wash with coastal views",
     showNotification: true,
@@ -76,7 +76,7 @@ export function ZeroFriction() {
                             </span>
                           </div>
                           <p className="mt-0.5 text-[11px] leading-snug text-slate">
-                            Your bi-weekly care is complete!
+                            Your driveway clean is complete!
                           </p>
                         </div>
                       </div>

@@ -143,9 +143,8 @@ export function Footer() {
         </p>
 
         <p className="mx-auto mt-4 max-w-md text-center text-xs lowercase leading-relaxed text-charcoal/70">
-          a woman-owned coastal mobile car wash club. white-glove driveway
-          service under full liability insurance—so busy parents get weekends
-          back.
+          a woman-owned coastal mobile car wash. driveway service under full
+          liability insurance—so busy parents get weekends back.
         </p>
 
         <p className="mt-6 text-center text-xs lowercase text-charcoal/70">

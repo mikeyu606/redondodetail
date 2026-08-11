@@ -36,19 +36,20 @@ export function Hero() {
     <section className="flex flex-col">
       <div className="bg-dusty-rose pt-16 sm:pt-16 lg:pt-16">
         {/* Desktop: two-column */}
-        <div className="mx-auto hidden w-full max-w-6xl px-4 sm:px-6 lg:grid lg:min-h-[calc(100svh-5rem)] lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-8 lg:pb-10">
+        <div className="mx-auto hidden w-full max-w-6xl px-4 sm:px-6 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-8 lg:py-12">
           <motion.div
             custom={0}
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="flex flex-col justify-center py-8 text-left"
+            className="flex flex-col justify-center py-6 text-left"
           >
-            <h1 className="font-heading text-[clamp(2.6rem,4.6vw,4rem)] font-bold leading-[1.1] tracking-[-0.015em] text-burgundy">
-              Never Wait in Line for a Car Wash Again
+            <h1 className="font-heading text-[clamp(2.15rem,3.4vw,3.15rem)] font-bold leading-[1.12] tracking-[-0.015em] text-burgundy">
+              A Spotless Car in Your Driveway Every Weekend—Without Lifting a Finger.
             </h1>
             <p className="mt-5 max-w-md text-base leading-relaxed text-burgundy sm:text-lg">
-            Eco-chic, non-toxic washes delivered right to your doorstep. We keep your family SUV spotless on autopilot.
+              Plant-based, non-toxic deep cleans—safe for kids &amp; pets, with
+              zero harsh chemical fumes.
             </p>
             <div className="mt-7">
               <Button
@@ -57,13 +58,13 @@ export function Hero() {
                 className="h-10 px-5 text-xs normal-case tracking-[0.12em] bg-burgundy text-white hover:bg-pink-primary-hover"
               >
                 <Link href="#route-schedule">
-                  Reserve your slot
+                  Book Your Driveway Clean
                   <ArrowRight className="size-3.5" />
                 </Link>
               </Button>
             </div>
             <p className="mt-4 text-xs tracking-wide text-burgundy/70 uppercase">
-              Woman-owned · Non-toxic & pet-safe · From $140/mo
+              Woman-owned · Safe for kids &amp; pets · From $140/mo
             </p>
           </motion.div>
 
@@ -72,7 +73,7 @@ export function Hero() {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="mx-auto w-full max-w-md"
+            className="mx-auto w-full max-w-sm"
           >
             {/* Native photo ratio ~734×980 — arched top like a window frame */}
             <div
@@ -95,12 +96,13 @@ export function Hero() {
             variants={fadeUp}
             className="mx-auto flex w-full max-w-lg flex-col items-center px-5 pb-7 pt-12 text-center sm:px-8 sm:pb-9 sm:pt-14"
           >
-            <h1 className="font-heading w-full text-[clamp(2.35rem,9vw,2.85rem)] font-bold leading-[1.08] tracking-[-0.02em] text-burgundy">
-              Never Wait in Line for a Car Wash Again
+            <h1 className="font-heading w-full text-[clamp(1.85rem,7.2vw,2.35rem)] font-bold leading-[1.12] tracking-[-0.02em] text-burgundy">
+              A Spotless Car in Your Driveway Every Weekend—Without Lifting a Finger.
             </h1>
             <p className="mt-4 max-w-md text-base leading-relaxed text-burgundy sm:mt-5 sm:text-lg">
-              Eco-chic, non-toxic washes delivered right to your doorstep.
-              We keep your family SUV spotless on autopilot.
+              Plant-based, non-toxic deep cleans—safe for kids &amp; pets, with
+              zero harsh chemical fumes. 1% of every membership goes to local
+              Newport Beach PTAs &amp; schools.
             </p>
             <div className="mt-5 sm:mt-6">
               <Button
@@ -108,11 +110,11 @@ export function Hero() {
                 size="sm"
                 className="h-10 rounded-sm px-6 text-xs normal-case tracking-[0.12em] bg-burgundy text-white hover:bg-pink-primary-hover"
               >
-                <Link href="#route-schedule">Reserve your slot</Link>
+                <Link href="#route-schedule">Book Your Driveway Clean</Link>
               </Button>
             </div>
             <p className="mt-4 text-xs tracking-wide text-burgundy/70 uppercase">
-              Woman-owned · Non-toxic & pet-safe · From $140/mo
+              Woman-owned · Safe for kids &amp; pets · From $140/mo
             </p>
           </motion.div>
 
