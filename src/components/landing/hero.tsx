@@ -47,9 +47,10 @@ export function Hero() {
             <h1 className="font-heading text-[clamp(2.15rem,3.4vw,3.15rem)] font-bold leading-[1.12] tracking-[-0.015em] text-burgundy">
               A Spotless Car in Your Driveway Every Weekend Without Lifting a Finger.
             </h1>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-burgundy sm:text-lg">
-              Plant-based, non-toxic deep cleans, safe for kids &amp; pets, with
-              zero harsh chemical fumes.
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-burgundy sm:text-lg">
+              We come straight to your home for a full interior &amp; exterior
+              car wash, with flexible weekly or bi-weekly memberships.
+              Plant-based, non-toxic cleans safe for kids &amp; pets.
             </p>
             <div className="mt-8">
               <Button
@@ -99,8 +100,9 @@ export function Hero() {
               A Spotless Car in Your Driveway Every Weekend Without Lifting a Finger.
             </h1>
             <p className="mt-4 max-w-md text-base leading-relaxed text-burgundy sm:mt-5 sm:text-lg">
-              Plant-based, non-toxic deep cleans, safe for kids &amp; pets, with
-              zero harsh chemical fumes.
+              We come straight to your home for a full interior &amp; exterior
+              car wash, with flexible weekly or bi-weekly memberships.
+              Plant-based, non-toxic cleans safe for kids &amp; pets.
             </p>
             <div className="mt-6 sm:mt-7">
               <Button

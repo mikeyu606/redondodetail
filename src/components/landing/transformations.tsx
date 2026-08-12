@@ -34,7 +34,7 @@ const proofCards: ProofCard[] = [
     location: "Balboa Island",
     quote:
       "The coffee spills and dusty vents were driving me crazy, but I hate the chemical smell of regular car washes. Her Driveway Club leaves the interior completely spotless with zero harsh fumes. My kids actually noticed how fresh the cabin felt!",
-    afterLabel: "After 2 weeks",
+    afterLabel: "After 1 visit",
     beforeSrc: "/reviews/3.png",
     afterSrc: "/reviews/4.png",
   },
