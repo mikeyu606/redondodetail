@@ -32,7 +32,7 @@ export function Pricing() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="font-heading text-4xl font-medium tracking-tight text-charcoal sm:text-5xl">
-              Bi-Weekly Membership
+            Your  Bi-Weekly Membership
             </h2>
             <p className="mt-4 text-slate">
               Automated driveway care for busy families. Pause or cancel anytime.

@@ -48,9 +48,7 @@ export function Hero() {
               A Spotless Car in Your Driveway Every Weekend Without Lifting a Finger.
             </h1>
             <p className="mt-5 max-w-lg text-base leading-relaxed text-burgundy sm:text-lg">
-              We come straight to your home for a full interior &amp; exterior
-              car wash, with flexible weekly or bi-weekly memberships.
-              Plant-based, non-toxic cleans safe for kids &amp; pets.
+            The automated driveway membership that keeps your vehicle spotless using non-toxic, pet-safe formulas that protect your paint and your family.
             </p>
             <div className="mt-8">
               <Button

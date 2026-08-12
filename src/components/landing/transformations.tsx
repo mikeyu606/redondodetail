@@ -57,11 +57,10 @@ export function Transformations() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-2xl">
             <h2 className="font-heading text-3xl font-medium tracking-tight text-charcoal sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
-              Our back seats used to be disaster zones.
+            Never Think About a Messy Car Again.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate sm:text-lg">
-              See how local families keep their SUVs spotless with plant-based,
-              non-toxic deep cleans—without lifting a finger.
+              See how local families keep their SUVs spotless with a bi-weekly membership.
             </p>
           </div>
           <Button
@@ -94,7 +93,7 @@ export function Transformations() {
                   <div className="relative aspect-[4/5] bg-pink-soft sm:aspect-[3/4]">
                     <Image
                       src={card.beforeSrc}
-                      alt={`${card.name} before detailing`}
+                      alt={`${card.name} before wash`}
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 50vw, 20vw"
@@ -107,7 +106,7 @@ export function Transformations() {
                   <div className="relative aspect-[4/5] bg-pink-soft sm:aspect-[3/4]">
                     <Image
                       src={card.afterSrc}
-                      alt={`${card.name} after detailing`}
+                      alt={`${card.name} after wash`}
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 50vw, 20vw"

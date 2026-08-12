@@ -43,7 +43,7 @@ export const pricingFeatures = [
     detail: "Hand wash, pH-balanced foam rinse, and tire dressing",
   },
   {
-    label: "Full Interior Cabin Detail",
+    label: "Full Interior Cabin Care",
     detail: "Deep vacuum, streak-free glass, and door jamb wipe",
   },
   {

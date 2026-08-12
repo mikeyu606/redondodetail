@@ -31,12 +31,10 @@ export function CoastalStack() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-heading text-4xl font-medium leading-tight tracking-tight text-charcoal sm:text-5xl">
-            Designed for Newport Beach Living
+          Never Wait in Line at a Car Wash Again
           </h2>
           <p className="mt-4 text-slate">
-            A bi-weekly driveway membership that keeps your family SUV
-            spotless—using plant-based, non-toxic products that are safe for
-            kids and pets.
+          A bi-weekly driveway membership that saves you time, your car paint, and protects your children and pets from harsh chemicals.
           </p>
         </div>
 
