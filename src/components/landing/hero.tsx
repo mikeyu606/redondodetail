@@ -44,13 +44,13 @@ export function Hero() {
             variants={fadeUp}
             className="flex flex-col justify-center py-6 text-left"
           >
-            <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-burgundy">
+            <p className="kicker mb-4 text-burgundy">
               Limited spots
             </p>
-            <h1 className="font-heading text-[clamp(2.15rem,3.4vw,3.15rem)] font-bold leading-[1.12] tracking-[-0.015em] text-burgundy">
+            <h1 className="hero-title text-burgundy">
               A Spotless Car in Your Driveway Every Weekend Without Lifting a Finger.
             </h1>
-            <p className="mt-5 max-w-lg text-base leading-relaxed text-burgundy sm:text-lg">
+            <p className="lede mt-5 max-w-lg text-burgundy">
             The automated driveway membership that keeps your vehicle spotless using non-toxic, pet-safe formulas that protect your paint and your family.
             </p>
             <div className="mt-8">
@@ -64,7 +64,7 @@ export function Hero() {
                 </Link>
               </Button>
             </div>
-            <p className="mt-4 text-xs tracking-wide text-burgundy/70 uppercase">
+            <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.12em] text-burgundy/70">
               Woman-owned · Safe for kids &amp; pets · From $100/mo
             </p>
           </motion.div>
@@ -97,13 +97,13 @@ export function Hero() {
             variants={fadeUp}
             className="mx-auto flex w-full max-w-lg flex-col items-center px-5 pb-7 pt-12 text-center sm:px-8 sm:pb-9 sm:pt-14"
           >
-            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-burgundy">
+            <p className="kicker mb-3 text-burgundy">
               Limited spots
             </p>
-            <h1 className="font-heading w-full text-[clamp(1.85rem,7.2vw,2.35rem)] font-bold leading-[1.12] tracking-[-0.02em] text-burgundy">
+            <h1 className="hero-title w-full text-burgundy">
               A Spotless Car in Your Driveway Every Weekend Without Lifting a Finger.
             </h1>
-            <p className="mt-4 max-w-md text-base leading-relaxed text-burgundy sm:mt-5 sm:text-lg">
+            <p className="lede mt-4 max-w-md text-burgundy sm:mt-5">
               We come straight to your home for a full interior &amp; exterior
               car wash, with flexible weekly or bi-weekly memberships.
               Plant-based, non-toxic cleans safe for kids &amp; pets.
@@ -116,7 +116,7 @@ export function Hero() {
                 <Link href="#route-schedule">Book Now</Link>
               </Button>
             </div>
-            <p className="mt-4 text-xs tracking-wide text-burgundy/70 uppercase">
+            <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.12em] text-burgundy/70">
               Woman-owned · Safe for kids &amp; pets · From $100/mo
             </p>
           </motion.div>

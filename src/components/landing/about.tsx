@@ -57,7 +57,7 @@ export function About() {
               Meet the Founder
             </Badge>
 
-            <h2 className="font-heading text-4xl font-medium tracking-tight text-charcoal sm:text-5xl">
+            <h2 className="section-title text-charcoal">
               Hi, I&apos;m {founderName}!
             </h2>
 
@@ -74,7 +74,7 @@ export function About() {
               </Badge>
             </div>
 
-            <div className="space-y-4 text-base leading-relaxed text-slate sm:text-lg">
+            <div className="lede space-y-4 text-slate">
               <p>
                 I built {businessName} out of a simple realization: busy coastal
                 families shouldn&apos;t have to choose between a clean vehicle and

@@ -56,10 +56,10 @@ export function Transformations() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-2xl">
-            <h2 className="font-heading text-3xl font-medium tracking-tight text-charcoal sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
+            <h2 className="section-title text-charcoal">
             Never Think About a Messy Car Again.
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-slate sm:text-lg">
+            <p className="lede mt-4 text-slate">
               See how local families keep their SUVs spotless with a bi-weekly membership.
             </p>
           </div>

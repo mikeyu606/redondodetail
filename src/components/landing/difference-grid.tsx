@@ -41,10 +41,10 @@ export function DifferenceGrid() {
     <section id="services" className="border-y border-pink-medium/30 bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="font-heading text-3xl font-medium tracking-tight text-charcoal sm:text-4xl">
+          <h2 className="section-title text-charcoal">
             The Details Other Car Washes Ignore
           </h2>
-          <p className="mt-4 text-slate">
+          <p className="lede mt-4 text-slate">
             We obsess over the hidden areas that separate a good wash from a
             true auto spa experience.
           </p>
