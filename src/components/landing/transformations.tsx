@@ -66,7 +66,7 @@ export function Transformations() {
           <Button
             asChild
             size="sm"
-            className="h-10 shrink-0 self-start bg-burgundy px-5 text-xs tracking-[0.12em] text-white hover:bg-pink-primary-hover sm:mt-1"
+            className="hidden h-10 shrink-0 self-start bg-burgundy px-5 text-xs tracking-[0.12em] text-white hover:bg-pink-primary-hover sm:mt-1 sm:inline-flex"
           >
             <Link href="#pricing">
               Book Your Driveway Clean

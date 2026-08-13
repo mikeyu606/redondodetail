@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 import {
   Accordion,
@@ -9,7 +10,7 @@ import {
 } from "@/components/ui/accordion";
 import { siteConfig } from "@/lib/site-config";
 
-const faqs = [
+const faqs: { question: string; answer: ReactNode }[] = [
   {
     question: "What is the Her Driveway Club Promise?",
     answer: siteConfig.promise.text,
@@ -48,6 +49,22 @@ const faqs = [
     question: "Who actually washes my car?",
     answer:
       "We’re woman-owned and woman-operated. Trained team members—often local grads in their early 20s—come out for a focused few hours on your route day.",
+  },
+  {
+    question: "How can I contact you?",
+    answer: (
+      <>
+        Text us anytime at{" "}
+        <a
+          href="sms:+14242487189"
+          className="font-medium text-burgundy underline decoration-burgundy/30 underline-offset-2 hover:text-burgundy/80"
+        >
+          (424)-248-7189
+        </a>
+        . We&apos;ll get back quickly with booking help, schedule changes, or
+        questions before your visit.
+      </>
+    ),
   },
 ];
 

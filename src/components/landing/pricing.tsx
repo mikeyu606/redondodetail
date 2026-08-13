@@ -86,7 +86,7 @@ export function Pricing() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.5 }}
-                  className="flex w-[82vw] max-w-sm shrink-0 snap-center md:w-auto md:max-w-none"
+                  className="flex w-[70vw] max-w-[16.5rem] shrink-0 snap-center md:w-auto md:max-w-none"
                 >
                   <Card
                     className={cn(
@@ -95,47 +95,49 @@ export function Pricing() {
                         "border-pink-primary/50 ring-1 ring-pink-primary/20"
                     )}
                   >
-                    <CardHeader className="text-center">
-                      <div className="mb-3 flex h-7 items-center justify-center">
+                    <CardHeader className="space-y-1 px-4 pb-3 pt-4 text-center sm:px-5">
+                      <div className="mb-1 flex h-6 items-center justify-center">
                         {tier.popular ? (
-                          <Badge className="px-3 py-1">
+                          <Badge className="px-2.5 py-0.5 text-[10px]">
                             <Sparkles className="mr-1 size-3" />
                             Most Popular
                           </Badge>
                         ) : null}
                       </div>
-                      <CardTitle className="text-lg">{tier.name}</CardTitle>
-                      <CardDescription>{tier.description}</CardDescription>
-                      <div className="mt-4">
-                        <span className="text-4xl font-bold text-charcoal">
+                      <CardTitle className="text-base">{tier.name}</CardTitle>
+                      <CardDescription className="text-xs">
+                        {tier.description}
+                      </CardDescription>
+                      <div className="mt-2">
+                        <span className="text-3xl font-bold text-charcoal">
                           ${price}
                         </span>
-                        <span className="text-slate">
+                        <span className="text-sm text-slate">
                           {billing === "subscription" ? " / bi-weekly" : " one-time"}
                         </span>
                       </div>
                       <p
                         className={cn(
-                          "mt-1 text-xs text-slate/70",
+                          "mt-0.5 text-[11px] text-slate/70",
                           billing !== "subscription" && "invisible"
                         )}
                       >
                         (~${getMonthlyEstimate(price)}/mo equivalent)
                       </p>
                     </CardHeader>
-                    <CardContent className="flex flex-1 flex-col pt-0">
-                      <ul className="flex-1 space-y-3">
+                    <CardContent className="flex flex-1 flex-col px-4 pb-4 pt-0 sm:px-5">
+                      <ul className="flex-1 space-y-2">
                         {pricingFeatures.map((feature) => (
                           <li
                             key={feature.label}
                             className={cn(
-                              "flex items-start gap-2.5 text-sm",
+                              "flex items-start gap-2 text-xs leading-snug",
                               feature.subscriptionOnly &&
                                 billing === "one-time" &&
                                 "line-through opacity-40"
                             )}
                           >
-                            <Check className="mt-0.5 size-4 shrink-0 text-pink-primary" />
+                            <Check className="mt-0.5 size-3.5 shrink-0 text-pink-primary" />
                             <span>
                               <span className="font-semibold text-charcoal">
                                 {feature.label}:
@@ -146,7 +148,7 @@ export function Pricing() {
                         ))}
                       </ul>
                       <Button
-                        className="mt-6 w-full"
+                        className="mt-4 h-10 w-full text-sm"
                         variant={tier.popular ? "default" : "secondary"}
                         onClick={() => openWizard(tier.id)}
                       >
@@ -156,7 +158,7 @@ export function Pricing() {
                       </Button>
                       <p
                         className={cn(
-                          "mt-2.5 text-center text-xs text-pink-primary",
+                          "mt-2 text-center text-[11px] text-pink-primary",
                           billing !== "subscription" && "invisible"
                         )}
                       >

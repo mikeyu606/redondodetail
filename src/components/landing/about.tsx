@@ -10,13 +10,8 @@ export function About() {
   const { founderName, founderSchool, businessName } = siteConfig;
 
   return (
-    <section id="about" className="relative overflow-hidden bg-white py-20 sm:py-28">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -right-20 top-0 size-80 rounded-full bg-pink-medium/30 blur-3xl" />
-        <div className="absolute -left-20 bottom-0 size-96 rounded-full bg-pink-light blur-3xl" />
-      </div>
-
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="about" className="bg-white py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, x: -24 }}
@@ -25,7 +20,7 @@ export function About() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="relative mx-auto w-full max-w-sm lg:max-w-md"
           >
-            <div className="relative overflow-hidden rounded-3xl border-2 border-pink-medium/50 bg-white shadow-lg shadow-pink-medium/20">
+            <div className="relative overflow-hidden rounded-3xl border border-border bg-white">
               <div className="relative aspect-square w-full">
                 <Image
                   src="/founder-sophie-v2.jpg"
