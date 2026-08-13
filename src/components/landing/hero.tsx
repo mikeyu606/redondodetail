@@ -44,6 +44,9 @@ export function Hero() {
             variants={fadeUp}
             className="flex flex-col justify-center py-6 text-left"
           >
+            <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-burgundy">
+              Limited spots
+            </p>
             <h1 className="font-heading text-[clamp(2.15rem,3.4vw,3.15rem)] font-bold leading-[1.12] tracking-[-0.015em] text-burgundy">
               A Spotless Car in Your Driveway Every Weekend Without Lifting a Finger.
             </h1>
@@ -62,7 +65,7 @@ export function Hero() {
               </Button>
             </div>
             <p className="mt-4 text-xs tracking-wide text-burgundy/70 uppercase">
-              Woman-owned · Safe for kids &amp; pets · From $140/mo
+              Woman-owned · Safe for kids &amp; pets · From $100/mo
             </p>
           </motion.div>
 
@@ -94,6 +97,9 @@ export function Hero() {
             variants={fadeUp}
             className="mx-auto flex w-full max-w-lg flex-col items-center px-5 pb-7 pt-12 text-center sm:px-8 sm:pb-9 sm:pt-14"
           >
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-burgundy">
+              Limited spots
+            </p>
             <h1 className="font-heading w-full text-[clamp(1.85rem,7.2vw,2.35rem)] font-bold leading-[1.12] tracking-[-0.02em] text-burgundy">
               A Spotless Car in Your Driveway Every Weekend Without Lifting a Finger.
             </h1>
@@ -111,7 +117,7 @@ export function Hero() {
               </Button>
             </div>
             <p className="mt-4 text-xs tracking-wide text-burgundy/70 uppercase">
-              Woman-owned · Safe for kids &amp; pets · From $140/mo
+              Woman-owned · Safe for kids &amp; pets · From $100/mo
             </p>
           </motion.div>
 

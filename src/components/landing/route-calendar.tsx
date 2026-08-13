@@ -222,7 +222,7 @@ export function RouteCalendar() {
             Book Your First Driveway Reset
           </h2>
           <p className="mt-4 text-slate">
-            Select a Saturday below. Experience your first reset for $75—you are
+            Select a Saturday below. Experience your first reset from $50—you are
             charged $0 today, and only pay after your service is complete.
           </p>
         </div>

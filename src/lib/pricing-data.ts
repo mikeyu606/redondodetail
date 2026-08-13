@@ -14,25 +14,25 @@ export const pricingTiers: PricingTier[] = [
   {
     id: "sedan",
     name: "Sedan / Coupe",
-    subscriptionPrice: 70,
-    oneTimePrice: 95,
+    subscriptionPrice: 50,
+    oneTimePrice: 75,
     description: "Daily drivers & compact cars",
     popular: false,
   },
   {
     id: "crossover",
     name: "Crossover / Mid-SUV",
-    subscriptionPrice: 80,
-    oneTimePrice: 110,
+    subscriptionPrice: 60,
+    oneTimePrice: 85,
     description: "Family crossovers & mid-size SUVs",
     popular: false,
   },
   {
     id: "suv",
     name: "Full SUV / Family",
-    subscriptionPrice: 90,
-    oneTimePrice: 125,
-    description: "Full-size SUVs — our $90 bi-weekly favorite",
+    subscriptionPrice: 70,
+    oneTimePrice: 95,
+    description: "Full-size SUVs — our $70 bi-weekly favorite",
     popular: true,
   },
 ];
@@ -66,6 +66,16 @@ export function getTierPrice(
   billing: "subscription" | "one-time"
 ) {
   return billing === "subscription" ? tier.subscriptionPrice : tier.oneTimePrice;
+}
+
+/** First vehicle is full price; 2nd car and each additional is 50% off. */
+export function getVehicleVisitPrice(
+  tier: PricingTier,
+  billing: "subscription" | "one-time",
+  index: number
+) {
+  const price = getTierPrice(tier, billing);
+  return index === 0 ? price : Math.round(price * 0.5);
 }
 
 /** Approximate monthly total for bi-weekly visits */

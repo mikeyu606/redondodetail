@@ -72,6 +72,9 @@ export function Pricing() {
               🍎 Community Care: 1% of every active membership goes directly to
               local Newport Beach PTAs &amp; schools.
             </p>
+            <p className="mt-4 text-sm text-slate">
+              2nd car and each additional vehicle are 50% off — $25–$35 / visit.
+            </p>
           </div>
 
           <MobileCarousel className="mt-8" desktopClassName="md:grid-cols-3 md:gap-6">

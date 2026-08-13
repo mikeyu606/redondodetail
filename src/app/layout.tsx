@@ -45,7 +45,7 @@ const petrona = Petrona({
 export const metadata: Metadata = {
   title: "Her Driveway Club | Woman-Owned Mobile Car Wash — Coastal CA",
   description:
-    "Woman-owned driveway car washes in Newport Beach. Plant-based, non-toxic deep cleans—safe for kids and pets. From $140/mo.",
+    "Woman-owned driveway car washes in Newport Beach. Plant-based, non-toxic deep cleans—safe for kids and pets. From $100/mo.",
   keywords: [
     "mobile car wash",
     "Newport Beach",

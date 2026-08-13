@@ -25,7 +25,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   getTierById,
-  getTierPrice,
+  getVehicleVisitPrice,
   pricingTiers,
   type TierId,
 } from "@/lib/pricing-data";
@@ -128,7 +128,8 @@ export function BookingWizard({
   const isFirstStep = step === 0;
 
   const perVisitTotal = vehicles.reduce(
-    (sum, v) => sum + getTierPrice(getTierById(v.tierId), billing),
+    (sum, v, i) =>
+      sum + getVehicleVisitPrice(getTierById(v.tierId), billing, i),
     0
   );
 
@@ -168,7 +169,8 @@ export function BookingWizard({
       const result = await createCheckoutSession({
         mode: billing,
         tierId: vehicles[0]?.tierId ?? initialTierId,
-        quantity: vehicleCount,
+        quantity: vehicleCount > 1 ? 1 : vehicleCount,
+        amountCents: vehicleCount > 1 ? perVisitTotal * 100 : undefined,
         frequency: billing === "subscription" ? frequency : undefined,
         customerEmail: email,
         customerName: name,
@@ -183,6 +185,7 @@ export function BookingWizard({
             .map((v, i) => `${v.nickname || `Vehicle ${i + 1}`}:${v.tierId}`)
             .join("|"),
           perVisitTotal: String(perVisitTotal),
+          extraVehicleDiscount: vehicleCount > 1 ? "50-percent" : "none",
         },
       });
 
@@ -347,8 +350,9 @@ export function BookingWizard({
                         Vehicle {index + 1}
                       </span>
                       <Badge variant="secondary">
-                        ${getTierPrice(getTierById(vehicle.tierId), billing)}
+                        ${getVehicleVisitPrice(getTierById(vehicle.tierId), billing, index)}
                         {billing === "subscription" ? "/visit" : ""}
+                        {index > 0 ? " · 50% off" : ""}
                       </Badge>
                     </div>
                     <input
@@ -377,8 +381,9 @@ export function BookingWizard({
                         >
                           <span className="font-medium">{tier.name}</span>
                           <span className="ml-2 text-xs text-slate">
-                            ${getTierPrice(tier, billing)}
+                            ${getVehicleVisitPrice(tier, billing, index)}
                             {billing === "subscription" ? "/visit" : " one-time"}
+                            {index > 0 ? " · 50% off" : ""}
                           </span>
                         </button>
                       ))}
@@ -508,6 +513,7 @@ export function BookingWizard({
                   <ul className="space-y-2">
                     {vehicles.map((v, i) => {
                       const tier = getTierById(v.tierId);
+                      const price = getVehicleVisitPrice(tier, billing, i);
                       return (
                         <li
                           key={i}
@@ -515,9 +521,14 @@ export function BookingWizard({
                         >
                           <span className="text-charcoal">
                             {v.nickname || `Vehicle ${i + 1}`} · {tier.name}
+                            {i > 0 ? (
+                              <span className="ml-1.5 text-xs text-burgundy">
+                                50% off
+                              </span>
+                            ) : null}
                           </span>
                           <span className="font-medium text-pink-primary">
-                            ${getTierPrice(tier, billing)}
+                            ${price}
                             {billing === "subscription" ? "/visit" : ""}
                           </span>
                         </li>

@@ -32,7 +32,7 @@ const faqs = [
   {
     question: "How does the subscription work?",
     answer:
-      "Bi-weekly driveway washes on auto-pay via Stripe. Pause, reschedule, or cancel anytime. Family SUVs start around $140/mo.",
+      "Bi-weekly driveway washes on auto-pay via Stripe. Pause, reschedule, or cancel anytime. Memberships start around $100/mo.",
   },
   {
     question: "Where do you launch?",

@@ -19,7 +19,7 @@ const coastalItems = [
   },
   {
     icon: Shield,
-    title: "Preserve Paint & Resale Value",
+    title: "No Scratches and Chips",
     description:
       "Automatic wash brushes leave permanent swirl marks and micro-scratches on clear coats. Our scratch-free hand wash uses ultra-soft microfibers and pH-balanced foam to protect your luxury SUV’s finish and long-term value.",
   },
