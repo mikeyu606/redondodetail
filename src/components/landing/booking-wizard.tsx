@@ -307,7 +307,7 @@ export function BookingWizard({
                         onChange={(e) =>
                           updateVehicle(index, { nickname: e.target.value })
                         }
-                        className="w-full rounded-lg border border-pink-medium/40 bg-white px-3 py-2 text-sm text-charcoal placeholder:text-slate/60 focus:border-pink-primary focus:outline-none focus:ring-2 focus:ring-pink-primary/20"
+                        className="w-full rounded-lg border border-pink-medium/40 bg-white px-3 py-2.5 text-base text-charcoal placeholder:text-slate/60 focus:border-pink-primary focus:outline-none focus:ring-2 focus:ring-pink-primary/20"
                       />
                       <div className="grid gap-2">
                         {pricingTiers.map((tier) => (
@@ -412,7 +412,7 @@ export function BookingWizard({
                       onChange={(e) => setNotes(e.target.value)}
                       rows={2}
                       placeholder="Gate code, which side of the driveway, hose location…"
-                      className="w-full rounded-lg border border-pink-medium/40 bg-white px-3 py-2 text-sm text-charcoal placeholder:text-slate/60 focus:border-pink-primary focus:outline-none focus:ring-2 focus:ring-pink-primary/20"
+                      className="w-full rounded-lg border border-pink-medium/40 bg-white px-3 py-2.5 text-base text-charcoal placeholder:text-slate/60 focus:border-pink-primary focus:outline-none focus:ring-2 focus:ring-pink-primary/20"
                     />
                   </div>
                 </div>
@@ -563,7 +563,7 @@ function Field({
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-lg border border-pink-medium/40 bg-white px-3 py-2 text-sm text-charcoal focus:border-pink-primary focus:outline-none focus:ring-2 focus:ring-pink-primary/20"
+        className="w-full rounded-lg border border-pink-medium/40 bg-white px-3 py-2.5 text-base text-charcoal focus:border-pink-primary focus:outline-none focus:ring-2 focus:ring-pink-primary/20"
       />
     </div>
   );

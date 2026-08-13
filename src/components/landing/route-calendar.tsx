@@ -42,7 +42,7 @@ const TOTAL_STEPS = stepLabels.length;
 const CONFIRMATION_STEP = TOTAL_STEPS - 1;
 
 const inputClass =
-  "w-full rounded-xl border border-border bg-white px-4 py-3.5 text-sm text-charcoal outline-none ring-burgundy/20 placeholder:text-slate/50 focus:border-burgundy focus:ring-2";
+  "w-full rounded-xl border border-border bg-white px-4 py-3.5 text-base text-charcoal outline-none ring-burgundy/20 placeholder:text-slate/50 focus:border-burgundy focus:ring-2";
 
 function nextWeekday(weekday: number, now: Date): Date {
   let day = startOfDay(now);
