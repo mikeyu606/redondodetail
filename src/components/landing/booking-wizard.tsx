@@ -352,7 +352,9 @@ export function BookingWizard({
                       <Badge variant="secondary">
                         ${getVehicleVisitPrice(getTierById(vehicle.tierId), billing, index)}
                         {billing === "subscription" ? "/visit" : ""}
-                        {index > 0 ? " · 50% off" : ""}
+                        {billing === "subscription" && index > 0
+                          ? " · 50% off every visit"
+                          : ""}
                       </Badge>
                     </div>
                     <input
@@ -383,7 +385,9 @@ export function BookingWizard({
                           <span className="ml-2 text-xs text-slate">
                             ${getVehicleVisitPrice(tier, billing, index)}
                             {billing === "subscription" ? "/visit" : " one-time"}
-                            {index > 0 ? " · 50% off" : ""}
+                            {billing === "subscription" && index > 0
+                              ? " · 50% off every visit"
+                              : ""}
                           </span>
                         </button>
                       ))}
@@ -443,7 +447,7 @@ export function BookingWizard({
                       [
                         {
                           value: "tuesday" as const,
-                          label: "Saturdays — Newport Beach",
+                          label: "Saturdays & Sundays — Newport Beach",
                         },
                         {
                           value: "thursday" as const,
@@ -521,9 +525,9 @@ export function BookingWizard({
                         >
                           <span className="text-charcoal">
                             {v.nickname || `Vehicle ${i + 1}`} · {tier.name}
-                            {i > 0 ? (
+                            {billing === "subscription" && i > 0 ? (
                               <span className="ml-1.5 text-xs text-burgundy">
-                                50% off
+                                50% off every visit
                               </span>
                             ) : null}
                           </span>

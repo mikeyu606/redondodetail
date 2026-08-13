@@ -68,14 +68,18 @@ export function getTierPrice(
   return billing === "subscription" ? tier.subscriptionPrice : tier.oneTimePrice;
 }
 
-/** First vehicle is full price; 2nd car and each additional is 50% off. */
+/**
+ * Membership only: first vehicle is full price; 2nd car and each additional
+ * stay 50% off on every bi-weekly visit (not a one-time promo).
+ */
 export function getVehicleVisitPrice(
   tier: PricingTier,
   billing: "subscription" | "one-time",
   index: number
 ) {
   const price = getTierPrice(tier, billing);
-  return index === 0 ? price : Math.round(price * 0.5);
+  if (billing !== "subscription" || index === 0) return price;
+  return Math.round(price * 0.5);
 }
 
 /** Approximate monthly total for bi-weekly visits */

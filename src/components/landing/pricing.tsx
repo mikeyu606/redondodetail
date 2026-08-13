@@ -73,7 +73,8 @@ export function Pricing() {
               local Newport Beach PTAs &amp; schools.
             </p>
             <p className="mt-4 text-sm text-slate">
-              2nd car and each additional vehicle are 50% off — $25–$35 / visit.
+              2nd car and each extra vehicle stay 50% off on every visit — $25–$35
+              bi-weekly, ongoing.
             </p>
           </div>
 

@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandCarousel } from "@/components/landing/brand-carousel";
+import { openBooking } from "@/lib/open-booking";
 
 const CompareVisual = dynamic(
   () =>
@@ -58,7 +59,13 @@ export function Hero() {
                 asChild
                 className="h-14 px-8 text-base font-semibold tracking-[0.08em] bg-burgundy text-white hover:bg-pink-primary-hover"
               >
-                <Link href="#route-schedule">
+                <Link
+                  href="#route-schedule"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openBooking();
+                  }}
+                >
                   Book Now
                   <ArrowRight className="size-5" />
                 </Link>
@@ -113,7 +120,15 @@ export function Hero() {
                 asChild
                 className="h-14 rounded-sm px-10 text-base font-semibold tracking-[0.08em] bg-burgundy text-white hover:bg-pink-primary-hover"
               >
-                <Link href="#route-schedule">Book Now</Link>
+                <Link
+                  href="#route-schedule"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openBooking();
+                  }}
+                >
+                  Book Now
+                </Link>
               </Button>
             </div>
             <p className="mt-4 text-xs tracking-wide text-burgundy/70 uppercase">

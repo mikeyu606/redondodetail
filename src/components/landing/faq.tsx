@@ -37,7 +37,7 @@ const faqs = [
   {
     question: "Where do you launch?",
     answer:
-      "We’re live in Newport Beach coastal zips first (Saturdays). Palos Verdes, South Bay, and pool routes are on the waitlist as we expand neighborhood by neighborhood.",
+      "We’re live in Newport Beach coastal zips first (Saturdays and Sundays). Palos Verdes, South Bay, and pool routes are on the waitlist as we expand neighborhood by neighborhood.",
   },
   {
     question: "Who actually washes my car?",

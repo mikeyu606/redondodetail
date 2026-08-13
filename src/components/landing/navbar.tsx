@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { openBooking } from "@/lib/open-booking";
 
 const navLinks = [
   { href: "#about", label: "about" },
@@ -68,7 +69,15 @@ export function Navbar() {
             ))}
           </div>
           <Button asChild className="hidden sm:inline-flex" size="sm">
-            <Link href="#route-schedule">Book Slot</Link>
+            <Link
+              href="#route-schedule"
+              onClick={(e) => {
+                e.preventDefault();
+                openBooking();
+              }}
+            >
+              Book Slot
+            </Link>
           </Button>
           <button
             type="button"
@@ -101,7 +110,14 @@ export function Navbar() {
                 </Link>
               ))}
               <Button asChild className="mt-2 w-full">
-                <Link href="#route-schedule" onClick={() => setMobileOpen(false)}>
+                <Link
+                  href="#route-schedule"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileOpen(false);
+                    openBooking();
+                  }}
+                >
                   Book Slot
                 </Link>
               </Button>

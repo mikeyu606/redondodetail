@@ -52,8 +52,14 @@ export async function POST(request: Request) {
     const quantity = body.amountCents ? 1 : Math.max(1, body.quantity ?? 1);
 
     const siteUrl = getSiteUrl();
+    const isCustomTotal =
+      body.amountCents != null &&
+      body.amountCents !==
+        (isSubscription ? tier.subscriptionPrice : tier.oneTimePrice) * 100;
     const productName = isSubscription
-      ? `${tier.name} · Bi-Weekly Driveway Clean`
+      ? isCustomTotal
+        ? "Multi-car membership · every 2 weeks"
+        : `${tier.name} · Bi-Weekly Driveway Clean`
       : `${tier.name} · One-Time Driveway Clean`;
 
     const description = [

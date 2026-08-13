@@ -47,7 +47,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Please enter your zip code." }, { status: 400 });
     }
     if (!visitDate) {
-      return NextResponse.json({ error: "Please select a Saturday." }, { status: 400 });
+      return NextResponse.json({ error: "Please select a date." }, { status: 400 });
     }
 
     // TODO: forward to CRM, email, or SMS when ready
