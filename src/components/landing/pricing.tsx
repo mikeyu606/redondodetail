@@ -38,31 +38,35 @@ export function Pricing() {
               Automated driveway care for busy families. Pause or cancel anytime.
             </p>
 
-            <div className="mt-8 inline-flex rounded-full border border-pink-medium/50 bg-white p-1 shadow-sm">
+            <div className="mt-6 inline-flex max-w-full rounded-full border border-pink-medium/50 bg-white p-0.5 shadow-sm sm:mt-8 sm:p-1">
               <button
                 type="button"
                 onClick={() => setBilling("subscription")}
                 className={cn(
-                  "rounded-full px-5 py-2 text-sm font-medium transition-all duration-200",
+                  "whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200 sm:px-5 sm:py-2 sm:text-sm",
                   billing === "subscription"
                     ? "bg-burgundy text-white shadow-sm"
                     : "text-slate hover:text-charcoal"
                 )}
               >
-                Bi-Weekly Subscription
-                <span className="ml-1.5 text-xs opacity-90">Save 20%</span>
+                <span className="sm:hidden">Bi-Weekly</span>
+                <span className="hidden sm:inline">Bi-Weekly Subscription</span>
+                <span className="ml-1 text-[10px] opacity-90 sm:ml-1.5 sm:text-xs">
+                  Save 20%
+                </span>
               </button>
               <button
                 type="button"
                 onClick={() => setBilling("one-time")}
                 className={cn(
-                  "rounded-full px-5 py-2 text-sm font-medium transition-all duration-200",
+                  "whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200 sm:px-5 sm:py-2 sm:text-sm",
                   billing === "one-time"
                     ? "bg-pink-light text-charcoal shadow-sm"
                     : "text-slate hover:text-charcoal"
                 )}
               >
-                One-Time Wash
+                <span className="sm:hidden">One-Time</span>
+                <span className="hidden sm:inline">One-Time Wash</span>
               </button>
             </div>
           </div>
@@ -180,12 +184,14 @@ export function Pricing() {
         </div>
       </section>
 
-      <BookingWizard
-        open={wizardOpen}
-        onOpenChange={setWizardOpen}
-        billing={billing}
-        initialTierId={selectedTierId}
-      />
+      {wizardOpen ? (
+        <BookingWizard
+          open
+          onOpenChange={setWizardOpen}
+          billing={billing}
+          initialTierId={selectedTierId}
+        />
+      ) : null}
     </>
   );
 }

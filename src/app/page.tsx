@@ -12,7 +12,7 @@ import { Footer } from "@/components/landing/footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white text-charcoal">
+    <div className="min-h-screen w-full overflow-x-clip bg-white text-charcoal">
       <Navbar />
       <main>
         {/* Hero: What is this & why should I care? */}

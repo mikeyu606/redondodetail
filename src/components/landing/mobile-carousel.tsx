@@ -20,11 +20,11 @@ export function MobileCarousel({
   return (
     <div
       className={cn(
-        "-mx-4 flex gap-4 px-4 pb-3",
+        "flex min-w-0 w-full gap-4 pb-3",
         "max-md:snap-x max-md:snap-mandatory max-md:overflow-x-auto max-md:overflow-y-hidden",
         "max-md:overscroll-x-contain max-md:[-webkit-overflow-scrolling:touch]",
         "max-md:[-ms-overflow-style:none] max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden",
-        "md:mx-0 md:grid md:overflow-visible md:px-0 md:pb-0",
+        "md:grid md:overflow-visible md:pb-0",
         desktopClassName,
         className
       )}

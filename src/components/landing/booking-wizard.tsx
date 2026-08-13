@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Car,
@@ -84,29 +84,6 @@ export function BookingWizard({
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (open) {
-      setStep(0);
-      setVehicleCount(1);
-      setVehicles(createVehicles(1, initialTierId));
-      setWeekendDay("either");
-      setCity("Newport Beach");
-    }
-  }, [open, initialTierId]);
-
-  useEffect(() => {
-    setVehicles((prev) => {
-      if (vehicleCount === prev.length) return prev;
-      if (vehicleCount > prev.length) {
-        return [
-          ...prev,
-          ...createVehicles(vehicleCount - prev.length, initialTierId),
-        ];
-      }
-      return prev.slice(0, vehicleCount);
-    });
-  }, [vehicleCount, initialTierId]);
 
   const isLastStep = step === steps.length - 1;
   const isFirstStep = step === 0;
@@ -192,6 +169,16 @@ export function BookingWizard({
     );
   }
 
+  function changeVehicleCount(nextCount: number) {
+    const count = Math.max(1, Math.min(6, nextCount));
+    setVehicleCount(count);
+    setVehicles((prev) =>
+      count > prev.length
+        ? [...prev, ...createVehicles(count - prev.length, initialTierId)]
+        : prev.slice(0, count)
+    );
+  }
+
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
@@ -262,7 +249,7 @@ export function BookingWizard({
                   <div className="flex items-center justify-center gap-6 rounded-2xl border border-pink-medium/40 bg-pink-soft/50 py-6">
                     <button
                       type="button"
-                      onClick={() => setVehicleCount((c) => Math.max(1, c - 1))}
+                      onClick={() => changeVehicleCount(vehicleCount - 1)}
                       className="flex size-11 items-center justify-center rounded-full border border-pink-medium/50 bg-white text-charcoal transition-colors hover:bg-pink-light disabled:opacity-40"
                       disabled={vehicleCount <= 1}
                       aria-label="Decrease vehicle count"
@@ -279,7 +266,7 @@ export function BookingWizard({
                     </div>
                     <button
                       type="button"
-                      onClick={() => setVehicleCount((c) => Math.min(6, c + 1))}
+                      onClick={() => changeVehicleCount(vehicleCount + 1)}
                       className="flex size-11 items-center justify-center rounded-full border border-pink-medium/50 bg-white text-charcoal transition-colors hover:bg-pink-light disabled:opacity-40"
                       disabled={vehicleCount >= 6}
                       aria-label="Increase vehicle count"
