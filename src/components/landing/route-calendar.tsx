@@ -12,17 +12,8 @@ import {
   MapPin,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { submitBooking } from "@/lib/booking";
-import { BOOKING_EVENT, openBooking } from "@/lib/open-booking";
 import { pricingTiers, getTierById, type TierId } from "@/lib/pricing-data";
 import { addDays, addWeeks, format, getDay, startOfDay } from "date-fns";
 
@@ -36,7 +27,7 @@ type CycleOption = {
 const newportRoute = {
   id: "newport" as const,
   name: "Newport Beach",
-  windowLabel: "Sat & Sun · 8 AM – 4 PM",
+  windowLabel: "Saturdays & Sundays · 8 AM – 4 PM",
   slotsLeft: 4,
 };
 
@@ -98,7 +89,7 @@ function DateStep({
   cycles: CycleOption[];
   cycleId: string | null;
   slotsMonth: string;
-  onSelect: (id: string) => void;
+  onSelect?: (id: string) => void;
 }) {
   return (
     <div>
@@ -107,32 +98,36 @@ function DateStep({
           Only {newportRoute.slotsLeft} slots left for {slotsMonth}
         </span>
       </div>
-      <h3 className="text-xl font-semibold tracking-tight text-charcoal sm:text-2xl">
+      <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
         Which weekend day works for your first visit?
       </h3>
       <p className="mt-2 text-sm text-slate">
-        {newportRoute.windowLabel} · Newport Beach.
+        {newportRoute.windowLabel} · Newport Beach. Pick a Saturday or Sunday
+        window and we&apos;ll handle the rest.
       </p>
 
-      <div className="mt-5 grid gap-3">
+      <div className="mt-5 grid gap-2">
         {cycles.map((cycle) => {
           const selected = cycleId === cycle.id;
           return (
             <button
               key={cycle.id}
               type="button"
-              onClick={() => onSelect(cycle.id)}
+              tabIndex={onSelect ? 0 : -1}
+              onClick={onSelect ? () => onSelect(cycle.id) : undefined}
               className={cn(
-                "rounded-2xl border px-4 py-4 text-left transition-all",
+                "flex items-center justify-between gap-3 rounded-xl border px-3.5 py-2.5 text-left transition-all",
                 selected
                   ? "border-burgundy bg-pink-light/70 ring-2 ring-burgundy/20"
                   : "border-border bg-white hover:border-burgundy/40"
               )}
             >
-              <p className="font-semibold text-charcoal">{cycle.label}</p>
-              <p className="mt-1 text-sm text-slate">8 AM – 4 PM arrival window</p>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-charcoal">{cycle.label}</p>
+                <p className="text-xs text-slate">8 AM – 4 PM arrival window</p>
+              </div>
               {selected ? (
-                <span className="mt-3 inline-block rounded-full bg-burgundy px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
+                <span className="shrink-0 rounded-full bg-burgundy px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
                   Selected
                 </span>
               ) : null}
@@ -145,7 +140,6 @@ function DateStep({
 }
 
 export function RouteCalendar() {
-  const [open, setOpen] = useState(false);
   const [step, setStep] = useState(0);
   const [cycleId, setCycleId] = useState<string | null>(null);
   const [name, setName] = useState("");
@@ -160,20 +154,6 @@ export function RouteCalendar() {
   const [error, setError] = useState<string | null>(null);
   const [confirmed, setConfirmed] = useState(false);
   const stepScrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const openModal = () => setOpen(true);
-    const onHash = () => {
-      if (window.location.hash === "#route-schedule") setOpen(true);
-    };
-    window.addEventListener(BOOKING_EVENT, openModal);
-    window.addEventListener("hashchange", onHash);
-    onHash();
-    return () => {
-      window.removeEventListener(BOOKING_EVENT, openModal);
-      window.removeEventListener("hashchange", onHash);
-    };
-  }, []);
 
   useEffect(() => {
     stepScrollRef.current?.scrollTo({ top: 0 });
@@ -246,17 +226,303 @@ export function RouteCalendar() {
             Book Your First Driveway Reset
           </h2>
           <p className="mt-4 text-slate">
-            Experience your first reset from $50—you are charged $0 today, and
-            only pay after your service is complete.
+            Select a Saturday or Sunday below. Experience your first reset from
+            $50. You are charged $0 today, and only pay after your service is
+            complete.
           </p>
-          <div className="mt-8">
-            <Button
-              className="h-12 rounded-full px-8"
-              onClick={() => openBooking()}
-            >
-              Reserve Your Slot
-            </Button>
+        </div>
+
+        <div className="mx-auto mt-12 flex max-w-4xl flex-col rounded-[1.75rem] border border-border/80 bg-white p-5 shadow-[0_20px_60px_-30px_rgba(194,24,91,0.35)] sm:p-8">
+          <div className="relative">
+            <div className="invisible pointer-events-none select-none" aria-hidden>
+              <DateStep
+                cycles={cycles}
+                cycleId={cycleId}
+                slotsMonth={slotsMonth}
+              />
+            </div>
+            <div ref={stepScrollRef} className="absolute inset-0 overflow-y-auto">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={step}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  {step === 0 && (
+                    <DateStep
+                      cycles={cycles}
+                      cycleId={cycleId}
+                      slotsMonth={slotsMonth}
+                      onSelect={setCycleId}
+                    />
+                  )}
+
+                  {step === 1 && selectedCycle ? (
+                    <div>
+                      <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
+                        How can we reach you?
+                      </h3>
+                      <StepContext label={selectedCycle.label} />
+
+                      <div className="mt-8 space-y-5">
+                        <label className="block">
+                          <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate">
+                            Your Name
+                          </span>
+                          <input
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Sarah M."
+                            className={inputClass}
+                          />
+                        </label>
+                        <label className="block">
+                          <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate">
+                            Phone
+                          </span>
+                          <input
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            type="tel"
+                            placeholder="(424) 555-0123"
+                            className={inputClass}
+                          />
+                        </label>
+                        <label className="block">
+                          <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate">
+                            Email (Optional)
+                          </span>
+                          <input
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            type="email"
+                            placeholder="you@email.com"
+                            className={inputClass}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {step === 2 && selectedCycle ? (
+                    <div>
+                      <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
+                        What are we cleaning?
+                      </h3>
+                      <StepContext label={selectedCycle.label} />
+
+                      <div className="mt-8 space-y-6">
+                        <label className="block">
+                          <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate">
+                            Vehicle Make &amp; Model
+                          </span>
+                          <input
+                            value={vehicleMakeModel}
+                            onChange={(e) => setVehicleMakeModel(e.target.value)}
+                            placeholder="e.g., Range Rover Sport"
+                            className={inputClass}
+                          />
+                        </label>
+
+                        <div>
+                          <span className="mb-3 block text-xs font-medium uppercase tracking-wide text-slate">
+                            Vehicle Type
+                          </span>
+                          <div className="grid gap-3">
+                            {pricingTiers.map((tier) => {
+                              const selected = vehicleType === tier.id;
+                              return (
+                                <button
+                                  key={tier.id}
+                                  type="button"
+                                  onClick={() => setVehicleType(tier.id)}
+                                  className={cn(
+                                    "rounded-xl border px-4 py-3.5 text-left text-sm transition-all",
+                                    selected
+                                      ? "border-burgundy bg-pink-light/70 ring-2 ring-burgundy/20"
+                                      : "border-border bg-white hover:border-burgundy/40"
+                                  )}
+                                >
+                                  <span className="font-medium text-charcoal">
+                                    {tier.name}
+                                  </span>
+                                  <span className="ml-2 text-slate">
+                                    ${tier.subscriptionPrice} / bi-weekly
+                                  </span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {step === 3 && selectedCycle ? (
+                    <div>
+                      <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
+                        Where is your driveway?
+                      </h3>
+                      <StepContext label={selectedCycle.label} />
+
+                      <div className="mt-8 space-y-5">
+                        <label className="block">
+                          <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate">
+                            Street Address
+                          </span>
+                          <input
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            placeholder="1234 Blossom Ln, Newport Beach"
+                            className={inputClass}
+                          />
+                        </label>
+                        <label className="block">
+                          <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate">
+                            Zip Code
+                          </span>
+                          <input
+                            value={zip}
+                            onChange={(e) => setZip(e.target.value)}
+                            placeholder="92660"
+                            className={inputClass}
+                          />
+                        </label>
+                        <label className="block">
+                          <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate">
+                            Gate / Parking Notes (Optional)
+                          </span>
+                          <input
+                            value={notes}
+                            onChange={(e) => setNotes(e.target.value)}
+                            placeholder="Left side of driveway"
+                            className={inputClass}
+                          />
+                        </label>
+                      </div>
+
+                      <p className="mt-8 rounded-2xl border border-burgundy/15 bg-pink-light/50 px-4 py-4 text-sm leading-relaxed text-slate">
+                        <span className="font-medium text-charcoal">
+                          ${firstVisitPrice} due after your reset.
+                        </span>{" "}
+                        You&apos;re charged $0 today. Please have outdoor water
+                        and an outdoor outlet available on wash day.
+                      </p>
+                    </div>
+                  ) : null}
+
+                  {step === CONFIRMATION_STEP && confirmed && selectedCycle ? (
+                    <div className="py-2 text-center">
+                      <div className="mx-auto flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-burgundy to-[#e85a8a] shadow-[0_12px_30px_-10px_rgba(194,24,91,0.75)]">
+                        <Check className="size-8 text-white" strokeWidth={2.75} />
+                      </div>
+                      <p className="mt-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-burgundy">
+                        You&apos;re all set
+                      </p>
+                      <h3 className="mt-2 text-2xl font-semibold tracking-tight text-charcoal sm:text-3xl">
+                        Your first visit is booked
+                      </h3>
+                      <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate">
+                        You&apos;re charged $0 today. We&apos;ll text you the day
+                        before with your arrival window. ${firstVisitPrice} is due
+                        after your service is complete.
+                      </p>
+
+                      <dl className="mx-auto mt-7 max-w-md space-y-3 rounded-2xl border border-burgundy/15 bg-pink-light/70 px-4 py-4 text-left sm:px-5">
+                        <div className="flex items-start gap-3">
+                          <CalendarDays className="mt-0.5 size-4 shrink-0 text-burgundy" />
+                          <div>
+                            <dt className="text-[11px] font-semibold uppercase tracking-wide text-slate">
+                              Visit
+                            </dt>
+                            <dd className="text-sm font-medium text-charcoal">
+                              {selectedCycle.label} · {newportRoute.windowLabel}
+                            </dd>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <Car className="mt-0.5 size-4 shrink-0 text-burgundy" />
+                          <div>
+                            <dt className="text-[11px] font-semibold uppercase tracking-wide text-slate">
+                              Vehicle
+                            </dt>
+                            <dd className="text-sm font-medium text-charcoal">
+                              {vehicleMakeModel} · {selectedTier.name}
+                            </dd>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <MapPin className="mt-0.5 size-4 shrink-0 text-burgundy" />
+                          <div>
+                            <dt className="text-[11px] font-semibold uppercase tracking-wide text-slate">
+                              Driveway
+                            </dt>
+                            <dd className="text-sm font-medium text-charcoal">
+                              {address}, {zip}
+                            </dd>
+                          </div>
+                        </div>
+                      </dl>
+                    </div>
+                  ) : null}
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
+
+          {step < CONFIRMATION_STEP ? (
+            <div className="mt-5 flex shrink-0 flex-col gap-4 border-t border-border/70 pt-5 sm:flex-row sm:items-center sm:justify-between">
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-medium text-slate">
+                  Step {step + 1}: {stepLabels[step]}
+                </p>
+                <div className="relative mt-2 h-1.5 max-w-xs overflow-hidden rounded-full bg-border">
+                  <div
+                    className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-burgundy to-[#f07a9a] transition-all duration-300"
+                    style={{ width: `${((step + 1) / TOTAL_STEPS) * 100}%` }}
+                  />
+                </div>
+              </div>
+
+              <div className="flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
+                {step > 0 ? (
+                  <button
+                    type="button"
+                    onClick={() => setStep((s) => Math.max(0, s - 1))}
+                    className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-border bg-white px-5 text-sm font-semibold uppercase tracking-wide text-charcoal transition-colors hover:border-burgundy/40 hover:text-burgundy sm:flex-none"
+                  >
+                    <ChevronLeft className="size-4" />
+                    Back
+                  </button>
+                ) : null}
+
+                <button
+                  type="button"
+                  onClick={handlePrimary}
+                  disabled={!canNext || loading}
+                  className="inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-gradient-to-r from-burgundy to-[#e85a8a] px-6 text-sm font-semibold uppercase tracking-wide text-white shadow-[0_12px_30px_-10px_rgba(194,24,91,0.75)] transition-all hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-40 sm:px-7"
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="size-4 animate-spin" />
+                      Booking…
+                    </>
+                  ) : step === CONFIRMATION_STEP - 1 ? (
+                    "Book My First Visit"
+                  ) : (
+                    <>
+                      Next
+                      <ChevronRight className="size-4" />
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          ) : null}
+
+          {error ? <p className="mt-3 text-sm text-red-600">{error}</p> : null}
         </div>
 
         <p className="mx-auto mt-6 max-w-4xl text-center text-sm leading-relaxed text-slate sm:mt-8">
@@ -272,298 +538,6 @@ export function RouteCalendar() {
           </a>
         </p>
       </div>
-
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="flex h-[min(40rem,calc(100dvh-1.25rem))] w-[calc(100%-1.25rem)] max-w-lg translate-x-[-50%] flex-col gap-0 overflow-hidden p-0 sm:h-[min(42rem,calc(100dvh-3rem))] max-sm:bottom-0 max-sm:left-0 max-sm:right-0 max-sm:top-auto max-sm:h-[min(92dvh,42rem)] max-sm:w-full max-sm:max-w-none max-sm:translate-x-0 max-sm:translate-y-0 max-sm:rounded-b-none max-sm:rounded-t-[1.75rem]">
-          <DialogHeader className="shrink-0 border-b border-border/70 px-5 pb-4 pt-5 text-left sm:px-6">
-            <DialogTitle className="pr-8 font-heading text-xl font-medium tracking-tight sm:text-2xl">
-              Book Your First Reset
-            </DialogTitle>
-            <DialogDescription>
-              $0 today · pay after service · from ${firstVisitPrice}
-            </DialogDescription>
-          </DialogHeader>
-
-          <div ref={stepScrollRef} className="min-h-0 flex-1 overflow-y-auto px-5 py-5 sm:px-6">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={step}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.2 }}
-              >
-                {step === 0 && (
-                  <DateStep
-                    cycles={cycles}
-                    cycleId={cycleId}
-                    slotsMonth={slotsMonth}
-                    onSelect={setCycleId}
-                  />
-                )}
-
-                {step === 1 && selectedCycle ? (
-                  <div>
-                    <h3 className="text-xl font-semibold tracking-tight text-charcoal">
-                      How can we reach you?
-                    </h3>
-                    <StepContext label={selectedCycle.label} />
-                    <div className="mt-6 space-y-4">
-                      <label className="block">
-                        <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate">
-                          Your Name
-                        </span>
-                        <input
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          placeholder="Sarah M."
-                          className={inputClass}
-                        />
-                      </label>
-                      <label className="block">
-                        <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate">
-                          Phone
-                        </span>
-                        <input
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          type="tel"
-                          placeholder="(424) 555-0123"
-                          className={inputClass}
-                        />
-                      </label>
-                      <label className="block">
-                        <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate">
-                          Email (Optional)
-                        </span>
-                        <input
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          type="email"
-                          placeholder="you@email.com"
-                          className={inputClass}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                ) : null}
-
-                {step === 2 && selectedCycle ? (
-                  <div>
-                    <h3 className="text-xl font-semibold tracking-tight text-charcoal">
-                      What are we cleaning?
-                    </h3>
-                    <StepContext label={selectedCycle.label} />
-                    <div className="mt-6 space-y-5">
-                      <label className="block">
-                        <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate">
-                          Vehicle Make &amp; Model
-                        </span>
-                        <input
-                          value={vehicleMakeModel}
-                          onChange={(e) => setVehicleMakeModel(e.target.value)}
-                          placeholder="e.g., Range Rover Sport"
-                          className={inputClass}
-                        />
-                      </label>
-                      <div>
-                        <span className="mb-3 block text-xs font-medium uppercase tracking-wide text-slate">
-                          Vehicle Type
-                        </span>
-                        <div className="grid gap-2.5">
-                          {pricingTiers.map((tier) => {
-                            const selected = vehicleType === tier.id;
-                            return (
-                              <button
-                                key={tier.id}
-                                type="button"
-                                onClick={() => setVehicleType(tier.id)}
-                                className={cn(
-                                  "rounded-xl border px-4 py-3 text-left text-sm transition-all",
-                                  selected
-                                    ? "border-burgundy bg-pink-light/70 ring-2 ring-burgundy/20"
-                                    : "border-border bg-white hover:border-burgundy/40"
-                                )}
-                              >
-                                <span className="font-medium text-charcoal">
-                                  {tier.name}
-                                </span>
-                                <span className="ml-2 text-slate">
-                                  ${tier.subscriptionPrice} / bi-weekly
-                                </span>
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : null}
-
-                {step === 3 && selectedCycle ? (
-                  <div>
-                    <h3 className="text-xl font-semibold tracking-tight text-charcoal">
-                      Where is your driveway?
-                    </h3>
-                    <StepContext label={selectedCycle.label} />
-                    <div className="mt-6 space-y-4">
-                      <label className="block">
-                        <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate">
-                          Street Address
-                        </span>
-                        <input
-                          value={address}
-                          onChange={(e) => setAddress(e.target.value)}
-                          placeholder="1234 Blossom Ln, Newport Beach"
-                          className={inputClass}
-                        />
-                      </label>
-                      <label className="block">
-                        <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate">
-                          Zip Code
-                        </span>
-                        <input
-                          value={zip}
-                          onChange={(e) => setZip(e.target.value)}
-                          placeholder="92660"
-                          className={inputClass}
-                        />
-                      </label>
-                      <label className="block">
-                        <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate">
-                          Gate / Parking Notes (Optional)
-                        </span>
-                        <input
-                          value={notes}
-                          onChange={(e) => setNotes(e.target.value)}
-                          placeholder="Left side of driveway"
-                          className={inputClass}
-                        />
-                      </label>
-                    </div>
-                    <p className="mt-5 rounded-2xl border border-burgundy/15 bg-pink-light/50 px-4 py-3 text-sm leading-relaxed text-slate">
-                      <span className="font-medium text-charcoal">
-                        ${firstVisitPrice} due after your reset.
-                      </span>{" "}
-                      Charged $0 today.
-                    </p>
-                  </div>
-                ) : null}
-
-                {step === CONFIRMATION_STEP && confirmed && selectedCycle ? (
-                  <div className="py-2 text-center">
-                    <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-burgundy to-[#e85a8a]">
-                      <Check className="size-7 text-white" strokeWidth={2.75} />
-                    </div>
-                    <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-burgundy">
-                      You&apos;re all set
-                    </p>
-                    <h3 className="mt-2 text-2xl font-semibold tracking-tight text-charcoal">
-                      Your first visit is booked
-                    </h3>
-                    <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-slate">
-                      We&apos;ll text you the day before. ${firstVisitPrice} is due
-                      after service.
-                    </p>
-                    <dl className="mx-auto mt-6 space-y-3 rounded-2xl border border-burgundy/15 bg-pink-light/70 px-4 py-4 text-left">
-                      <div className="flex items-start gap-3">
-                        <CalendarDays className="mt-0.5 size-4 shrink-0 text-burgundy" />
-                        <div>
-                          <dt className="text-[11px] font-semibold uppercase tracking-wide text-slate">
-                            Visit
-                          </dt>
-                          <dd className="text-sm font-medium text-charcoal">
-                            {selectedCycle.label} · {newportRoute.windowLabel}
-                          </dd>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Car className="mt-0.5 size-4 shrink-0 text-burgundy" />
-                        <div>
-                          <dt className="text-[11px] font-semibold uppercase tracking-wide text-slate">
-                            Vehicle
-                          </dt>
-                          <dd className="text-sm font-medium text-charcoal">
-                            {vehicleMakeModel} · {selectedTier.name}
-                          </dd>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <MapPin className="mt-0.5 size-4 shrink-0 text-burgundy" />
-                        <div>
-                          <dt className="text-[11px] font-semibold uppercase tracking-wide text-slate">
-                            Driveway
-                          </dt>
-                          <dd className="text-sm font-medium text-charcoal">
-                            {address}, {zip}
-                          </dd>
-                        </div>
-                      </div>
-                    </dl>
-                  </div>
-                ) : null}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {step < CONFIRMATION_STEP ? (
-            <div className="shrink-0 border-t border-border/70 bg-white px-5 py-4 sm:px-6">
-              <p className="text-xs font-medium text-slate">
-                Step {step + 1}: {stepLabels[step]}
-              </p>
-              <div className="relative mt-2 h-1.5 overflow-hidden rounded-full bg-border">
-                <div
-                  className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-burgundy to-[#f07a9a] transition-all duration-300"
-                  style={{ width: `${((step + 1) / TOTAL_STEPS) * 100}%` }}
-                />
-              </div>
-              {error ? <p className="mt-2 text-sm text-red-600">{error}</p> : null}
-              <div className="mt-4 flex gap-3">
-                {step > 0 ? (
-                  <button
-                    type="button"
-                    onClick={() => setStep((s) => Math.max(0, s - 1))}
-                    className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-border bg-white px-4 text-sm font-semibold uppercase tracking-wide text-charcoal"
-                  >
-                    <ChevronLeft className="size-4" />
-                    Back
-                  </button>
-                ) : null}
-                <button
-                  type="button"
-                  onClick={handlePrimary}
-                  disabled={!canNext || loading}
-                  className="inline-flex h-12 flex-[1.4] items-center justify-center gap-2 rounded-full bg-gradient-to-r from-burgundy to-[#e85a8a] px-5 text-sm font-semibold uppercase tracking-wide text-white shadow-[0_12px_30px_-10px_rgba(194,24,91,0.75)] disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 className="size-4 animate-spin" />
-                      Booking…
-                    </>
-                  ) : step === CONFIRMATION_STEP - 1 ? (
-                    "Book My Visit"
-                  ) : (
-                    <>
-                      Next
-                      <ChevronRight className="size-4" />
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="shrink-0 border-t border-border/70 px-5 py-4 sm:px-6">
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                className="inline-flex h-12 w-full items-center justify-center rounded-full bg-gradient-to-r from-burgundy to-[#e85a8a] text-sm font-semibold uppercase tracking-wide text-white"
-              >
-                Done
-              </button>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
     </section>
   );
 }

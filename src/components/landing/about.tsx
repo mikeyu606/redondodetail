@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Heart, Sparkles, GraduationCap } from "lucide-react";
+import { Sparkles, GraduationCap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { siteConfig } from "@/lib/site-config";
 
@@ -76,29 +76,22 @@ export function About() {
 
             <div className="space-y-4 text-base leading-relaxed text-slate sm:text-lg">
               <p>
-                I started this passion back in college out of a simple
-                frustration: every local car wash option felt identical—long
-                tunnel lines, harsh chemical smells, and another Saturday
-                morning wasted sitting in a waiting room.
+                I built {businessName} out of a simple realization: busy coastal
+                families shouldn&apos;t have to choose between a clean vehicle and
+                spending quality time together on the weekend.
               </p>
               <p>
-                What began as a hands-on service for neighbors grew into{" "}
-                {businessName}. I knew coastal families deserved an elevated,
-                non-toxic alternative—and a detail-obsessed team they genuinely
-                trust pulling into their driveway.
+                Traditional car washes waste precious Saturday hours, leave
+                harsh chemical fumes inside family cabins, and strip away your
+                free time. I knew there had to be an elevated, non-toxic
+                alternative—one built around plant-derived formulas, immaculate
+                detail, and a team you genuinely trust pulling into your
+                driveway.
               </p>
               <p>
-                We&apos;re building this neighborhood by neighborhood, giving
-                busy parents their weekends back.
-              </p>
-            </div>
-
-            <div className="flex items-start gap-3 rounded-2xl border border-pink-medium/40 bg-white/80 px-5 py-4 shadow-sm">
-              <Heart className="mt-0.5 size-5 shrink-0 fill-pink-primary/20 text-pink-primary" />
-              <p className="text-base font-medium leading-relaxed text-charcoal">
-                Built on Trust &amp; Detail: Because when every other option is
-                just another cold service app, personal care and true peace of
-                mind matter.
+                We are building this neighborhood by neighborhood, taking
+                vehicle care entirely off your to-do list so you can get your
+                weekends back.
               </p>
             </div>
           </motion.div>

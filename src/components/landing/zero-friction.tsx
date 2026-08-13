@@ -16,7 +16,7 @@ const steps = [
     number: "02",
     title: "Zero Interruption",
     description:
-      "No driving to car washes or waiting in lines. Just park at home—we bring everything needed directly to your driveway.",
+      "No driving to car washes or waiting in lines. Park at home and leave outdoor water and power available. We handle the rest in your driveway.",
     image: "/how-it-works-step-2.jpg",
     alt: "Range Rover parked in a sunny modern Newport Beach driveway",
   },

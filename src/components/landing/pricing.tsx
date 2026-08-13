@@ -67,16 +67,10 @@ export function Pricing() {
             </div>
           </div>
 
-          <div className="mx-auto mt-10 max-w-3xl px-1 text-center">
-            <p className="inline-flex rounded-full border border-pink-medium/60 bg-pink-light/70 px-4 py-2 text-sm leading-snug text-charcoal">
-              🍎 Community Care: 1% of every active membership goes directly to
-              local Newport Beach PTAs &amp; schools.
-            </p>
-            <p className="mt-4 text-sm text-slate">
-              2nd car and each extra vehicle stay 50% off on every visit — $25–$35
-              bi-weekly, ongoing.
-            </p>
-          </div>
+          <p className="mx-auto mt-10 max-w-3xl px-1 text-center text-sm text-slate">
+            2nd car and each extra vehicle stay 50% off on every visit — $25–$35
+            bi-weekly, ongoing.
+          </p>
 
           <MobileCarousel className="mt-8" desktopClassName="md:grid-cols-3 md:gap-6">
             {pricingTiers.map((tier, i) => {
@@ -175,6 +169,12 @@ export function Pricing() {
             })}
           </MobileCarousel>
 
+          <div className="mx-auto mt-10 max-w-3xl px-1 text-center">
+            <p className="inline-flex rounded-full border border-pink-medium/60 bg-pink-light/70 px-4 py-2 text-sm leading-snug text-charcoal">
+              🍎 Community Care: 1% of every active membership goes directly to
+              local Newport Beach PTAs &amp; schools.
+            </p>
+          </div>
         </div>
       </section>
 
