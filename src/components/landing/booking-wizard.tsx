@@ -36,7 +36,6 @@ export type BillingMode = "subscription" | "one-time";
 
 type VehicleEntry = {
   tierId: TierId;
-  nickname: string;
 };
 
 type BookingWizardProps = {
@@ -57,7 +56,6 @@ const steps = [
 function createVehicles(count: number, defaultTier: TierId): VehicleEntry[] {
   return Array.from({ length: count }, () => ({
     tierId: defaultTier,
-    nickname: "",
   }));
 }
 
@@ -84,9 +82,17 @@ export function BookingWizard({
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [showErrors, setShowErrors] = useState(false);
 
   const isLastStep = step === steps.length - 1;
   const isFirstStep = step === 0;
+
+  const nameOk = name.trim().length > 1;
+  const phoneOk = phone.replace(/\D/g, "").length >= 10;
+  const emailOk = email.includes("@") && email.includes(".");
+  const addressOk = address.trim().length > 3;
+  const cityOk = city.trim().length > 1;
+  const zipOk = zip.trim().length >= 5;
 
   const perVisitTotal = vehicles.reduce(
     (sum, v, i) =>
@@ -106,18 +112,19 @@ export function BookingWizard({
   function canProceed(): boolean {
     if (step === 0) return vehicleCount >= 1 && vehicles.every((v) => v.tierId);
     if (step === 1) {
-      return (
-        name.trim().length > 1 &&
-        phone.trim().length >= 10 &&
-        email.includes("@") &&
-        address.trim().length > 3 &&
-        zip.trim().length >= 5
-      );
+      return nameOk && phoneOk && emailOk && addressOk && cityOk && zipOk;
     }
     return true;
   }
 
   async function handleNext() {
+    if (!canProceed()) {
+      setShowErrors(true);
+      return;
+    }
+
+    setShowErrors(false);
+
     if (!isLastStep) {
       setStep((s) => s + 1);
       return;
@@ -143,7 +150,7 @@ export function BookingWizard({
           service: "we-come-to-you",
           weekendDay,
           vehicles: vehicles
-            .map((v, i) => `${v.nickname || `Vehicle ${i + 1}`}:${v.tierId}`)
+            .map((v, i) => `Vehicle ${i + 1}:${v.tierId}`)
             .join("|"),
           perVisitTotal: String(perVisitTotal),
           extraVehicleDiscount: vehicleCount > 1 ? "50-percent" : "none",
@@ -203,38 +210,39 @@ export function BookingWizard({
             </DialogDescription>
           </DialogHeader>
 
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex items-start">
             {steps.map((s, i) => (
-              <div key={s.label} className="flex flex-1 flex-col items-center gap-1">
-                <div className="flex w-full items-center">
-                  {i > 0 && (
-                    <div
-                      className={cn(
-                        "h-0.5 flex-1",
-                        i <= step ? "bg-pink-primary" : "bg-pink-light"
-                      )}
-                    />
-                  )}
+              <div
+                key={s.label}
+                className="relative flex flex-1 flex-col items-center gap-1.5"
+              >
+                {i > 0 ? (
                   <div
                     className={cn(
-                      "flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors",
-                      i <= step
-                        ? "bg-burgundy text-white"
-                        : "bg-pink-light text-slate"
+                      "absolute left-0 right-1/2 top-4 h-0.5 -translate-y-1/2",
+                      i <= step ? "bg-pink-primary" : "bg-pink-light"
                     )}
-                  >
-                    {i + 1}
-                  </div>
-                  {i < steps.length - 1 && (
-                    <div
-                      className={cn(
-                        "h-0.5 flex-1",
-                        i < step ? "bg-pink-primary" : "bg-pink-light"
-                      )}
-                    />
+                  />
+                ) : null}
+                {i < steps.length - 1 ? (
+                  <div
+                    className={cn(
+                      "absolute left-1/2 right-0 top-4 h-0.5 -translate-y-1/2",
+                      i < step ? "bg-pink-primary" : "bg-pink-light"
+                    )}
+                  />
+                ) : null}
+                <div
+                  className={cn(
+                    "relative z-10 flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors",
+                    i <= step
+                      ? "bg-burgundy text-white"
+                      : "bg-pink-light text-slate"
                   )}
+                >
+                  {i + 1}
                 </div>
-                <span className="hidden text-[10px] text-slate sm:block">
+                <span className="text-center text-[10px] leading-tight text-slate">
                   {s.label}
                 </span>
               </div>
@@ -309,15 +317,6 @@ export function BookingWizard({
                             : ""}
                         </Badge>
                       </div>
-                      <input
-                        type="text"
-                        placeholder='Nickname (optional) — e.g. "Work SUV"'
-                        value={vehicle.nickname}
-                        onChange={(e) =>
-                          updateVehicle(index, { nickname: e.target.value })
-                        }
-                        className="w-full rounded-lg border border-pink-medium/40 bg-white px-3 py-2.5 text-base text-charcoal placeholder:text-slate/60 focus:border-pink-primary focus:outline-none focus:ring-2 focus:ring-pink-primary/20"
-                      />
                       <div className="grid gap-2">
                         {pricingTiers.map((tier) => (
                           <button
@@ -360,27 +359,56 @@ export function BookingWizard({
                     We come to your driveway in Newport Beach. Have outdoor water
                     and an outdoor outlet available on wash day.
                   </p>
-                  <Field label="Full name" value={name} onChange={setName} />
+                  {showErrors && !canProceed() ? (
+                    <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
+                      Please fill in the highlighted fields to continue.
+                    </p>
+                  ) : null}
+                  <Field
+                    label="Full name"
+                    value={name}
+                    onChange={setName}
+                    error={showErrors && !nameOk}
+                    errorText="Enter your full name"
+                  />
                   <Field
                     label="Phone"
                     value={phone}
                     onChange={setPhone}
                     type="tel"
+                    error={showErrors && !phoneOk}
+                    errorText="Enter a valid phone number"
                   />
                   <Field
                     label="Email"
                     value={email}
                     onChange={setEmail}
                     type="email"
+                    error={showErrors && !emailOk}
+                    errorText="Enter a valid email"
                   />
                   <Field
                     label="Driveway address"
                     value={address}
                     onChange={setAddress}
+                    error={showErrors && !addressOk}
+                    errorText="Enter your driveway address"
                   />
                   <div className="grid grid-cols-2 gap-3">
-                    <Field label="City" value={city} onChange={setCity} />
-                    <Field label="ZIP code" value={zip} onChange={setZip} />
+                    <Field
+                      label="City"
+                      value={city}
+                      onChange={setCity}
+                      error={showErrors && !cityOk}
+                      errorText="Required"
+                    />
+                    <Field
+                      label="ZIP code"
+                      value={zip}
+                      onChange={setZip}
+                      error={showErrors && !zipOk}
+                      errorText="Enter a valid ZIP"
+                    />
                   </div>
                   {billing === "subscription" ? (
                     <div>
@@ -443,7 +471,7 @@ export function BookingWizard({
                             className="flex items-center justify-between text-sm"
                           >
                             <span className="text-charcoal">
-                              {v.nickname || `Vehicle ${i + 1}`} · {tier.name}
+                              Vehicle {i + 1} · {tier.name}
                               {billing === "subscription" && i > 0 ? (
                                 <span className="ml-1.5 text-xs text-burgundy">
                                   50% off every visit
@@ -506,7 +534,10 @@ export function BookingWizard({
             <Button
               type="button"
               variant="ghost"
-              onClick={() => setStep((s) => Math.max(0, s - 1))}
+              onClick={() => {
+                setShowErrors(false);
+                setStep((s) => Math.max(0, s - 1));
+              }}
               disabled={isFirstStep}
               className={cn(isFirstStep && "invisible")}
             >
@@ -516,7 +547,7 @@ export function BookingWizard({
             <Button
               type="button"
               onClick={handleNext}
-              disabled={!canProceed() || checkoutLoading}
+              disabled={checkoutLoading}
             >
               {isLastStep ? (
                 checkoutLoading ? (
@@ -557,23 +588,41 @@ function Field({
   value,
   onChange,
   type = "text",
+  error = false,
+  errorText,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   type?: string;
+  error?: boolean;
+  errorText?: string;
 }) {
   return (
     <div>
-      <label className="mb-1.5 block text-xs font-medium text-slate">
+      <label
+        className={cn(
+          "mb-1.5 block text-xs font-medium",
+          error ? "text-red-600" : "text-slate"
+        )}
+      >
         {label}
       </label>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-lg border border-pink-medium/40 bg-white px-3 py-2.5 text-base text-charcoal focus:border-pink-primary focus:outline-none focus:ring-2 focus:ring-pink-primary/20"
+        aria-invalid={error}
+        className={cn(
+          "w-full rounded-lg border bg-white px-3 py-2.5 text-base text-charcoal focus:outline-none focus:ring-2",
+          error
+            ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+            : "border-pink-medium/40 focus:border-pink-primary focus:ring-pink-primary/20"
+        )}
       />
+      {error && errorText ? (
+        <p className="mt-1 text-xs text-red-600">{errorText}</p>
+      ) : null}
     </div>
   );
 }

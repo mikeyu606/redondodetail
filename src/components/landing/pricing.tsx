@@ -35,7 +35,8 @@ export function Pricing() {
             Your  Bi-Weekly Membership
             </h2>
             <p className="lede mt-4 text-slate">
-              Automated driveway care for busy families. Pause or cancel anytime.
+              2nd car and each extra vehicle stay 50% off on every visit — $25–$35
+              bi-weekly, ongoing.
             </p>
 
             <div className="mt-6 inline-flex max-w-full rounded-full border border-pink-medium/50 bg-white p-0.5 shadow-sm sm:mt-8 sm:p-1">
@@ -70,11 +71,6 @@ export function Pricing() {
               </button>
             </div>
           </div>
-
-          <p className="mx-auto mt-10 max-w-3xl px-1 text-center text-sm text-slate">
-            2nd car and each extra vehicle stay 50% off on every visit — $25–$35
-            bi-weekly, ongoing.
-          </p>
 
           <MobileCarousel className="mt-8" desktopClassName="md:grid-cols-3 md:gap-6">
             {pricingTiers.map((tier, i) => {

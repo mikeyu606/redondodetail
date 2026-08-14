@@ -18,6 +18,11 @@ const CompareVisual = dynamic(
   }
 );
 
+const HERO_SUBTEXT =
+  "We come straight to your home for a full interior & exterior car wash, with flexible weekly or bi-weekly memberships. Plant-based, non-toxic cleans safe for kids & pets.";
+
+const TRUST_ITEMS = ["Woman-owned", "Safe for kids & pets", "From $100/mo"] as const;
+
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
@@ -31,42 +36,84 @@ const fadeUp = {
   }),
 };
 
+function HeroCopy() {
+  return (
+    <>
+      <span className="inline-flex w-fit items-center rounded-full border border-burgundy/20 bg-white/60 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-burgundy shadow-sm backdrop-blur-sm">
+        Limited spots
+      </span>
+
+      <h1 className="hero-title mt-4 text-balance text-burgundy sm:mt-5">
+        A Spotless Car in Your Driveway Every Weekend Without Lifting a Finger.
+      </h1>
+
+      <p className="lede mt-4 max-w-lg text-burgundy/85 sm:mt-5">
+        {HERO_SUBTEXT}
+      </p>
+
+      <div className="mt-6 sm:mt-8">
+        <Button
+          asChild
+          className="h-11 rounded-full px-7 text-sm font-semibold tracking-wide shadow-lg shadow-burgundy/25 bg-burgundy text-white hover:bg-pink-primary-hover sm:h-12 sm:px-8 sm:text-base"
+        >
+          <Link href="#route-schedule">
+            Book Now
+            <ArrowRight className="size-4 sm:size-5" />
+          </Link>
+        </Button>
+      </div>
+
+      <ul className="mt-5 flex flex-wrap gap-x-3 gap-y-2 text-[11px] font-medium uppercase tracking-[0.1em] text-burgundy/65 sm:mt-6">
+        {TRUST_ITEMS.map((item, i) => (
+          <li key={item} className="flex items-center gap-3">
+            {i > 0 && (
+              <span aria-hidden className="hidden size-1 rounded-full bg-burgundy/30 sm:block" />
+            )}
+            {item}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+function HeroVisual({ variant }: { variant: "desktop" | "mobile" }) {
+  if (variant === "desktop") {
+    return (
+      <div
+        className="aspect-[3/4] w-full overflow-hidden shadow-2xl shadow-burgundy/15 ring-1 ring-white/60"
+        style={{
+          borderRadius: "50% 50% 0.5rem 0.5rem / 18% 18% 0.5rem 0.5rem",
+        }}
+      >
+        <CompareVisual className="h-full w-full" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="overflow-hidden rounded-2xl shadow-xl shadow-burgundy/10 ring-1 ring-white/50">
+      <div className="aspect-[4/5] w-full sm:aspect-[3/4]">
+        <CompareVisual className="h-full w-full rounded-none shadow-none" />
+      </div>
+    </div>
+  );
+}
+
 export function Hero() {
   return (
     <section className="flex flex-col">
-      <div className="bg-dusty-rose pt-16 sm:pt-16 lg:pt-16">
-        {/* Desktop: two-column */}
-        <div className="mx-auto hidden w-full max-w-6xl px-4 sm:px-6 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-8 lg:py-12">
+      <div className="bg-dusty-rose pt-16">
+        {/* Desktop */}
+        <div className="mx-auto hidden w-full max-w-6xl px-4 sm:px-6 lg:grid lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:px-8 lg:py-14 xl:gap-16">
           <motion.div
             custom={0}
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="flex flex-col justify-center py-6 text-left"
+            className="flex flex-col items-start justify-center py-6 text-left"
           >
-            <p className="kicker mb-4 text-burgundy">
-              Limited spots
-            </p>
-            <h1 className="hero-title text-burgundy">
-              A Spotless Car in Your Driveway Every Weekend Without Lifting a Finger.
-            </h1>
-            <p className="lede mt-5 max-w-lg text-burgundy">
-            The automated driveway membership that keeps your vehicle spotless using non-toxic, pet-safe formulas that protect your paint and your family.
-            </p>
-            <div className="mt-8">
-              <Button
-                asChild
-                className="h-14 px-8 text-base font-semibold tracking-[0.08em] bg-burgundy text-white hover:bg-pink-primary-hover"
-              >
-                <Link href="#route-schedule">
-                  Book Now
-                  <ArrowRight className="size-5" />
-                </Link>
-              </Button>
-            </div>
-            <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.12em] text-burgundy/70">
-              Woman-owned · Safe for kids &amp; pets · From $100/mo
-            </p>
+            <HeroCopy />
           </motion.div>
 
           <motion.div
@@ -74,51 +121,22 @@ export function Hero() {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="mx-auto w-full max-w-sm"
+            className="mx-auto w-full max-w-sm lg:max-w-none"
           >
-            {/* Native photo ratio ~734×980 — arched top like a window frame */}
-            <div
-              className="aspect-[3/4] w-full overflow-hidden"
-              style={{
-                borderRadius: "50% 50% 0.5rem 0.5rem / 18% 18% 0.5rem 0.5rem",
-              }}
-            >
-              <CompareVisual className="h-full w-full" />
-            </div>
+            <HeroVisual variant="desktop" />
           </motion.div>
         </div>
 
-        {/* Mobile: centered copy + full-bleed portrait */}
+        {/* Mobile */}
         <div className="lg:hidden">
           <motion.div
             custom={0}
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="mx-auto flex w-full max-w-lg flex-col items-center px-5 pb-7 pt-12 text-center sm:px-8 sm:pb-9 sm:pt-14"
+            className="mx-auto w-full max-w-lg px-5 pb-8 pt-10 sm:px-8 sm:pb-10 sm:pt-12"
           >
-            <p className="kicker mb-3 text-burgundy">
-              Limited spots
-            </p>
-            <h1 className="hero-title w-full text-burgundy">
-              A Spotless Car in Your Driveway Every Weekend Without Lifting a Finger.
-            </h1>
-            <p className="lede mt-4 max-w-md text-burgundy sm:mt-5">
-              We come straight to your home for a full interior &amp; exterior
-              car wash, with flexible weekly or bi-weekly memberships.
-              Plant-based, non-toxic cleans safe for kids &amp; pets.
-            </p>
-            <div className="mt-6 sm:mt-7">
-              <Button
-                asChild
-                className="h-14 rounded-sm px-10 text-base font-semibold tracking-[0.08em] bg-burgundy text-white hover:bg-pink-primary-hover"
-              >
-                <Link href="#route-schedule">Book Now</Link>
-              </Button>
-            </div>
-            <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.12em] text-burgundy/70">
-              Woman-owned · Safe for kids &amp; pets · From $100/mo
-            </p>
+            <HeroCopy />
           </motion.div>
 
           <motion.div
@@ -126,11 +144,9 @@ export function Hero() {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="w-full"
+            className="mx-auto w-full max-w-lg px-5 pb-10 sm:px-8 sm:pb-12"
           >
-            <div className="aspect-[3/4] w-full">
-              <CompareVisual className="h-full w-full rounded-none shadow-none" />
-            </div>
+            <HeroVisual variant="mobile" />
           </motion.div>
         </div>
       </div>
