@@ -18,7 +18,7 @@ const steps = [
     description:
       "No driving to car washes or waiting in lines. Park at home and leave outdoor water and power available. We handle the rest in your driveway.",
     image: "/how-it-works-step-2.jpg",
-    alt: "Range Rover parked in a sunny modern Newport Beach driveway",
+    alt: "Range Rover parked in a sunny modern Redondo Beach driveway",
   },
   {
     number: "03",

@@ -75,7 +75,7 @@ export function BookingWizard({
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
-  const [city, setCity] = useState("Newport Beach");
+  const [city, setCity] = useState("Redondo Beach");
   const [zip, setZip] = useState("");
   const [notes, setNotes] = useState("");
   const [checkoutLoading, setCheckoutLoading] = useState(false);
@@ -356,7 +356,7 @@ export function BookingWizard({
                     Where should we pull into?
                   </p>
                   <p className="text-xs leading-relaxed text-slate">
-                    We come to your driveway in Newport Beach. Have outdoor water
+                    We come to your driveway in Redondo Beach. Have outdoor water
                     and an outdoor outlet available on wash day.
                   </p>
                   {showErrors && !canProceed() ? (

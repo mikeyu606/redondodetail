@@ -36,7 +36,7 @@ export default function BookingCancelPage() {
             Checkout canceled
           </h1>
           <p className="mx-auto mt-3 max-w-sm text-center text-sm leading-relaxed text-slate sm:text-base">
-            Your Newport Saturday slot is still open. Pick up where you left off
+            Your Redondo Beach Saturday slot is still open. Pick up where you left off
             whenever you&apos;re ready.
           </p>
 

@@ -24,9 +24,9 @@ type CycleOption = {
   detail: string;
 };
 
-const newportRoute = {
-  id: "newport" as const,
-  name: "Newport Beach",
+const redondoRoute = {
+  id: "redondo" as const,
+  name: "Redondo Beach",
   windowLabel: "Saturdays & Sundays · 8 AM – 4 PM",
   slotsLeft: 4,
 };
@@ -75,7 +75,7 @@ function buildCycleOptions(now: Date = new Date()): CycleOption[] {
 function StepContext({ label }: { label: string }) {
   return (
     <p className="mt-2 text-sm text-slate">
-      First visit · {label} · {newportRoute.windowLabel}
+      First visit · {label} · {redondoRoute.windowLabel}
     </p>
   );
 }
@@ -95,14 +95,14 @@ function DateStep({
     <div>
       <div className="mb-4">
         <span className="inline-flex items-center rounded-full bg-burgundy px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
-          Only {newportRoute.slotsLeft} slots left for {slotsMonth}
+          Only {redondoRoute.slotsLeft} slots left for {slotsMonth}
         </span>
       </div>
       <h3 className="text-2xl font-semibold tracking-tight text-charcoal">
         Which weekend day works for your first visit?
       </h3>
       <p className="mt-2 text-sm text-slate">
-        {newportRoute.windowLabel} · Newport Beach. Pick a Saturday or Sunday
+        {redondoRoute.windowLabel} · Redondo Beach. Pick a Saturday or Sunday
         window and we&apos;ll handle the rest.
       </p>
 
@@ -375,7 +375,7 @@ export function RouteCalendar() {
                           <input
                             value={address}
                             onChange={(e) => setAddress(e.target.value)}
-                            placeholder="1234 Blossom Ln, Newport Beach"
+                            placeholder="1234 Catalina Ave, Redondo Beach"
                             className={inputClass}
                           />
                         </label>
@@ -438,7 +438,7 @@ export function RouteCalendar() {
                               Visit
                             </dt>
                             <dd className="text-sm font-medium text-charcoal">
-                              {selectedCycle.label} · {newportRoute.windowLabel}
+                              {selectedCycle.label} · {redondoRoute.windowLabel}
                             </dd>
                           </div>
                         </div>

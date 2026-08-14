@@ -45,10 +45,10 @@ const petrona = Petrona({
 export const metadata: Metadata = {
   title: "Her Driveway Club | Woman-Owned Mobile Car Wash — Coastal CA",
   description:
-    "Woman-owned driveway car washes in Newport Beach. Plant-based, non-toxic deep cleans—safe for kids and pets. From $100/mo.",
+    "Woman-owned driveway car washes in Redondo Beach. Plant-based, non-toxic deep cleans—safe for kids and pets. From $100/mo.",
   keywords: [
     "mobile car wash",
-    "Newport Beach",
+    "Redondo Beach",
     "woman-owned",
     "bi-weekly car wash",
     "driveway car wash subscription",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Her Driveway Club | Woman-Owned Mobile Car Wash",
     description:
-      "A spotless car in your driveway every other Saturday—without lifting a finger. Plant-based, non-toxic, and 1% to local Newport Beach PTAs.",
+      "A spotless car in your driveway every other Saturday—without lifting a finger. Plant-based, non-toxic, and 1% to local Redondo Beach PTAs.",
     url: "https://redondodetail.com",
     siteName: "Her Driveway Club",
     locale: "en_US",

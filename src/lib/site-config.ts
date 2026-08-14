@@ -2,6 +2,7 @@
 export const siteConfig = {
   founderName: "Sophie",
   businessName: "Her Driveway Club",
+  serviceArea: "Redondo Beach",
   founderSchool: "UCLA",
   tagline:
     "Woman-owned driveway car washes for busy parents. Plant-based, non-toxic deep cleans—safe for kids and pets.",

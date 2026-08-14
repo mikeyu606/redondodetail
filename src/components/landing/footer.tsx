@@ -155,8 +155,8 @@ export function Footer() {
         </p>
 
         <p className="mt-6 text-center text-xs lowercase text-charcoal/70">
-          © {year}, {siteConfig.businessName.toLowerCase()} | launching newport
-          beach · palos verdes · south bay next
+          © {year}, {siteConfig.businessName.toLowerCase()} | launching redondo
+          beach · hermosa beach · manhattan beach next
         </p>
       </div>
     </footer>

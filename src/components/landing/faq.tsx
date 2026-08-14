@@ -18,7 +18,7 @@ const faqs: { question: string; answer: ReactNode }[] = [
   {
     question: "What’s included in the wash?",
     answer:
-      "A full interior and exterior deep clean: hand wash, vacuum, wipe-down, glass inside and out, wheels, tires, and door jambs. We use plant-based, non-toxic products that are safe for kids and pets. 1% of every membership goes to local Newport Beach PTAs and schools.",
+      "A full interior and exterior deep clean: hand wash, vacuum, wipe-down, glass inside and out, wheels, tires, and door jambs. We use plant-based, non-toxic products that are safe for kids and pets. 1% of every membership goes to local Redondo Beach PTAs and schools.",
   },
   {
     question: "Do I need to supply water or power?",
@@ -43,7 +43,7 @@ const faqs: { question: string; answer: ReactNode }[] = [
   {
     question: "Where do you launch?",
     answer:
-      "We’re live in Newport Beach coastal zips first, Saturdays and Sundays. Palos Verdes, South Bay, and pool routes are on the waitlist as we expand neighborhood by neighborhood.",
+      "We’re live in Redondo Beach coastal zips first, Saturdays and Sundays. Hermosa Beach, Manhattan Beach, and Palos Verdes are on the waitlist as we expand neighborhood by neighborhood.",
   },
   {
     question: "Who actually washes my car?",

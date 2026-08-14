@@ -21,7 +21,7 @@ const proofCards: ProofCard[] = [
   {
     id: "exterior",
     name: "Sarah M.",
-    location: "Newport Coast",
+    location: "Riviera Village",
     quote:
       "Between soccer practice and school runs, our Q7 was constantly coated in dust and salt air. Having Her Driveway Club deep-clean it every two weeks is absolute magic. The paint stays glowing and I never have to spend my Saturdays in line.",
     afterLabel: "After 1 visit",
@@ -31,7 +31,7 @@ const proofCards: ProofCard[] = [
   {
     id: "interior",
     name: "Lauren K.",
-    location: "Balboa Island",
+    location: "Hollywood Riviera",
     quote:
       "The coffee spills and dusty vents were driving me crazy, but I hate the chemical smell of regular car washes. Her Driveway Club leaves the interior completely spotless with zero harsh fumes. My kids actually noticed how fresh the cabin felt!",
     afterLabel: "After 1 visit",
@@ -41,7 +41,7 @@ const proofCards: ProofCard[] = [
   {
     id: "carpet",
     name: "Jessica T.",
-    location: "Eastbluff",
+    location: "North Redondo",
     quote:
       "After weekend beach trips with two toddlers and a golden retriever, our carpets were a disaster area. One visit and the sand was completely gone. Getting a full interior clean while taking Zoom calls inside is the ultimate life hack.",
     afterLabel: "After 1 visit",

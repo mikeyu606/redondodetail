@@ -174,7 +174,7 @@ export function Pricing() {
           <div className="mx-auto mt-10 max-w-3xl px-1 text-center">
             <p className="inline-flex rounded-full border border-pink-medium/60 bg-pink-light/70 px-4 py-2 text-sm leading-snug text-charcoal">
               🍎 Community Care: 1% of every active membership goes directly to
-              local Newport Beach PTAs &amp; schools.
+              local Redondo Beach PTAs &amp; schools.
             </p>
           </div>
         </div>
