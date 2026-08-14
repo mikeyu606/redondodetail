@@ -93,12 +93,14 @@ export async function POST(request: Request) {
       body.frequency !== "monthly" &&
       (body.amountCents == null || body.amountCents === catalogUnitAmount);
 
-    const session = await getStripe().checkout.sessions.create({
-      ui_mode: "embedded_page",
-      mode: isSubscription ? "subscription" : "payment",
+    const sessionParams = {
+      ui_mode: "embedded_page" as const,
+      mode: (isSubscription ? "subscription" : "payment") as
+        | "subscription"
+        | "payment",
       customer_email: body.customerEmail || undefined,
       allow_promotion_codes: true,
-      billing_address_collection: "required",
+      billing_address_collection: "required" as const,
       phone_number_collection: { enabled: true },
       return_url: `${siteUrl}/booking/success?session_id={CHECKOUT_SESSION_ID}`,
       metadata,
@@ -114,30 +116,55 @@ export async function POST(request: Request) {
               description: description || undefined,
             },
           }),
-      line_items: [
-        useCatalogPrice
-          ? { price: catalogPriceId, quantity }
-          : {
-              quantity,
-              price_data: {
-                currency: "usd",
-                unit_amount: unitAmount,
-                product_data: {
-                  name: productName,
-                  description: description || tier.description,
-                },
-                ...(isSubscription
-                  ? {
-                      recurring: {
-                        interval: "week" as const,
-                        interval_count: body.frequency === "monthly" ? 4 : 2,
-                      },
-                    }
-                  : {}),
+    };
+
+    const customLineItem = {
+      quantity,
+      price_data: {
+        currency: "usd",
+        unit_amount: unitAmount,
+        product_data: {
+          name: productName,
+          description: description || tier.description,
+        },
+        ...(isSubscription
+          ? {
+              recurring: {
+                interval: "week" as const,
+                interval_count: body.frequency === "monthly" ? 4 : 2,
               },
-            },
-      ],
-    });
+            }
+          : {}),
+      },
+    };
+
+    let session;
+    try {
+      session = await getStripe().checkout.sessions.create({
+        ...sessionParams,
+        line_items: [
+          useCatalogPrice
+            ? { price: catalogPriceId, quantity }
+            : customLineItem,
+        ],
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "";
+      // Catalog price IDs from the wrong Stripe mode (test vs live) throw this.
+      // Fall back to an ad-hoc price so checkout still works.
+      if (useCatalogPrice && /No such price/i.test(message)) {
+        console.warn(
+          "[checkout] catalog price missing for this Stripe key mode; falling back to price_data",
+          catalogPriceId
+        );
+        session = await getStripe().checkout.sessions.create({
+          ...sessionParams,
+          line_items: [customLineItem],
+        });
+      } else {
+        throw error;
+      }
+    }
 
     if (!session.client_secret) {
       return NextResponse.json(

@@ -152,6 +152,8 @@ export function BookingWizard({
 
       if (!result.waitlist) {
         setClientSecret(result.clientSecret);
+        // Close the Radix dialog first so it stops trapping focus /
+        // blocking pointer events on the Stripe iframe.
         setCheckoutOpen(true);
       }
     } catch (error) {
@@ -181,7 +183,14 @@ export function BookingWizard({
 
   return (
     <>
-      <Dialog open={open} onOpenChange={onOpenChange}>
+      <Dialog
+        open={open && !checkoutOpen}
+        onOpenChange={(next) => {
+          // Keep the wizard mounted while Stripe checkout is open.
+          if (!next && checkoutOpen) return;
+          onOpenChange(next);
+        }}
+      >
         <DialogContent className="max-h-[90vh] max-w-lg overflow-y-auto border-pink-medium/40 sm:max-w-xl">
           <DialogHeader>
             <DialogTitle>

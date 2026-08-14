@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
+import { createPortal } from "react-dom";
 import {
   EmbeddedCheckout,
   EmbeddedCheckoutProvider,
@@ -27,16 +28,17 @@ export function EmbeddedCheckoutModal({
     return clientSecret;
   }, [clientSecret]);
 
-  if (!open || !clientSecret) return null;
+  if (!open || !clientSecret || typeof document === "undefined") return null;
 
-  return (
-    <div className="fixed inset-0 z-[80] flex items-end justify-center bg-charcoal/50 p-0 backdrop-blur-sm sm:items-center sm:p-6">
+  return createPortal(
+    <div className="fixed inset-0 z-[200] flex items-end justify-center bg-charcoal/50 p-0 sm:items-center sm:p-6">
       <div
         className={cn(
           "relative flex max-h-[94svh] w-full max-w-lg flex-col overflow-hidden rounded-t-3xl bg-white shadow-2xl sm:rounded-3xl"
         )}
+        onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between border-b border-border px-5 py-4">
+        <div className="flex shrink-0 items-center justify-between border-b border-border px-5 py-4">
           <div>
             <p className="text-sm font-semibold text-charcoal">
               Secure checkout
@@ -53,7 +55,7 @@ export function EmbeddedCheckoutModal({
           </button>
         </div>
 
-        <div className="min-h-0 flex-1 overflow-y-auto px-2 py-3 sm:px-4">
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2 py-3 sm:px-4">
           <EmbeddedCheckoutProvider
             stripe={getStripeBrowser()}
             options={{ fetchClientSecret }}
@@ -62,6 +64,7 @@ export function EmbeddedCheckoutModal({
           </EmbeddedCheckoutProvider>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
